@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Hub visual de ferramentas Enaex US MVV com atalhos para GitHub e GitHub Pages."
+    />
+    <meta name="theme-color" content="#2f2f33" />
+    <title>Hub de Ferramentas | Enaex US MVV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scene" aria-hidden="true">
+      <svg class="scene__lines" viewBox="0 0 1600 1200" preserveAspectRatio="none">
+        <path d="M-80 220 L360 410 L620 230 L980 360 L1340 190 L1700 290" />
+        <path d="M-40 860 L300 730 L620 860 L980 720 L1320 840 L1700 690" />
+        <path d="M120 150 L520 150 L760 340 L1110 340 L1440 520" />
+        <path d="M160 990 L520 820 L820 930 L1180 760 L1500 860" />
+        <path d="M240 500 L470 650 L700 520 L930 650 L1160 520" />
+        <circle cx="360" cy="410" r="18" />
+        <circle cx="620" cy="230" r="14" />
+        <circle cx="980" cy="360" r="16" />
+        <circle cx="1320" cy="840" r="18" />
+        <circle cx="470" cy="650" r="14" />
+        <circle cx="930" cy="650" r="15" />
+        <polygon points="1215,0 1600,0 1600,200 1380,220 1215,120" />
+      </svg>
+      <span class="scene__tile scene__tile--top"></span>
+      <span class="scene__tile scene__tile--bottom"></span>
+    </div>
+
+    <header class="topbar shell">
+      <a class="brand" href="./" aria-label="ENAEX US MVV">
+        <img
+          class="brand__logo"
+          src="VISUAL/Enaex%20Brasil%20-%20White.png"
+          alt="Enaex Brasil"
+        />
+      </a>
+      <div class="topbar__meta">
+        <span class="pill">Hub US MVV</span>
+        <span class="pill pill--ghost">GitHub Pages</span>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <section class="hero" aria-labelledby="hero-title">
+        <article class="hero__copy panel panel--soft reveal">
+          <p class="eyebrow">ENAEX MINING TECHNICAL SOLUTIONS</p>
+          <h1 id="hero-title">
+            Hub de
+            <span>Ferramentas</span>
+          </h1>
+          <p class="hero__text">
+            Atalhos limpos para os repositórios e páginas publicados da operação US MVV.
+            Tudo organizado em uma interface simples, rápida e com identidade Enaex.
+          </p>
+
+          <div class="hero__meta">
+            <div class="meta-chip">
+              <span class="meta-chip__label">Ferramentas</span>
+              <strong data-tool-count>0</strong>
+            </div>
+            <div class="meta-chip">
+              <span class="meta-chip__label">Atalhos</span>
+              <strong data-link-count>0</strong>
+            </div>
+            <div class="meta-chip">
+              <span class="meta-chip__label">Fonte</span>
+              <strong>input.xlsx</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero__status panel panel--accent reveal" aria-label="Resumo de publicação">
+          <p class="status__eyebrow">PUBLICACAO / ENAEX</p>
+          <div class="status__count" data-tool-count>0</div>
+          <p class="status__label">ferramentas prontas para acesso direto</p>
+          <ul class="status__list">
+            <li>GitHub + Pages</li>
+            <li>Visual limpo e responsivo</li>
+            <li>Baseado na planilha de entrada</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="section-head reveal" aria-labelledby="tools-title">
+        <div>
+          <p class="eyebrow eyebrow--muted">PAINEL DE ACESSO</p>
+          <h2 id="tools-title">Ferramentas descritas no input</h2>
+        </div>
+        <p class="section-head__text">
+          Cada card traz um logo próprio, o nome formal e os atalhos para a página publicada e o repositório.
+        </p>
+      </section>
+
+      <section id="tool-grid" class="tool-grid" aria-label="Lista de ferramentas"></section>
+
+      <footer class="footer reveal">
+        <p>Atualizado a partir de <span>input/repositorios_github_pages.xlsx</span>.</p>
+        <p>Hub Enaex US MVV.</p>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
