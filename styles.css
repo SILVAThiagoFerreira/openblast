@@ -272,6 +272,22 @@ a {
   margin-top: 18px;
 }
 
+.tool-grid__message {
+  grid-column: 1 / -1;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.tool-grid__message--error {
+  border-color: rgba(226, 3, 19, 0.38);
+  background: rgba(226, 3, 19, 0.08);
+  color: #fff;
+}
+
 .tool-card {
   position: relative;
   display: flex;

@@ -1,71 +1,4 @@
-const tools = [
-  {
-    repo: "enaex-plano-de-voo",
-    title: "Conversor DXF para Poligonal no Google Earth com Exportação KMZ",
-    description:
-      "Converte DXF em poligonal pronta para visualização no Google Earth e exporta KMZ para uso operacional.",
-    github: "https://github.com/SILVAThiagoFerreira/enaex-plano-de-voo",
-    pages: "https://silvathiagoferreira.github.io/enaex-plano-de-voo/",
-    kind: "flight",
-    accent: "#e20313",
-    accent2: "#ff7a24",
-  },
-  {
-    repo: "usmvv_planned_and_executed_data_consolidation",
-    title: "US Vale Verde PLAN/EXEC Data Console",
-    description:
-      "Painel de consolidação visual para dados planejados e executados da operação US Vale Verde.",
-    github: "https://github.com/SILVAThiagoFerreira/usmvv_planned_and_executed_data_consolidation",
-    pages: "https://silvathiagoferreira.github.io/usmvv_planned_and_executed_data_consolidation/",
-    kind: "console",
-    accent: "#e20313",
-    accent2: "#6c8cff",
-  },
-  {
-    repo: "temposemovimentos",
-    title: "Sistema de Tempos e Movimentos",
-    description:
-      "Aplicação para apoio ao estudo e acompanhamento de tempos e movimentos com visual direto.",
-    github: "https://github.com/SILVAThiagoFerreira/temposemovimentos",
-    pages: "https://silvathiagoferreira.github.io/temposemovimentos/",
-    kind: "timer",
-    accent: "#e20313",
-    accent2: "#ffb12a",
-  },
-  {
-    repo: "blasthole-profile-creator",
-    title: "Blasthole Profile Creator",
-    description:
-      "Ferramenta para criação e leitura de perfis de blastholes com foco em clareza operacional.",
-    github: "https://github.com/SILVAThiagoFerreira/blasthole-profile-creator",
-    pages: "https://silvathiagoferreira.github.io/blasthole-profile-creator/",
-    kind: "blast",
-    accent: "#e20313",
-    accent2: "#8dd3ff",
-  },
-  {
-    repo: "pfr-enaex",
-    title: "PFR - Plano de Fogo Realizado",
-    description:
-      "Hub para registro e consulta do plano de fogo realizado com leitura rápida e padronizada.",
-    github: "https://github.com/SILVAThiagoFerreira/pfr-enaex",
-    pages: "https://silvathiagoferreira.github.io/pfr-enaex/",
-    kind: "target",
-    accent: "#e20313",
-    accent2: "#ff5b35",
-  },
-  {
-    repo: "aquickreportofseismographicdata",
-    title: "Report Sismografia Enaex",
-    description:
-      "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
-    github: "https://github.com/SILVAThiagoFerreira/aquickreportofseismographicdata",
-    pages: "https://silvathiagoferreira.github.io/aquickreportofseismographicdata/",
-    kind: "wave",
-    accent: "#e20313",
-    accent2: "#37c6b3",
-  },
-];
+const manifestUrl = "output/tools_manifest.json";
 
 const icons = {
   flight: () => `
@@ -121,24 +54,64 @@ const icons = {
       <path d="M12 48h40" opacity="0.35" />
     </svg>
   `,
+  default: () => `
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+      <rect x="14" y="14" width="36" height="36" rx="12" />
+      <path d="M22 32h20" />
+      <path d="M32 22v20" />
+    </svg>
+  `,
 };
 
 const grid = document.getElementById("tool-grid");
 
-const renderLogo = (kind) => icons[kind]();
+const renderLogo = (kind) => (icons[kind] || icons.default)();
 
-grid.innerHTML = tools
-  .map((tool, index) => `
+function renderStatus(message, modifier = "") {
+  grid.innerHTML = `<div class="tool-grid__message${modifier ? ` tool-grid__message--${modifier}` : ""}" role="status">${message}</div>`;
+}
+
+function renderTools(tools) {
+  grid.innerHTML = tools
+    .map((tool, index) => `
       <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2}; --delay: ${index * 90}ms;">
         <div class="tool-card__head">
           <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
         </div>
-        <h3>${tool.title}</h3>
+        <h3>${tool.formal_title}</h3>
         <p>${tool.description}</p>
         <div class="tool-card__actions">
-          <a class="tool-link tool-link--primary" href="${tool.pages}" target="_blank" rel="noreferrer">Abrir page</a>
-          <a class="tool-link" href="${tool.github}" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir page</a>
+          <a class="tool-link" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </article>
     `)
-  .join("");
+    .join("");
+}
+
+async function loadManifest() {
+  grid.setAttribute("aria-busy", "true");
+  renderStatus("Carregando ferramentas...");
+
+  try {
+    const response = await fetch(`${manifestUrl}?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const manifest = await response.json();
+    const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
+
+    if (!tools.length) {
+      throw new Error("Manifesto sem ferramentas.");
+    }
+
+    renderTools(tools);
+  } catch (error) {
+    renderStatus(`Nao foi possivel carregar o manifesto. ${error.message}`, "error");
+  } finally {
+    grid.setAttribute("aria-busy", "false");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadManifest);

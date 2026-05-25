@@ -1,0 +1,83 @@
+{
+  "project": {
+    "name": "hub-de-ferramentas-us-mvv",
+    "version": "1.0.0",
+    "purpose": "Transformar a planilha de repositorios em um manifesto validado para o hub ENAEX US MVV"
+  },
+  "paths": {
+    "input_workbook": "input/repositorios_github_pages.xlsx",
+    "output_directory": "output",
+    "logs_directory": "logs"
+  },
+  "workbook": {
+    "sheet_name": "Repositorios",
+    "header_row": 1,
+    "required_columns": [
+      "Repositório",
+      "Título formal",
+      "GitHub",
+      "Pages"
+    ]
+  },
+  "validation": {
+    "allowed_scheme": "https",
+    "github_host_suffix": "github.com",
+    "pages_host_suffix": "github.io",
+    "repository_id_pattern": "^[a-z0-9][a-z0-9._-]*$",
+    "min_rows": 1,
+    "max_rows": 500,
+    "ignore_extra_columns": true,
+    "require_tool_metadata": true
+  },
+  "artifacts": {
+    "manifest_filename": "tools_manifest.json",
+    "summary_filename_pattern": "run_summary_{run_id}.json",
+    "log_filename_pattern": "pipeline_{run_id}.log"
+  },
+  "output": {
+    "indent": 2,
+    "ensure_ascii": false
+  },
+  "runtime": {
+    "timestamp_format": "%Y-%m-%dT%H:%M:%SZ",
+    "run_id_format": "%Y%m%d_%H%M%S"
+  },
+  "tool_metadata": {
+    "enaex-plano-de-voo": {
+      "description": "Converte DXF em poligonal pronta para visualizacao no Google Earth e exporta KMZ para uso operacional.",
+      "kind": "flight",
+      "accent": "#e20313",
+      "accent2": "#ff7a24"
+    },
+    "usmvv_planned_and_executed_data_consolidation": {
+      "description": "Painel de consolidacao visual para dados planejados e executados da operacao US Vale Verde.",
+      "kind": "console",
+      "accent": "#e20313",
+      "accent2": "#6c8cff"
+    },
+    "temposemovimentos": {
+      "description": "Aplicacao para apoio ao estudo e acompanhamento de tempos e movimentos com visual direto.",
+      "kind": "timer",
+      "accent": "#e20313",
+      "accent2": "#ffb12a"
+    },
+    "blasthole-profile-creator": {
+      "description": "Ferramenta para criacao e leitura de perfis de blastholes com foco em clareza operacional.",
+      "kind": "blast",
+      "accent": "#e20313",
+      "accent2": "#8dd3ff"
+    },
+    "pfr-enaex": {
+      "description": "Hub para registro e consulta do plano de fogo realizado com leitura rapida e padronizada.",
+      "kind": "target",
+      "accent": "#e20313",
+      "accent2": "#ff5b35"
+    },
+    "aquickreportofseismographicdata": {
+      "description": "Relatorio rapido para dados sismograficos, com foco em consulta visual objetiva e limpa.",
+      "kind": "wave",
+      "accent": "#e20313",
+      "accent2": "#37c6b3"
+    }
+  }
+}
