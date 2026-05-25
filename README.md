@@ -1,7 +1,7 @@
 # Hub de Ferramentas US MVV
 
 ## Propósito
-Este projeto transforma a planilha `input/repositorios_github_pages.xlsx` em um manifesto validado que alimenta o hub visual da Enaex US MVV.
+Este projeto transforma a planilha `input/repositorios_github_pages.xlsx` em um manifesto validado que alimenta o hub visual da Enaex Brasil para a operação US Vale Verde.
 
 ## Problema que resolve
 O hub visual precisa de uma fonte de dados confiavel, auditavel e reproduzivel. A planilha guarda os identificadores e URLs das ferramentas, mas o front-end precisa de um formato normalizado e validado. Este projeto faz essa ponte.
@@ -49,6 +49,7 @@ python main.py
 
 ## Como evoluir o projeto
 - Adicione novas ferramentas na planilha e em `tool_metadata`.
+- Títulos exibidos vêm da planilha; descrições e metadados visuais vêm de `config.json`.
 - Nao altere o contrato do manifesto sem atualizar `script.js`, `DATA_SCHEMA.md` e os testes.
 - Toda mudanca de regra deve ser documentada em `SPEC.md`.
 

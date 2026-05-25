@@ -2,7 +2,7 @@
   "project": {
     "name": "hub-de-ferramentas-us-mvv",
     "version": "1.0.0",
-    "purpose": "Transformar a planilha de repositorios em um manifesto validado para o hub ENAEX US MVV"
+    "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub Enaex Brasil"
   },
   "paths": {
     "input_workbook": "input/repositorios_github_pages.xlsx",
@@ -44,37 +44,37 @@
   },
   "tool_metadata": {
     "enaex-plano-de-voo": {
-      "description": "Converte DXF em poligonal pronta para visualizacao no Google Earth e exporta KMZ para uso operacional.",
+      "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",
       "kind": "flight",
       "accent": "#e20313",
       "accent2": "#ff7a24"
     },
     "usmvv_planned_and_executed_data_consolidation": {
-      "description": "Painel de consolidacao visual para dados planejados e executados da operacao US Vale Verde.",
+      "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde.",
       "kind": "console",
       "accent": "#e20313",
       "accent2": "#6c8cff"
     },
     "temposemovimentos": {
-      "description": "Aplicacao para apoio ao estudo e acompanhamento de tempos e movimentos com visual direto.",
+      "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
       "kind": "timer",
       "accent": "#e20313",
       "accent2": "#ffb12a"
     },
     "blasthole-profile-creator": {
-      "description": "Ferramenta para criacao e leitura de perfis de blastholes com foco em clareza operacional.",
+      "description": "Ferramenta para criação e leitura de perfis de blastholes com foco em clareza operacional.",
       "kind": "blast",
       "accent": "#e20313",
       "accent2": "#8dd3ff"
     },
     "pfr-enaex": {
-      "description": "Hub para registro e consulta do plano de fogo realizado com leitura rapida e padronizada.",
+      "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
       "kind": "target",
       "accent": "#e20313",
       "accent2": "#ff5b35"
     },
     "aquickreportofseismographicdata": {
-      "description": "Relatorio rapido para dados sismograficos, com foco em consulta visual objetiva e limpa.",
+      "description": "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
       "kind": "wave",
       "accent": "#e20313",
       "accent2": "#37c6b3"

@@ -22,5 +22,20 @@ def test_processor_builds_manifest(temp_workspace):
 
     assert len(records) == 6
     assert manifest["counts"]["valid_rows"] == 6
-    assert manifest["tools"][0]["repository_id"] == "enaex-plano-de-voo"
-    assert manifest["tools"][0]["kind"] == "flight"
+    assert [tool["formal_title"] for tool in manifest["tools"]] == [
+        "Conversor DXF para KMZ Operacional",
+        "Consolidação Plan./Exec. | US Vale Verde",
+        "Tempos e Movimentos | Carregamento de Explosivo",
+        "Blasthole Profile Creator",
+        "PFR | Plano de Fogo Realizado",
+        "Report Sismografia Enaex",
+    ]
+    assert manifest["tools"][1]["description"] == (
+        "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde."
+    )
+    assert manifest["tools"][2]["description"] == (
+        "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos."
+    )
+    assert manifest["tools"][4]["description"] == (
+        "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX)."
+    )

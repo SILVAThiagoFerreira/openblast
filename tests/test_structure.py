@@ -42,3 +42,14 @@ def test_runtime_directories_exist(project_root):
 def test_frontend_reads_generated_manifest(project_root):
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
     assert "output/tools_manifest.json" in script_text
+
+
+def test_frontend_copy_is_clean(project_root):
+    index_text = (project_root / "index.html").read_text(encoding="utf-8")
+    script_text = (project_root / "script.js").read_text(encoding="utf-8")
+
+    assert "Hub US MVV" not in index_text
+    assert "GitHub Pages" not in index_text
+    assert "Ferramentas disponíveis" in index_text
+    assert "Abrir página" in script_text
+    assert "Não foi possível" in script_text

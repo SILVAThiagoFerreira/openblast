@@ -81,7 +81,7 @@ function renderTools(tools) {
         <h3>${tool.formal_title}</h3>
         <p>${tool.description}</p>
         <div class="tool-card__actions">
-          <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir page</a>
+          <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página</a>
           <a class="tool-link" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </article>
@@ -108,7 +108,7 @@ async function loadManifest() {
 
     renderTools(tools);
   } catch (error) {
-    renderStatus(`Nao foi possivel carregar o manifesto. ${error.message}`, "error");
+    renderStatus(`Não foi possível carregar o manifesto. ${error.message}`, "error");
   } finally {
     grid.setAttribute("aria-busy", "false");
   }
