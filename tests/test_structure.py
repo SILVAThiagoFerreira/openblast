@@ -44,6 +44,9 @@ def test_frontend_reads_generated_manifest(project_root):
     assert "output/tools_manifest.json" in script_text
     assert "renderManifest" in script_text
     assert "hub-grid" in script_text
+    assert "?v=${Date.now()}" not in script_text
+    assert 'cache: "no-store"' not in script_text
+    assert 'cache: "default"' in script_text
 
 
 def test_frontend_copy_is_clean(project_root):

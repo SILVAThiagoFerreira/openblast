@@ -123,7 +123,7 @@ async function loadManifest() {
   renderStatus("Carregando hubs...");
 
   try {
-    const response = await fetch(`${manifestUrl}?v=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch(manifestUrl, { cache: "default" });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
