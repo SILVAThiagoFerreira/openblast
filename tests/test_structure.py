@@ -52,6 +52,7 @@ def test_frontend_copy_is_clean(project_root):
 
     assert "Hub US MVV" not in index_text
     assert "GitHub Pages" not in index_text
-    assert "Ferramentas organizadas por hub" in index_text
+    assert "Caixa de Ferramentas" in index_text
+    assert "PAINEL DE ACESSO" in index_text
     assert "Abrir página" in script_text
     assert "Não foi possível" in script_text
