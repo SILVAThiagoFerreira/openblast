@@ -40,7 +40,10 @@ def test_runtime_directories_exist(project_root):
 
 
 def test_frontend_reads_generated_manifest(project_root):
+    index_text = (project_root / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
+    assert 'rel="preload" href="output/tools_manifest.json" as="fetch"' in index_text
+    assert 'script src="script.js" defer' in index_text
     assert "output/tools_manifest.json" in script_text
     assert "renderManifest" in script_text
     assert "hub-grid" in script_text
