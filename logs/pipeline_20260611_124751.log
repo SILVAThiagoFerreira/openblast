@@ -1,0 +1,8 @@
+2026-06-11 09:47:51,676 | INFO | Logger initialised at C:\Users\ferre\OneDrive\Documentos\PROJETOS PROGRAMAÇÃO\01. ENAEX\00_FERRAMENTAS\HUB DE FERRAMENTAS - US MVV\logs\pipeline_20260611_124751.log
+2026-06-11 09:47:51,676 | INFO | Pipeline started | run_id=20260611_124751
+2026-06-11 09:47:51,700 | INFO | Workbook loaded: C:\Users\ferre\OneDrive\Documentos\PROJETOS PROGRAMAÇÃO\01. ENAEX\00_FERRAMENTAS\HUB DE FERRAMENTAS - US MVV\input\repositorios_github_pages.xlsx | sheet=Repositorios | headers=4 | rows=8
+2026-06-11 09:47:51,700 | INFO | Validation completed | errors=0 | warnings=0
+2026-06-11 09:47:51,714 | INFO | Manifest written to C:\Users\ferre\OneDrive\Documentos\PROJETOS PROGRAMAÇÃO\01. ENAEX\00_FERRAMENTAS\HUB DE FERRAMENTAS - US MVV\output\tools_manifest.json
+2026-06-11 09:47:51,715 | INFO | Frontend HTML synchronized at C:\Users\ferre\OneDrive\Documentos\PROJETOS PROGRAMAÇÃO\01. ENAEX\00_FERRAMENTAS\HUB DE FERRAMENTAS - US MVV\index.html
+2026-06-11 09:47:51,715 | INFO | Summary written to C:\Users\ferre\OneDrive\Documentos\PROJETOS PROGRAMAÇÃO\01. ENAEX\00_FERRAMENTAS\HUB DE FERRAMENTAS - US MVV\output\run_summary_20260611_124751.json
+2026-06-11 09:47:51,715 | INFO | Pipeline completed successfully | run_id=20260611_124751

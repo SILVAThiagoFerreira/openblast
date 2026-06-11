@@ -1,0 +1,39 @@
+{
+  "run_id": "20260611_124751",
+  "status": "success",
+  "stage": "complete",
+  "message": "Pipeline completed successfully",
+  "generated_at": "2026-06-11T12:47:51Z",
+  "paths": {
+    "config": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\config.json",
+    "input_workbook": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\input\\repositorios_github_pages.xlsx",
+    "output_directory": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\output",
+    "logs_directory": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\logs",
+    "manifest": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\output\\tools_manifest.json",
+    "summary": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\output\\run_summary_20260611_124751.json",
+    "log": "C:\\Users\\ferre\\OneDrive\\Documentos\\PROJETOS PROGRAMAÇÃO\\01. ENAEX\\00_FERRAMENTAS\\HUB DE FERRAMENTAS - US MVV\\logs\\pipeline_20260611_124751.log"
+  },
+  "source": {
+    "workbook": "input/repositorios_github_pages.xlsx",
+    "sheet": "Repositorios",
+    "row_count": 8
+  },
+  "validation": {
+    "row_count": 8,
+    "error_count": 0,
+    "warning_count": 0,
+    "is_valid": true,
+    "issues": []
+  },
+  "counts": {
+    "total_rows": 8,
+    "valid_rows": 8,
+    "invalid_rows": 0,
+    "error_count": 0,
+    "warning_count": 0
+  },
+  "generator": {
+    "python": "3.14.3",
+    "openpyxl": "3.1.5"
+  }
+}

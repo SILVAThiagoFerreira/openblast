@@ -121,6 +121,13 @@ a {
   border-bottom: 1px solid var(--line);
 }
 
+.hero__title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
 .eyebrow {
   margin: 0 0 14px;
   color: var(--muted-strong);
@@ -142,6 +149,13 @@ a {
   letter-spacing: -0.08em;
   text-transform: none;
   white-space: nowrap;
+}
+
+.hero__title-mark {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .section-head {
@@ -390,6 +404,15 @@ a {
 
   .page {
     padding-top: 6px;
+  }
+
+  .hero__title-row {
+    gap: 10px;
+  }
+
+  .hero__title-mark {
+    width: 34px;
+    height: 34px;
   }
 
   .hub-section,
