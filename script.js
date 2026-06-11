@@ -65,14 +65,39 @@ const icons = {
 };
 
 const grid = document.getElementById("hub-grid");
+const overview = {
+  hubs: document.getElementById("stat-hubs"),
+  tools: document.getElementById("stat-tools"),
+  status: document.getElementById("stat-status"),
+};
 
 const renderLogo = (kind) => (icons[kind] || icons.default)();
+
+function updateOverview(manifest) {
+  const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
+  const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
+  const fallbackHubCount = Number(manifest.counts?.hub_count ?? 0);
+  const fallbackToolCount = Number(manifest.counts?.valid_rows ?? manifest.counts?.total_rows ?? 0);
+  const statusLabel = manifest.validation?.status === "passed" ? "Online" : "Revisar";
+
+  if (overview.hubs) {
+    overview.hubs.textContent = String(hubs.length || fallbackHubCount);
+  }
+
+  if (overview.tools) {
+    overview.tools.textContent = String(tools.length || fallbackToolCount);
+  }
+
+  if (overview.status) {
+    overview.status.textContent = statusLabel;
+  }
+}
 
 function renderStatus(message, modifier = "") {
   grid.innerHTML = `<div class="tool-grid__message${modifier ? ` tool-grid__message--${modifier}` : ""}" role="status">${message}</div>`;
 }
 
-function renderToolCard(tool, index) {
+function renderToolCard(tool) {
   return `
     <article class="tool-card" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
@@ -88,10 +113,10 @@ function renderToolCard(tool, index) {
   `;
 }
 
-function renderHubGroup(group, offset) {
+function renderHubGroup(group) {
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
-    <section class="hub-section panel panel--soft" aria-labelledby="hub-${group.slug}">
+    <section class="hub-section panel" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
         <div>
           <p class="eyebrow eyebrow--muted">HUB</p>
@@ -107,21 +132,26 @@ function renderHubGroup(group, offset) {
 
 function renderManifest(manifest) {
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
+  updateOverview(manifest);
+
   if (!hubs.length) {
     const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
     if (!tools.length) {
       throw new Error("Manifesto sem hubs ou ferramentas.");
     }
-    grid.innerHTML = `<section class="hub-section panel panel--soft" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
+    grid.innerHTML = `<section class="hub-section panel" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
     return;
   }
 
-  grid.innerHTML = hubs.map((group, index) => renderHubGroup(group, index * 100)).join("");
+  grid.innerHTML = hubs.map((group) => renderHubGroup(group)).join("");
 }
 
 async function loadManifest() {
   grid.setAttribute("aria-busy", "true");
-  renderStatus("Carregando hubs...");
+  if (overview.status) {
+    overview.status.textContent = "Carregando";
+  }
+  renderStatus("Carregando manifesto...");
 
   try {
     if (embeddedManifestElement?.textContent?.trim()) {
@@ -138,6 +168,9 @@ async function loadManifest() {
     const manifest = await response.json();
     renderManifest(manifest);
   } catch (error) {
+    if (overview.status) {
+      overview.status.textContent = "Indisponível";
+    }
     renderStatus(`Não foi possível carregar o manifesto. ${error.message}`, "error");
   } finally {
     grid.setAttribute("aria-busy", "false");

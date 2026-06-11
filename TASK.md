@@ -1,7 +1,7 @@
 # TASK
 
 ## Contexto
-O repositorio possui um hub visual para ferramentas da Enaex Brasil com foco na operação US Vale Verde. A base precisa ser organizada como um sistema de dados auditavel, reutilizavel e compreensivel por terceiros.
+O repositorio possui um hub visual OpenBlast para ferramentas da operação US Vale Verde. A base precisa ser organizada como um sistema de dados auditavel, reutilizavel e compreensivel por terceiros.
 
 ## Objetivo
 Transformar a planilha de entrada em um manifesto validado para dois hubs, com configuracao externa, logs por execucao, saidas reproduziveis, copy revisada e testes minimos.

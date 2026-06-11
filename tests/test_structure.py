@@ -58,10 +58,13 @@ def test_frontend_copy_is_clean(project_root):
     index_text = (project_root / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
 
-    assert "Hub US MVV" not in index_text
-    assert "GitHub Pages" not in index_text
-    assert "Caixa de Ferramentas" in index_text
-    assert "PAINEL DE ACESSO" in index_text
+    assert "Hub de Ferramentas | OpenBlast" in index_text
+    assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in index_text
+    assert "OPENBLAST" in index_text
+    assert "Hub de Ferramentas" in index_text
+    assert "Acesso rápido" in index_text
+    assert "Caixa de Ferramentas" not in index_text
+    assert "PAINEL DE ACESSO" not in index_text
     assert "Abrir página" in script_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

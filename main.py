@@ -18,7 +18,7 @@ from src.validator import validate_inputs
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the ENAEX US MVV tool manifest pipeline")
+    parser = argparse.ArgumentParser(description="Run the OpenBlast US MVV tool manifest pipeline")
     parser.add_argument("--config", default="config.json", help="Path to the JSON config file")
     return parser.parse_args(argv)
 

@@ -1,7 +1,7 @@
-# Hub de Ferramentas US MVV
+# Hub de Ferramentas OpenBlast US MVV
 
 ## Propósito
-Este projeto transforma a planilha `input/repositorios_github_pages.xlsx` em um manifesto validado que alimenta dois hubs visuais da Enaex Brasil: `Ferramentas Gerais` e `Ferramentas US Vale Verde`.
+Este projeto transforma a planilha `input/repositorios_github_pages.xlsx` em um manifesto validado que alimenta dois hubs visuais da OpenBlast US MVV: `Ferramentas Gerais` e `Ferramentas US Vale Verde`.
 
 ## Problema que resolve
 Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduzivel. A planilha guarda os identificadores e URLs das ferramentas, mas o front-end precisa de um formato normalizado, validado e agrupado por hub. Este projeto faz essa ponte.

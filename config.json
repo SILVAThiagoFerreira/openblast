@@ -2,7 +2,7 @@
   "project": {
     "name": "hub-de-ferramentas-us-mvv",
     "version": "1.0.0",
-    "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub Enaex Brasil"
+    "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
   "paths": {
     "input_workbook": "input/repositorios_github_pages.xlsx",
