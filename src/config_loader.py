@@ -26,7 +26,8 @@ REQUIRED_TOP_LEVEL_KEYS = (
 REQUIRED_TOOL_METADATA_KEYS = ("description", "kind", "accent", "accent2")
 REQUIRED_PUBLICATION_TARGET_KEYS = ("slug", "manifest_path", "html_path", "hub_slugs")
 HEX_COLOR_PATTERN = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
-INTERNAL_PUBLISHING_SLUG = "internal"
+PRIMARY_PUBLISHING_SLUG = "usvaleverde"
+PUBLIC_PUBLISHING_SLUG = "public"
 
 
 def load_config(config_path: str | Path) -> dict:
@@ -50,17 +51,18 @@ def load_config(config_path: str | Path) -> dict:
     project_root = config_file.parent
     paths = config["paths"]
     resolved_publication_targets = _resolve_publication_targets(config, project_root)
-    internal_target = _get_publication_target(resolved_publication_targets, INTERNAL_PUBLISHING_SLUG)
+    primary_target = _get_publication_target(resolved_publication_targets, PRIMARY_PUBLISHING_SLUG)
 
     config["config_path"] = config_file
     config["project_root"] = project_root
     config["resolved_publication_targets"] = resolved_publication_targets
+    config["resolved_primary_publication_target"] = primary_target
     config["resolved_paths"] = {
         "input_workbook": (project_root / paths["input_workbook"]).resolve(),
         "output_directory": (project_root / paths["output_directory"]).resolve(),
         "logs_directory": (project_root / paths["logs_directory"]).resolve(),
-        "manifest_file": internal_target["manifest_file"],
-        "index_file": internal_target["html_file"],
+        "manifest_file": primary_target["manifest_file"],
+        "index_file": primary_target["html_file"],
     }
 
     return config
@@ -230,18 +232,31 @@ def _validate_sections(config: dict) -> None:
             + ", ".join(sorted(missing_grouped_tools))
         )
 
-    internal_target = next((target for target in publishing["targets"] if target["slug"] == INTERNAL_PUBLISHING_SLUG), None)
-    if internal_target is None:
-        raise ConfigError("Publishing targets must include an 'internal' target")
+    expected_target_paths = {
+        PUBLIC_PUBLISHING_SLUG: (
+            Path(config["paths"]["output_directory"]) / "public" / artifacts["manifest_filename"],
+            Path("public/index.html"),
+        ),
+        PRIMARY_PUBLISHING_SLUG: (
+            Path(config["paths"]["output_directory"]) / "usvaleverde" / artifacts["manifest_filename"],
+            Path("usvaleverde/index.html"),
+        ),
+    }
 
-    expected_internal_manifest = Path(config["paths"]["output_directory"]) / artifacts["manifest_filename"]
-    if Path(internal_target["manifest_path"]) != expected_internal_manifest:
-        raise ConfigError(
-            "The internal publishing target manifest path must match artifacts.manifest_filename under paths.output_directory"
-        )
+    for target_slug, (expected_manifest, expected_html) in expected_target_paths.items():
+        target = next((item for item in publishing["targets"] if item["slug"] == target_slug), None)
+        if target is None:
+            raise ConfigError(f"Publishing targets must include a '{target_slug}' target")
 
-    if Path(internal_target["html_path"]) != Path("index.html"):
-        raise ConfigError("The internal publishing target html_path must be 'index.html'")
+        if Path(target["manifest_path"]) != expected_manifest:
+            raise ConfigError(
+                f"The '{target_slug}' publishing target manifest path must match the configured output directory and filename"
+            )
+
+        if Path(target["html_path"]) != expected_html:
+            raise ConfigError(
+                f"The '{target_slug}' publishing target html_path must be '{expected_html.as_posix()}'"
+            )
 
 
 def _resolve_publication_targets(config: dict, project_root: Path) -> list[dict]:

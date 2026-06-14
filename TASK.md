@@ -13,7 +13,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Criar validacao de dados antes do processamento.
 - Criar saida consumida pelo front-end.
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end.
-- Criar publicacao interna completa e publicacao publica filtrada.
+- Criar publicacao do hub US Vale Verde e publicacao publica filtrada.
 - Criar testes automatizados minimos.
 - Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `conversor-pdf-seguro` no hub `Ferramentas Gerais`.
 
@@ -28,7 +28,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - `main.py`.
 - Modulos em `src/`.
 - Testes em `tests/`.
-- Manifesto em `output/`.
+- Manifesto US Vale Verde em `output/usvaleverde/`.
 - Manifesto publico em `output/public/`.
 - Logs em `logs/`.
 

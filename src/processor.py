@@ -84,12 +84,16 @@ def build_manifest(
 ) -> dict:
     all_hub_groups = build_hub_groups(config, tool_records)
     all_tools = [asdict(record) for record in tool_records]
+    primary_publication_slug = (
+        config.get("resolved_primary_publication_target", {}).get("slug")
+        or "usvaleverde"
+    )
 
     if publication_target is None:
         hub_groups = all_hub_groups
         tool_payloads = all_tools
         publication_payload = {
-            "slug": "internal",
+            "slug": primary_publication_slug,
             "hub_slugs": [group["slug"] for group in all_hub_groups],
             "source_hub_count": len(all_hub_groups),
             "source_tool_count": len(all_tools),

@@ -30,12 +30,16 @@ def test_output_writer_persists_json(temp_workspace):
         status="success",
         stage="complete",
         message="Pipeline completed successfully",
-        manifest_path=str(temp_workspace["output_dir"] / "tools_manifest.json"),
+        manifest_path=str(temp_workspace["output_dir"] / "usvaleverde" / "tools_manifest.json"),
         summary_path=str(temp_workspace["output_dir"] / "run_summary_20260525_120000.json"),
         log_path=str(temp_workspace["logs_dir"] / "pipeline_20260525_120000.log"),
     )
 
-    manifest_path = write_manifest(manifest, temp_workspace["output_dir"] / "tools_manifest.json", config["output"])
+    manifest_path = write_manifest(
+        manifest,
+        temp_workspace["output_dir"] / "usvaleverde" / "tools_manifest.json",
+        config["output"],
+    )
     summary_path = write_summary(summary, temp_workspace["output_dir"] / "run_summary_20260525_120000.json", config["output"])
 
     assert manifest_path.exists()

@@ -28,11 +28,13 @@ def temp_workspace(tmp_path: Path, project_root: Path, base_config: dict) -> dic
     output_dir = tmp_path / "output"
     logs_dir = tmp_path / "logs"
     public_dir = tmp_path / "public"
+    us_dir = tmp_path / "usvaleverde"
 
     input_dir.mkdir()
     output_dir.mkdir()
     logs_dir.mkdir()
     public_dir.mkdir()
+    us_dir.mkdir()
 
     shutil.copy2(
         project_root / "input" / "repositorios_github_pages.xlsx",
@@ -40,6 +42,7 @@ def temp_workspace(tmp_path: Path, project_root: Path, base_config: dict) -> dic
     )
     shutil.copy2(project_root / "index.html", tmp_path / "index.html")
     shutil.copy2(project_root / "public" / "index.html", public_dir / "index.html")
+    shutil.copy2(project_root / "usvaleverde" / "index.html", us_dir / "index.html")
 
     config = deepcopy(base_config)
     config["paths"]["input_workbook"] = "input/repositorios_github_pages.xlsx"
@@ -56,4 +59,5 @@ def temp_workspace(tmp_path: Path, project_root: Path, base_config: dict) -> dic
         "output_dir": output_dir,
         "logs_dir": logs_dir,
         "public_dir": public_dir,
+        "us_dir": us_dir,
     }

@@ -49,7 +49,7 @@ Arquivo: `config.json`
 | `validation.repository_id_pattern` | string | sim | Regex para o slug do repositorio |
 | `validation.require_tool_metadata` | boolean | sim | Guardrail do pipeline; deve permanecer `true` |
 | `publishing.targets[]` | array | sim | Lista de publicacoes geradas pelo pipeline |
-| `publishing.targets[].slug` | string | sim | Identificador tecnico da publicacao |
+| `publishing.targets[].slug` | string | sim | Identificador tecnico da publicacao (`public` ou `usvaleverde`) |
 | `publishing.targets[].manifest_path` | string | sim | Caminho do manifesto gerado para a publicacao |
 | `publishing.targets[].html_path` | string | sim | Caminho do HTML sincronizado para a publicacao |
 | `publishing.targets[].hub_slugs[]` | array | sim | Lista de grupos incluidos na publicacao |
@@ -64,7 +64,9 @@ Arquivo: `config.json`
 | `hubs.groups[].repository_ids[]` | array | sim | Lista de repositorios pertencentes ao hub |
 
 ## 3. Manifesto gerado
-Arquivo: `output/tools_manifest.json`
+Arquivo: `output/usvaleverde/tools_manifest.json`
+
+> O manifesto publico em `output/public/tools_manifest.json` segue o mesmo schema, mas filtra o hub para `Ferramentas Gerais`.
 
 ### Estrutura top-level
 | Campo | Tipo | Obrigatorio | Significado |
@@ -93,7 +95,7 @@ Arquivo: `output/tools_manifest.json`
 ### Estrutura de `publication`
 | Campo | Tipo | Obrigatorio | Significado |
 |---|---|---:|---|
-| `slug` | string | sim | Nome da publicacao (`internal` ou `public`) |
+| `slug` | string | sim | Nome da publicacao (`usvaleverde` ou `public`) |
 | `hub_slugs` | array | sim | Grupos incluidos no manifesto gerado |
 | `source_hub_count` | inteiro | sim | Quantidade total de hubs na origem |
 | `source_tool_count` | inteiro | sim | Quantidade total de ferramentas na origem |

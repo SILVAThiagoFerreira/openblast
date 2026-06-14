@@ -23,7 +23,7 @@ def test_processor_builds_manifest(temp_workspace):
     assert len(records) == 10
     assert manifest["counts"]["valid_rows"] == 10
     assert manifest["counts"]["hub_count"] == 2
-    assert manifest["publication"]["slug"] == "internal"
+    assert manifest["publication"]["slug"] == "usvaleverde"
     assert [hub["title"] for hub in manifest["hubs"]] == [
         "Ferramentas Gerais",
         "Ferramentas US Vale Verde",
@@ -80,7 +80,7 @@ def test_processor_builds_public_manifest(temp_workspace):
     )
     records = build_tool_records(config, workbook)
     generated_at = make_timestamp(config)
-    public_target = config["resolved_publication_targets"][1]
+    public_target = config["resolved_publication_targets"][0]
     manifest = build_manifest(
         config,
         workbook,

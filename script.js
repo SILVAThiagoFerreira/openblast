@@ -85,7 +85,11 @@ function resolveManifestUrl() {
     return "../output/public/tools_manifest.json";
   }
 
-  return "output/tools_manifest.json";
+  if (pagePath.includes("/usvaleverde/")) {
+    return "../output/usvaleverde/tools_manifest.json";
+  }
+
+  return "output/usvaleverde/tools_manifest.json";
 }
 
 function renderStatus(message, modifier = "") {

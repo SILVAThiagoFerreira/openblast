@@ -18,6 +18,7 @@ def test_required_files_exist_and_are_not_empty(project_root):
         "script.js",
         "styles.css",
         "public/index.html",
+        "usvaleverde/index.html",
         "src/__init__.py",
         "src/config_loader.py",
         "src/data_reader.py",
@@ -44,15 +45,21 @@ def test_runtime_directories_exist(project_root):
 def test_frontend_reads_generated_manifest(project_root):
     index_text = (project_root / "index.html").read_text(encoding="utf-8")
     public_index_text = (project_root / "public" / "index.html").read_text(encoding="utf-8")
+    us_index_text = (project_root / "usvaleverde" / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
-    assert 'script src="script.js" defer' in index_text
-    assert "<!-- MANIFEST:START -->" in index_text
-    assert '<script type="application/json" id="initial-manifest">' in index_text
-    assert 'script src="../script.js" defer' in public_index_text
+    assert 'meta http-equiv="refresh" content="0; url=usvaleverde/"' in index_text
+    assert "window.location.replace(\"usvaleverde/\")" in index_text
+    assert "<!-- MANIFEST:START -->" not in index_text
+    assert '<script type="application/json" id="initial-manifest">' not in index_text
+    assert 'script src="../script.js" defer data-manifest-url="../output/public/tools_manifest.json"' in public_index_text
     assert "<!-- MANIFEST:START -->" in public_index_text
     assert '<script type="application/json" id="initial-manifest">' in public_index_text
-    assert "output/tools_manifest.json" in script_text
+    assert 'script src="../script.js" defer data-manifest-url="../output/usvaleverde/tools_manifest.json"' in us_index_text
+    assert "<!-- MANIFEST:START -->" in us_index_text
+    assert '<script type="application/json" id="initial-manifest">' in us_index_text
     assert "output/public/tools_manifest.json" in script_text
+    assert "output/usvaleverde/tools_manifest.json" in script_text
+    assert "output/tools_manifest.json" not in script_text
     assert "renderManifest" in script_text
     assert "hub-grid" in script_text
     assert 'cache: "no-store"' not in script_text
@@ -62,23 +69,38 @@ def test_frontend_reads_generated_manifest(project_root):
 
 def test_frontend_copy_is_clean(project_root):
     index_text = (project_root / "index.html").read_text(encoding="utf-8")
+    public_index_text = (project_root / "public" / "index.html").read_text(encoding="utf-8")
+    us_index_text = (project_root / "usvaleverde" / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
 
-    assert "Hub de Ferramentas | OpenBlast" in index_text
-    assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in index_text
-    assert "OPENBLAST" in index_text
-    assert "Hub de Ferramentas" in index_text
-    assert "brand__wordmark" in index_text
-    assert "brand__logo" not in index_text
-    assert "Acesso rápido" in index_text
-    assert "hero__title-row" in index_text
-    assert "hero__title-mark" in index_text
-    assert "VISÃO GERAL" not in index_text
-    assert "Acesso unificado às aplicações operacionais da US MVV em uma interface limpa, com leitura rápida e navegação direta." not in index_text
-    assert "Caixa de Ferramentas" not in index_text
-    assert "PAINEL DE ACESSO" not in index_text
-    assert "hero__description" not in index_text
-    assert "<span>Ferramentas</span>" not in index_text
+    assert "OpenBlast" in index_text
+    assert "usvaleverde/" in index_text
+    assert "meta http-equiv=\"refresh\"" in index_text
+    assert "<!-- MANIFEST:START -->" not in index_text
+    assert "topbar__nav" not in public_index_text
+    assert "topbar__nav" not in us_index_text
+    assert "Hub Geral" not in public_index_text
+    assert "Hub Aberto" not in public_index_text
+    assert "Hub Geral" not in us_index_text
+    assert "Hub Aberto" not in us_index_text
+    assert "Hub Público de Ferramentas" in public_index_text
+    assert "Hub de Ferramentas" in us_index_text
+    assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in public_index_text
+    assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in us_index_text
+    assert "brand__wordmark" in public_index_text
+    assert "brand__wordmark" in us_index_text
+    assert "brand__logo" not in public_index_text
+    assert "brand__logo" not in us_index_text
+    assert "hero__title-row" in public_index_text
+    assert "hero__title-row" in us_index_text
+    assert "hero__title-mark" in public_index_text
+    assert "hero__title-mark" in us_index_text
+    assert "Acesso rápido" in public_index_text
+    assert "Acesso rápido" in us_index_text
+    assert "hero__description" not in public_index_text
+    assert "hero__description" not in us_index_text
+    assert "<span>Ferramentas</span>" not in public_index_text
+    assert "<span>Ferramentas</span>" not in us_index_text
     assert "Abrir página" in script_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

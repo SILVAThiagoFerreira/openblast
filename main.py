@@ -110,8 +110,8 @@ def run_pipeline(config_path: str | Path) -> int:
         )
         write_summary(summary, summary_path, config["output"])
 
-        logger.info("Internal manifest written to %s", runtime_paths["manifest_file"])
-        logger.info("Internal HTML synchronized at %s", runtime_paths["index_file"])
+        logger.info("US Vale Verde manifest written to %s", runtime_paths["manifest_file"])
+        logger.info("US Vale Verde HTML synchronized at %s", runtime_paths["index_file"])
         for target in published_targets:
             logger.info(
                 "Published target %s | manifest=%s | html=%s | hubs=%s | tools=%d",

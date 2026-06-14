@@ -45,20 +45,20 @@
   "publishing": {
     "targets": [
       {
-        "slug": "internal",
-        "manifest_path": "output/tools_manifest.json",
-        "html_path": "index.html",
-        "hub_slugs": [
-          "ferramentas-gerais",
-          "ferramentas-us-vale-verde"
-        ]
-      },
-      {
         "slug": "public",
         "manifest_path": "output/public/tools_manifest.json",
         "html_path": "public/index.html",
         "hub_slugs": [
           "ferramentas-gerais"
+        ]
+      },
+      {
+        "slug": "usvaleverde",
+        "manifest_path": "output/usvaleverde/tools_manifest.json",
+        "html_path": "usvaleverde/index.html",
+        "hub_slugs": [
+          "ferramentas-gerais",
+          "ferramentas-us-vale-verde"
         ]
       }
     ]
