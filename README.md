@@ -52,8 +52,8 @@ python main.py
 
 ## GitHub Pages
 Depois de publicar o repositório, os dois hubs ficam no mesmo projeto:
-- Hub Geral: `https://silvathiagoferreira.github.io/hub-de-ferramentas-us-mvv/`
-- Hub de Ferramentas Abertas: `https://silvathiagoferreira.github.io/hub-de-ferramentas-us-mvv/public/`
+- Hub Geral: `https://silvathiagoferreira.github.io/openblast/`
+- Hub de Ferramentas Abertas: `https://silvathiagoferreira.github.io/openblast/public/`
 
 O arquivo `.nojekyll` na raiz evita processamento do Jekyll e mantém os caminhos estáticos servidos como foram gerados.
 

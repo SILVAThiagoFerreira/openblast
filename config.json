@@ -1,6 +1,6 @@
 {
   "project": {
-    "name": "hub-de-ferramentas-us-mvv",
+    "name": "openblast",
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },

@@ -25,6 +25,8 @@ def test_pipeline_end_to_end(temp_workspace):
     public_manifest_payload = json.loads(public_manifest_path.read_text(encoding="utf-8"))
     summary_payload = json.loads(summary_files[0].read_text(encoding="utf-8"))
 
+    assert manifest_payload["project"]["name"] == "openblast"
+    assert public_manifest_payload["project"]["name"] == "openblast"
     assert len(manifest_payload["tools"]) == 10
     assert len(manifest_payload["hubs"]) == 2
     assert manifest_payload["hubs"][0]["title"] == "Ferramentas Gerais"

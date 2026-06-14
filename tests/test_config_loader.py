@@ -6,7 +6,7 @@ from src.config_loader import build_runtime_paths, load_config
 def test_load_config_normalizes_paths(project_root):
     config = load_config(project_root / "config.json")
 
-    assert config["project"]["name"] == "hub-de-ferramentas-us-mvv"
+    assert config["project"]["name"] == "openblast"
     assert config["resolved_paths"]["input_workbook"].exists()
     assert config["resolved_paths"]["manifest_file"].name == "tools_manifest.json"
     assert len(config["tool_metadata"]) == 10
