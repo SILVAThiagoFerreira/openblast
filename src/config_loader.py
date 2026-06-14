@@ -18,12 +18,15 @@ REQUIRED_TOP_LEVEL_KEYS = (
     "artifacts",
     "output",
     "runtime",
+    "publishing",
     "tool_metadata",
     "hubs",
 )
 
 REQUIRED_TOOL_METADATA_KEYS = ("description", "kind", "accent", "accent2")
+REQUIRED_PUBLICATION_TARGET_KEYS = ("slug", "manifest_path", "html_path", "hub_slugs")
 HEX_COLOR_PATTERN = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
+INTERNAL_PUBLISHING_SLUG = "internal"
 
 
 def load_config(config_path: str | Path) -> dict:
@@ -46,16 +49,18 @@ def load_config(config_path: str | Path) -> dict:
 
     project_root = config_file.parent
     paths = config["paths"]
-    artifacts = config["artifacts"]
+    resolved_publication_targets = _resolve_publication_targets(config, project_root)
+    internal_target = _get_publication_target(resolved_publication_targets, INTERNAL_PUBLISHING_SLUG)
 
     config["config_path"] = config_file
     config["project_root"] = project_root
+    config["resolved_publication_targets"] = resolved_publication_targets
     config["resolved_paths"] = {
         "input_workbook": (project_root / paths["input_workbook"]).resolve(),
         "output_directory": (project_root / paths["output_directory"]).resolve(),
         "logs_directory": (project_root / paths["logs_directory"]).resolve(),
-        "manifest_file": (project_root / paths["output_directory"] / artifacts["manifest_filename"]).resolve(),
-        "index_file": (project_root / "index.html").resolve(),
+        "manifest_file": internal_target["manifest_file"],
+        "index_file": internal_target["html_file"],
     }
 
     return config
@@ -74,12 +79,17 @@ def build_runtime_paths(config: dict, run_id: str) -> dict:
         "index_file": Path(config["resolved_paths"]["index_file"]),
         "summary_file": output_directory / artifacts["summary_filename_pattern"].format(run_id=run_id),
         "log_file": logs_directory / artifacts["log_filename_pattern"].format(run_id=run_id),
+        "publication_targets": config["resolved_publication_targets"],
     }
 
 
 def ensure_runtime_directories(runtime_paths: dict) -> None:
     runtime_paths["output_directory"].mkdir(parents=True, exist_ok=True)
     runtime_paths["logs_directory"].mkdir(parents=True, exist_ok=True)
+
+    for target in runtime_paths.get("publication_targets", []):
+        Path(target["manifest_file"]).parent.mkdir(parents=True, exist_ok=True)
+        Path(target["html_file"]).parent.mkdir(parents=True, exist_ok=True)
 
 
 def _validate_top_level(config: dict) -> None:
@@ -96,6 +106,7 @@ def _validate_sections(config: dict) -> None:
     _require_mapping(config, "artifacts")
     _require_mapping(config, "output")
     _require_mapping(config, "runtime")
+    _require_mapping(config, "publishing")
     _require_mapping(config, "tool_metadata")
     _require_mapping(config, "hubs")
 
@@ -135,9 +146,44 @@ def _validate_sections(config: dict) -> None:
     _require_string(runtime, "timestamp_format")
     _require_string(runtime, "run_id_format")
 
+    publishing = config["publishing"]
+    _require_non_empty_list(publishing, "targets")
+
+    target_slugs: set[str] = set()
+    target_manifest_paths: set[str] = set()
+    target_html_paths: set[str] = set()
+    for target in publishing["targets"]:
+        if not isinstance(target, dict):
+            raise ConfigError("Each publishing target must be an object")
+        for field_name in REQUIRED_PUBLICATION_TARGET_KEYS:
+            if field_name not in target:
+                raise ConfigError(f"Publishing target missing required field '{field_name}'")
+
+        _require_string(target, "slug")
+        _require_string(target, "manifest_path")
+        _require_string(target, "html_path")
+        _require_non_empty_list(target, "hub_slugs")
+
+        if target["slug"] in target_slugs:
+            raise ConfigError(f"Publishing target slug '{target['slug']}' is defined more than once")
+        target_slugs.add(target["slug"])
+
+        if target["manifest_path"] in target_manifest_paths:
+            raise ConfigError(f"Publishing target manifest path '{target['manifest_path']}' is defined more than once")
+        target_manifest_paths.add(target["manifest_path"])
+
+        if target["html_path"] in target_html_paths:
+            raise ConfigError(f"Publishing target html path '{target['html_path']}' is defined more than once")
+        target_html_paths.add(target["html_path"])
+
+        for hub_slug in target["hub_slugs"]:
+            if not isinstance(hub_slug, str) or not hub_slug.strip():
+                raise ConfigError(f"Publishing target '{target['slug']}' has an invalid hub slug")
+
     hubs = config["hubs"]
     _require_non_empty_list(hubs, "groups")
     all_group_ids: set[str] = set()
+    all_group_slugs: set[str] = set()
     for group in hubs["groups"]:
         if not isinstance(group, dict):
             raise ConfigError("Each hub group must be an object")
@@ -145,12 +191,22 @@ def _validate_sections(config: dict) -> None:
         _require_string(group, "title")
         _require_string(group, "description")
         _require_non_empty_list(group, "repository_ids")
+        if group["slug"] in all_group_slugs:
+            raise ConfigError(f"Hub group slug '{group['slug']}' is defined more than once")
+        all_group_slugs.add(group["slug"])
         for repository_id in group["repository_ids"]:
             if not isinstance(repository_id, str) or not repository_id.strip():
                 raise ConfigError(f"Hub group '{group['slug']}' has an invalid repository id")
             if repository_id in all_group_ids:
                 raise ConfigError(f"Repository id '{repository_id}' is assigned to more than one hub group")
             all_group_ids.add(repository_id)
+
+    for target in publishing["targets"]:
+        missing_hub_slugs = [hub_slug for hub_slug in target["hub_slugs"] if hub_slug not in all_group_slugs]
+        if missing_hub_slugs:
+            raise ConfigError(
+                f"Publishing target '{target['slug']}' references unknown hub group(s): {', '.join(missing_hub_slugs)}"
+            )
 
     tool_metadata = config["tool_metadata"]
     if not tool_metadata:
@@ -173,6 +229,40 @@ def _validate_sections(config: dict) -> None:
             "Every tool_metadata entry must belong to exactly one hub group: "
             + ", ".join(sorted(missing_grouped_tools))
         )
+
+    internal_target = next((target for target in publishing["targets"] if target["slug"] == INTERNAL_PUBLISHING_SLUG), None)
+    if internal_target is None:
+        raise ConfigError("Publishing targets must include an 'internal' target")
+
+    expected_internal_manifest = Path(config["paths"]["output_directory"]) / artifacts["manifest_filename"]
+    if Path(internal_target["manifest_path"]) != expected_internal_manifest:
+        raise ConfigError(
+            "The internal publishing target manifest path must match artifacts.manifest_filename under paths.output_directory"
+        )
+
+    if Path(internal_target["html_path"]) != Path("index.html"):
+        raise ConfigError("The internal publishing target html_path must be 'index.html'")
+
+
+def _resolve_publication_targets(config: dict, project_root: Path) -> list[dict]:
+    resolved_targets: list[dict] = []
+    for target in config["publishing"]["targets"]:
+        resolved_targets.append(
+            {
+                "slug": target["slug"],
+                "manifest_file": (project_root / target["manifest_path"]).resolve(),
+                "html_file": (project_root / target["html_path"]).resolve(),
+                "hub_slugs": list(target["hub_slugs"]),
+            }
+        )
+    return resolved_targets
+
+
+def _get_publication_target(targets: list[dict], slug: str) -> dict:
+    for target in targets:
+        if target["slug"] == slug:
+            return target
+    raise ConfigError(f"Publishing target '{slug}' is missing")
 
 
 def _require_mapping(container: dict, key: str) -> None:

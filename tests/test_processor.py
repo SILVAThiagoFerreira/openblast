@@ -20,9 +20,10 @@ def test_processor_builds_manifest(temp_workspace):
     generated_at = make_timestamp(config)
     manifest = build_manifest(config, workbook, records, "20260525_120000", generated_at)
 
-    assert len(records) == 8
-    assert manifest["counts"]["valid_rows"] == 8
+    assert len(records) == 10
+    assert manifest["counts"]["valid_rows"] == 10
     assert manifest["counts"]["hub_count"] == 2
+    assert manifest["publication"]["slug"] == "internal"
     assert [hub["title"] for hub in manifest["hubs"]] == [
         "Ferramentas Gerais",
         "Ferramentas US Vale Verde",
@@ -33,6 +34,8 @@ def test_processor_builds_manifest(temp_workspace):
         "Blasthole Profile Creator",
         "Report Sismografia Enaex",
         "Analisador de Sismograma - Waveform",
+        "OpenBlast NBR 9653",
+        "Conversor PDF Seguro",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
@@ -48,6 +51,8 @@ def test_processor_builds_manifest(temp_workspace):
         "Report Sismografia Enaex",
         "Analisador de Sismograma - Waveform",
         "Correção de Cargas",
+        "OpenBlast NBR 9653",
+        "Conversor PDF Seguro",
     ]
     assert manifest["tools"][7]["description"] == (
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
@@ -64,3 +69,37 @@ def test_processor_builds_manifest(temp_workspace):
     assert manifest["tools"][6]["description"] == (
         "Análise de sismogramas em CSV com gráficos por canal, intervalos de desmonte e exportação de relatório em PDF."
     )
+
+
+def test_processor_builds_public_manifest(temp_workspace):
+    config = load_config(temp_workspace["config_path"])
+    workbook = read_workbook(
+        temp_workspace["input_workbook"],
+        config["workbook"]["sheet_name"],
+        config["workbook"]["header_row"],
+    )
+    records = build_tool_records(config, workbook)
+    generated_at = make_timestamp(config)
+    public_target = config["resolved_publication_targets"][1]
+    manifest = build_manifest(
+        config,
+        workbook,
+        records,
+        "20260525_120000",
+        generated_at,
+        publication_target=public_target,
+    )
+
+    assert manifest["publication"]["slug"] == "public"
+    assert manifest["counts"]["valid_rows"] == 7
+    assert manifest["counts"]["hub_count"] == 1
+    assert [hub["title"] for hub in manifest["hubs"]] == ["Ferramentas Gerais"]
+    assert [tool["formal_title"] for tool in manifest["tools"]] == [
+        "Conversor DXF para KMZ Operacional",
+        "Blasthole Profile Creator",
+        "Report Sismografia Enaex",
+        "Analisador de Sismograma - Waveform",
+        "Correção de Cargas",
+        "OpenBlast NBR 9653",
+        "Conversor PDF Seguro",
+    ]

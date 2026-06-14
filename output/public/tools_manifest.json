@@ -20,10 +20,10 @@
     "row_count": 10
   },
   "counts": {
-    "total_rows": 10,
-    "valid_rows": 10,
+    "total_rows": 7,
+    "valid_rows": 7,
     "invalid_rows": 0,
-    "hub_count": 2
+    "hub_count": 1
   },
   "validation": {
     "status": "passed",
@@ -31,16 +31,17 @@
     "warning_count": 0
   },
   "publication": {
-    "slug": "internal",
+    "slug": "public",
     "hub_slugs": [
-      "ferramentas-gerais",
-      "ferramentas-us-vale-verde"
+      "ferramentas-gerais"
     ],
     "source_hub_count": 2,
     "source_tool_count": 10,
-    "published_hub_count": 2,
-    "published_tool_count": 10,
-    "excluded_hub_slugs": []
+    "published_hub_count": 1,
+    "published_tool_count": 7,
+    "excluded_hub_slugs": [
+      "ferramentas-us-vale-verde"
+    ]
   },
   "generator": {
     "python": "3.14.3",
@@ -166,62 +167,6 @@
           "order": 10
         }
       ]
-    },
-    {
-      "slug": "ferramentas-us-vale-verde",
-      "title": "Ferramentas US Vale Verde",
-      "description": "Ferramentas dedicadas à operação da US Vale Verde.",
-      "tool_count": 3,
-      "tools": [
-        {
-          "row_number": 3,
-          "repository_id": "usmvv_planned_and_executed_data_consolidation",
-          "formal_title": "Consolidação Plan./Exec. | US Vale Verde",
-          "github_url": "https://github.com/SILVAThiagoFerreira/usmvv_planned_and_executed_data_consolidation",
-          "pages_url": "https://silvathiagoferreira.github.io/usmvv_planned_and_executed_data_consolidation/",
-          "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde.",
-          "kind": "console",
-          "accent": "#e20313",
-          "accent2": "#6c8cff",
-          "github_owner": "SILVAThiagoFerreira",
-          "github_repo_name": "usmvv_planned_and_executed_data_consolidation",
-          "pages_owner": "silvathiagoferreira",
-          "pages_repo_name": "usmvv_planned_and_executed_data_consolidation",
-          "order": 2
-        },
-        {
-          "row_number": 4,
-          "repository_id": "temposemovimentos",
-          "formal_title": "Tempos e Movimentos | Carregamento de Explosivo",
-          "github_url": "https://github.com/SILVAThiagoFerreira/temposemovimentos",
-          "pages_url": "https://silvathiagoferreira.github.io/temposemovimentos/",
-          "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
-          "kind": "timer",
-          "accent": "#e20313",
-          "accent2": "#ffb12a",
-          "github_owner": "SILVAThiagoFerreira",
-          "github_repo_name": "temposemovimentos",
-          "pages_owner": "silvathiagoferreira",
-          "pages_repo_name": "temposemovimentos",
-          "order": 3
-        },
-        {
-          "row_number": 6,
-          "repository_id": "pfr-enaex",
-          "formal_title": "PFR | Plano de Fogo Realizado",
-          "github_url": "https://github.com/SILVAThiagoFerreira/pfr-enaex",
-          "pages_url": "https://silvathiagoferreira.github.io/pfr-enaex/",
-          "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
-          "kind": "target",
-          "accent": "#e20313",
-          "accent2": "#ff5b35",
-          "github_owner": "SILVAThiagoFerreira",
-          "github_repo_name": "pfr-enaex",
-          "pages_owner": "silvathiagoferreira",
-          "pages_repo_name": "pfr-enaex",
-          "order": 5
-        }
-      ]
     }
   ],
   "tools": [
@@ -242,38 +187,6 @@
       "order": 1
     },
     {
-      "row_number": 3,
-      "repository_id": "usmvv_planned_and_executed_data_consolidation",
-      "formal_title": "Consolidação Plan./Exec. | US Vale Verde",
-      "github_url": "https://github.com/SILVAThiagoFerreira/usmvv_planned_and_executed_data_consolidation",
-      "pages_url": "https://silvathiagoferreira.github.io/usmvv_planned_and_executed_data_consolidation/",
-      "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde.",
-      "kind": "console",
-      "accent": "#e20313",
-      "accent2": "#6c8cff",
-      "github_owner": "SILVAThiagoFerreira",
-      "github_repo_name": "usmvv_planned_and_executed_data_consolidation",
-      "pages_owner": "silvathiagoferreira",
-      "pages_repo_name": "usmvv_planned_and_executed_data_consolidation",
-      "order": 2
-    },
-    {
-      "row_number": 4,
-      "repository_id": "temposemovimentos",
-      "formal_title": "Tempos e Movimentos | Carregamento de Explosivo",
-      "github_url": "https://github.com/SILVAThiagoFerreira/temposemovimentos",
-      "pages_url": "https://silvathiagoferreira.github.io/temposemovimentos/",
-      "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
-      "kind": "timer",
-      "accent": "#e20313",
-      "accent2": "#ffb12a",
-      "github_owner": "SILVAThiagoFerreira",
-      "github_repo_name": "temposemovimentos",
-      "pages_owner": "silvathiagoferreira",
-      "pages_repo_name": "temposemovimentos",
-      "order": 3
-    },
-    {
       "row_number": 5,
       "repository_id": "blasthole-profile-creator",
       "formal_title": "Blasthole Profile Creator",
@@ -288,22 +201,6 @@
       "pages_owner": "silvathiagoferreira",
       "pages_repo_name": "blasthole-profile-creator",
       "order": 4
-    },
-    {
-      "row_number": 6,
-      "repository_id": "pfr-enaex",
-      "formal_title": "PFR | Plano de Fogo Realizado",
-      "github_url": "https://github.com/SILVAThiagoFerreira/pfr-enaex",
-      "pages_url": "https://silvathiagoferreira.github.io/pfr-enaex/",
-      "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
-      "kind": "target",
-      "accent": "#e20313",
-      "accent2": "#ff5b35",
-      "github_owner": "SILVAThiagoFerreira",
-      "github_repo_name": "pfr-enaex",
-      "pages_owner": "silvathiagoferreira",
-      "pages_repo_name": "pfr-enaex",
-      "order": 5
     },
     {
       "row_number": 7,

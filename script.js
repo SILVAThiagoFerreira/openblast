@@ -1,5 +1,5 @@
-const manifestUrl = "output/tools_manifest.json";
 const embeddedManifestElement = document.getElementById("initial-manifest");
+const manifestUrl = resolveManifestUrl();
 
 const icons = {
   flight: () => `
@@ -55,6 +55,12 @@ const icons = {
       <path d="M12 48h40" opacity="0.35" />
     </svg>
   `,
+  shield: () => `
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+      <path d="M32 10l16 6v12c0 12-8 20-16 26-8-6-16-14-16-26V16l16-6z" />
+      <path d="M24 33l6 6 11-13" />
+    </svg>
+  `,
   default: () => `
     <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
       <rect x="14" y="14" width="36" height="36" rx="12" />
@@ -67,6 +73,20 @@ const icons = {
 const grid = document.getElementById("hub-grid");
 
 const renderLogo = (kind) => (icons[kind] || icons.default)();
+
+function resolveManifestUrl() {
+  const currentScriptUrl = document.currentScript?.dataset?.manifestUrl;
+  if (currentScriptUrl) {
+    return currentScriptUrl;
+  }
+
+  const pagePath = window.location.pathname.replace(/\\/g, "/");
+  if (pagePath.includes("/public/")) {
+    return "../output/public/tools_manifest.json";
+  }
+
+  return "output/tools_manifest.json";
+}
 
 function renderStatus(message, modifier = "") {
   grid.innerHTML = `<div class="tool-grid__message${modifier ? ` tool-grid__message--${modifier}` : ""}" role="status">${message}</div>`;

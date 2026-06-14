@@ -31,11 +31,14 @@
 - [x] Config carregavel.
 - [x] Planilha validada antes do processamento.
 - [x] Manifesto gerado com sucesso.
+- [x] Manifesto publico gerado com sucesso.
 - [x] Summary gerado com sucesso.
 - [x] Front-end consumindo o manifesto.
+- [x] Front-end publico consumindo o manifesto filtrado.
 - [x] Testes minimos executaveis.
 
 ## Evolucao
 - [x] Mudancas em schema refletidas em docs e testes.
 - [x] Novas ferramentas adicionadas via planilha + `tool_metadata`.
 - [x] Mudancas de contrato refletidas no front-end.
+- [x] Publicacao interna e publica configuradas via `publishing.targets`.

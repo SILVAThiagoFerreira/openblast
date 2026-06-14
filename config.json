@@ -42,6 +42,27 @@
     "timestamp_format": "%Y-%m-%dT%H:%M:%SZ",
     "run_id_format": "%Y%m%d_%H%M%S"
   },
+  "publishing": {
+    "targets": [
+      {
+        "slug": "internal",
+        "manifest_path": "output/tools_manifest.json",
+        "html_path": "index.html",
+        "hub_slugs": [
+          "ferramentas-gerais",
+          "ferramentas-us-vale-verde"
+        ]
+      },
+      {
+        "slug": "public",
+        "manifest_path": "output/public/tools_manifest.json",
+        "html_path": "public/index.html",
+        "hub_slugs": [
+          "ferramentas-gerais"
+        ]
+      }
+    ]
+  },
   "tool_metadata": {
     "enaex-plano-de-voo": {
       "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",
@@ -79,6 +100,18 @@
       "accent": "#e20313",
       "accent2": "#37c6b3"
     },
+    "openblast-nbr9653": {
+      "description": "Leitor local de CSVs de sismogramas com gráficos de pressão e vibração, exportação em SVG/PNG/CSV/PDF e foco em conformidade com a ABNT NBR 9653:2018.",
+      "kind": "wave",
+      "accent": "#e20313",
+      "accent2": "#2bb3a3"
+    },
+    "conversor-pdf-seguro": {
+      "description": "Conversor local de PDFs e documentos com processamento 100% local, sem backend e com foco em privacidade.",
+      "kind": "shield",
+      "accent": "#e20313",
+      "accent2": "#6c8cff"
+    },
     "analisador-de-sismograma": {
       "description": "Análise de sismogramas em CSV com gráficos por canal, intervalos de desmonte e exportação de relatório em PDF.",
       "kind": "wave",
@@ -99,13 +132,15 @@
         "title": "Ferramentas Gerais",
         "description": "Ferramentas corporativas e operacionais de uso transversal.",
         "repository_ids": [
-          "enaex-plano-de-voo",
-          "correcao-de-cargas",
-          "blasthole-profile-creator",
-          "aquickreportofseismographicdata",
-          "analisador-de-sismograma"
-        ]
-      },
+        "enaex-plano-de-voo",
+        "correcao-de-cargas",
+        "blasthole-profile-creator",
+        "aquickreportofseismographicdata",
+        "analisador-de-sismograma",
+        "openblast-nbr9653",
+        "conversor-pdf-seguro"
+      ]
+    },
       {
         "slug": "ferramentas-us-vale-verde",
         "title": "Ferramentas US Vale Verde",

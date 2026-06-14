@@ -36,6 +36,7 @@ def run_pipeline(config_path: str | Path) -> int:
     workbook_result = None
     validation_report = None
     summary_path = runtime_paths["summary_file"]
+    published_targets: list[dict] = []
 
     try:
         workbook_result = read_workbook(
@@ -64,14 +65,34 @@ def run_pipeline(config_path: str | Path) -> int:
                 manifest_path=None,
                 summary_path=str(summary_path),
                 log_path=str(runtime_paths["log_file"]),
+                published_targets=published_targets,
             )
             write_summary(summary, summary_path, config["output"])
             logger.error("Validation failed | run_id=%s", run_id)
             return 1
 
         tool_records = build_tool_records(config, workbook_result)
-        manifest = build_manifest(config, workbook_result, tool_records, run_id, generated_at)
-        write_manifest(manifest, runtime_paths["manifest_file"], config["output"])
+        for target in runtime_paths["publication_targets"]:
+            manifest = build_manifest(
+                config,
+                workbook_result,
+                tool_records,
+                run_id,
+                generated_at,
+                publication_target=target,
+            )
+            write_manifest(manifest, target["manifest_file"], config["output"])
+            sync_manifest_snapshot(target["html_file"], target["manifest_file"])
+            published_targets.append(
+                {
+                    "slug": target["slug"],
+                    "manifest": str(target["manifest_file"]),
+                    "html": str(target["html_file"]),
+                    "hub_slugs": target["hub_slugs"],
+                    "hub_count": manifest["counts"]["hub_count"],
+                    "tool_count": manifest["counts"]["valid_rows"],
+                }
+            )
 
         summary = build_summary(
             config,
@@ -85,12 +106,21 @@ def run_pipeline(config_path: str | Path) -> int:
             manifest_path=str(runtime_paths["manifest_file"]),
             summary_path=str(summary_path),
             log_path=str(runtime_paths["log_file"]),
+            published_targets=published_targets,
         )
         write_summary(summary, summary_path, config["output"])
-        sync_manifest_snapshot(runtime_paths["index_file"], runtime_paths["manifest_file"])
 
-        logger.info("Manifest written to %s", runtime_paths["manifest_file"])
-        logger.info("Frontend HTML synchronized at %s", runtime_paths["index_file"])
+        logger.info("Internal manifest written to %s", runtime_paths["manifest_file"])
+        logger.info("Internal HTML synchronized at %s", runtime_paths["index_file"])
+        for target in published_targets:
+            logger.info(
+                "Published target %s | manifest=%s | html=%s | hubs=%s | tools=%d",
+                target["slug"],
+                target["manifest"],
+                target["html"],
+                ",".join(target["hub_slugs"]),
+                target["tool_count"],
+            )
         logger.info("Summary written to %s", summary_path)
         logger.info("Pipeline completed successfully | run_id=%s", run_id)
         return 0
@@ -108,6 +138,7 @@ def run_pipeline(config_path: str | Path) -> int:
             manifest_path=None,
             summary_path=str(summary_path),
             log_path=str(runtime_paths["log_file"]),
+            published_targets=published_targets,
         )
         try:
             write_summary(summary, summary_path, config["output"])

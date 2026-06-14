@@ -4,7 +4,7 @@
 O repositorio possui um hub visual OpenBlast para ferramentas da operação US Vale Verde. A base precisa ser organizada como um sistema de dados auditavel, reutilizavel e compreensivel por terceiros.
 
 ## Objetivo
-Transformar a planilha de entrada em um manifesto validado para dois hubs, com configuracao externa, logs por execucao, saidas reproduziveis, copy revisada e testes minimos.
+Transformar a planilha de entrada em manifestos validados para dois hubs, com configuracao externa, logs por execucao, saidas reproduziveis, copy revisada e testes minimos.
 
 ## Escopo
 - Criar arquitetura modular em `src/`.
@@ -13,12 +13,11 @@ Transformar a planilha de entrada em um manifesto validado para dois hubs, com c
 - Criar validacao de dados antes do processamento.
 - Criar saida consumida pelo front-end.
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end.
+- Criar publicacao interna completa e publicacao publica filtrada.
 - Criar testes automatizados minimos.
-- Manter `correcao-de-cargas` no hub `Ferramentas Gerais` quando o manifesto for regenerado.
-- Manter `analisador-de-sismograma` no hub `Ferramentas Gerais` quando o manifesto for regenerado.
+- Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `conversor-pdf-seguro` no hub `Ferramentas Gerais`.
 
 ## Fora de escopo
-- Adicionar novas ferramentas nao presentes na planilha.
 - Reescrever o visual do hub.
 - Trocar a planilha por outro formato de origem.
 - Implementar banco de dados ou backend persistente.
@@ -30,6 +29,7 @@ Transformar a planilha de entrada em um manifesto validado para dois hubs, com c
 - Modulos em `src/`.
 - Testes em `tests/`.
 - Manifesto em `output/`.
+- Manifesto publico em `output/public/`.
 - Logs em `logs/`.
 
 ## Criterios de aceite

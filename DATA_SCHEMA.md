@@ -33,6 +33,7 @@ Arquivo: `config.json`
 - `validation`
 - `artifacts`
 - `output`
+- `publishing`
 - `tool_metadata`
 - `hubs`
 
@@ -47,6 +48,11 @@ Arquivo: `config.json`
 | `artifacts.log_filename_pattern` | string | sim | Padrão do log por execucao |
 | `validation.repository_id_pattern` | string | sim | Regex para o slug do repositorio |
 | `validation.require_tool_metadata` | boolean | sim | Guardrail do pipeline; deve permanecer `true` |
+| `publishing.targets[]` | array | sim | Lista de publicacoes geradas pelo pipeline |
+| `publishing.targets[].slug` | string | sim | Identificador tecnico da publicacao |
+| `publishing.targets[].manifest_path` | string | sim | Caminho do manifesto gerado para a publicacao |
+| `publishing.targets[].html_path` | string | sim | Caminho do HTML sincronizado para a publicacao |
+| `publishing.targets[].hub_slugs[]` | array | sim | Lista de grupos incluidos na publicacao |
 | `tool_metadata.<repo>.description` | string | sim | Descricao do card |
 | `tool_metadata.<repo>.kind` | string | sim | Tipo de icone |
 | `tool_metadata.<repo>.accent` | string | sim | Cor principal |
@@ -70,6 +76,7 @@ Arquivo: `output/tools_manifest.json`
 | `source` | objeto | sim | Metadados da planilha |
 | `counts` | objeto | sim | Quantidades processadas |
 | `validation` | objeto | sim | Resumo da validacao |
+| `publication` | objeto | sim | Metadados da publicacao gerada |
 | `generator` | objeto | sim | Informacoes do ambiente |
 | `hubs` | array | sim | Hubs agrupados e ordenados para o front-end |
 | `tools` | array | sim | Lista de ferramentas |
@@ -82,6 +89,17 @@ Arquivo: `output/tools_manifest.json`
 | `description` | string | sim | Texto de apoio |
 | `tool_count` | inteiro | sim | Quantidade de ferramentas no hub |
 | `tools` | array | sim | Ferramentas do hub na ordem configurada |
+
+### Estrutura de `publication`
+| Campo | Tipo | Obrigatorio | Significado |
+|---|---|---:|---|
+| `slug` | string | sim | Nome da publicacao (`internal` ou `public`) |
+| `hub_slugs` | array | sim | Grupos incluidos no manifesto gerado |
+| `source_hub_count` | inteiro | sim | Quantidade total de hubs na origem |
+| `source_tool_count` | inteiro | sim | Quantidade total de ferramentas na origem |
+| `published_hub_count` | inteiro | sim | Quantidade de hubs incluidos na publicacao |
+| `published_tool_count` | inteiro | sim | Quantidade de ferramentas incluidas na publicacao |
+| `excluded_hub_slugs` | array | sim | Grupos omitidos da publicacao |
 
 ### Estrutura de `tools[]`
 | Campo | Tipo | Obrigatorio | Significado |
@@ -113,7 +131,11 @@ Arquivo: `output/run_summary_<run_id>.json`
 - `source`
 - `validation`
 - `counts`
+- `publish`
 - `generator`
+
+### Estrutura de `publish`
+- `targets[]`: lista dos targets escritos na execucao, com `slug`, `manifest`, `html`, `hub_slugs`, `hub_count` e `tool_count`.
 
 ## 5. Exemplos
 

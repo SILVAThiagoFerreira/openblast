@@ -74,8 +74,44 @@ def build_hub_groups(config: dict, tool_records: list[ToolRecord]) -> list[dict]
     return groups
 
 
-def build_manifest(config: dict, workbook_result, tool_records: list[ToolRecord], run_id: str, generated_at: str) -> dict:
-    hub_groups = build_hub_groups(config, tool_records)
+def build_manifest(
+    config: dict,
+    workbook_result,
+    tool_records: list[ToolRecord],
+    run_id: str,
+    generated_at: str,
+    publication_target: dict | None = None,
+) -> dict:
+    all_hub_groups = build_hub_groups(config, tool_records)
+    all_tools = [asdict(record) for record in tool_records]
+
+    if publication_target is None:
+        hub_groups = all_hub_groups
+        tool_payloads = all_tools
+        publication_payload = {
+            "slug": "internal",
+            "hub_slugs": [group["slug"] for group in all_hub_groups],
+            "source_hub_count": len(all_hub_groups),
+            "source_tool_count": len(all_tools),
+            "published_hub_count": len(all_hub_groups),
+            "published_tool_count": len(all_tools),
+            "excluded_hub_slugs": [],
+        }
+    else:
+        allowed_hub_slugs = set(publication_target["hub_slugs"])
+        hub_groups = [group for group in all_hub_groups if group["slug"] in allowed_hub_slugs]
+        allowed_repository_ids = {tool["repository_id"] for group in hub_groups for tool in group["tools"]}
+        tool_payloads = [tool for tool in all_tools if tool["repository_id"] in allowed_repository_ids]
+        publication_payload = {
+            "slug": publication_target["slug"],
+            "hub_slugs": list(publication_target["hub_slugs"]),
+            "source_hub_count": len(all_hub_groups),
+            "source_tool_count": len(all_tools),
+            "published_hub_count": len(hub_groups),
+            "published_tool_count": len(tool_payloads),
+            "excluded_hub_slugs": [group["slug"] for group in all_hub_groups if group["slug"] not in allowed_hub_slugs],
+        }
+
     return {
         "manifest_version": "2.0",
         "project": {
@@ -93,8 +129,8 @@ def build_manifest(config: dict, workbook_result, tool_records: list[ToolRecord]
             "row_count": len(workbook_result.rows),
         },
         "counts": {
-            "total_rows": len(workbook_result.rows),
-            "valid_rows": len(tool_records),
+            "total_rows": len(tool_payloads),
+            "valid_rows": len(tool_payloads),
             "invalid_rows": 0,
             "hub_count": len(hub_groups),
         },
@@ -103,12 +139,13 @@ def build_manifest(config: dict, workbook_result, tool_records: list[ToolRecord]
             "error_count": 0,
             "warning_count": 0,
         },
+        "publication": publication_payload,
         "generator": {
             "python": platform.python_version(),
             "openpyxl": openpyxl.__version__,
         },
         "hubs": hub_groups,
-        "tools": [asdict(record) for record in tool_records],
+        "tools": tool_payloads,
     }
 
 
@@ -124,6 +161,7 @@ def build_summary(
     manifest_path: str | None,
     summary_path: str,
     log_path: str,
+    published_targets: list[dict] | None = None,
 ) -> dict:
     validation_payload = validation_report.to_dict() if validation_report is not None else {
         "row_count": len(workbook_result.rows) if workbook_result is not None else 0,
@@ -176,6 +214,9 @@ def build_summary(
             "invalid_rows": invalid_count,
             "error_count": validation_payload["error_count"],
             "warning_count": validation_payload["warning_count"],
+        },
+        "publish": {
+            "targets": published_targets or [],
         },
         "generator": {
             "python": platform.python_version(),

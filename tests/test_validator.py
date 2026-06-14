@@ -19,7 +19,7 @@ def test_validate_inputs_accepts_clean_workbook(temp_workspace):
 
     assert report.is_valid is True
     assert report.error_count == 0
-    assert report.row_count == 8
+    assert report.row_count == 10
 
 
 def test_validate_inputs_rejects_invalid_github_url(temp_workspace):

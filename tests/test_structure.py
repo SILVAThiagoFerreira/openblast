@@ -17,6 +17,7 @@ def test_required_files_exist_and_are_not_empty(project_root):
         "index.html",
         "script.js",
         "styles.css",
+        "public/index.html",
         "src/__init__.py",
         "src/config_loader.py",
         "src/data_reader.py",
@@ -42,11 +43,16 @@ def test_runtime_directories_exist(project_root):
 
 def test_frontend_reads_generated_manifest(project_root):
     index_text = (project_root / "index.html").read_text(encoding="utf-8")
+    public_index_text = (project_root / "public" / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
     assert 'script src="script.js" defer' in index_text
     assert "<!-- MANIFEST:START -->" in index_text
     assert '<script type="application/json" id="initial-manifest">' in index_text
+    assert 'script src="../script.js" defer' in public_index_text
+    assert "<!-- MANIFEST:START -->" in public_index_text
+    assert '<script type="application/json" id="initial-manifest">' in public_index_text
     assert "output/tools_manifest.json" in script_text
+    assert "output/public/tools_manifest.json" in script_text
     assert "renderManifest" in script_text
     assert "hub-grid" in script_text
     assert 'cache: "no-store"' not in script_text
