@@ -20,10 +20,12 @@ def test_processor_builds_manifest(temp_workspace):
     generated_at = make_timestamp(config)
     manifest = build_manifest(config, workbook, records, "20260525_120000", generated_at)
 
-    assert len(records) == 10
-    assert manifest["counts"]["valid_rows"] == 10
+    assert len(records) == 9
+    assert manifest["counts"]["valid_rows"] == 9
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
+    assert "tool_count" not in manifest["hubs"][0]
+    assert "tool_count" not in manifest["hubs"][1]
     assert [hub["title"] for hub in manifest["hubs"]] == [
         "Ferramentas Gerais",
         "Ferramentas US Vale Verde",
@@ -35,7 +37,6 @@ def test_processor_builds_manifest(temp_workspace):
         "Report Sismografia Enaex",
         "Analisador de Sismograma - Waveform",
         "OpenBlast NBR 9653",
-        "Conversor PDF Seguro",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
@@ -52,7 +53,6 @@ def test_processor_builds_manifest(temp_workspace):
         "Analisador de Sismograma - Waveform",
         "Correção de Cargas",
         "OpenBlast NBR 9653",
-        "Conversor PDF Seguro",
     ]
     assert manifest["tools"][7]["description"] == (
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
@@ -91,8 +91,9 @@ def test_processor_builds_public_manifest(temp_workspace):
     )
 
     assert manifest["publication"]["slug"] == "public"
-    assert manifest["counts"]["valid_rows"] == 7
+    assert manifest["counts"]["valid_rows"] == 6
     assert manifest["counts"]["hub_count"] == 1
+    assert "tool_count" not in manifest["hubs"][0]
     assert [hub["title"] for hub in manifest["hubs"]] == ["Ferramentas Gerais"]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor DXF para KMZ Operacional",
@@ -101,5 +102,4 @@ def test_processor_builds_public_manifest(temp_workspace):
         "Analisador de Sismograma - Waveform",
         "Correção de Cargas",
         "OpenBlast NBR 9653",
-        "Conversor PDF Seguro",
     ]

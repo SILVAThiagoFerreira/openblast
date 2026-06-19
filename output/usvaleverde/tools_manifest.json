@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-06-14T19:09:04Z",
-  "run_id": "20260614_190904",
+  "generated_at": "2026-06-19T11:25:57Z",
+  "run_id": "20260619_112557",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,12 +16,12 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "d3644385695573fd35f7a366c1b0b336995e87a41b679aa2631c5e2500362c1a",
-    "row_count": 10
+    "sha256": "6ad7a1c9483a237cfddf647da9187a45bad93b02e276dd9e5094b070067d630f",
+    "row_count": 9
   },
   "counts": {
-    "total_rows": 10,
-    "valid_rows": 10,
+    "total_rows": 9,
+    "valid_rows": 9,
     "invalid_rows": 0,
     "hub_count": 2
   },
@@ -37,9 +37,9 @@
       "ferramentas-us-vale-verde"
     ],
     "source_hub_count": 2,
-    "source_tool_count": 10,
+    "source_tool_count": 9,
     "published_hub_count": 2,
-    "published_tool_count": 10,
+    "published_tool_count": 9,
     "excluded_hub_slugs": []
   },
   "generator": {
@@ -50,8 +50,7 @@
     {
       "slug": "ferramentas-gerais",
       "title": "Ferramentas Gerais",
-      "description": "Ferramentas corporativas e operacionais de uso transversal.",
-      "tool_count": 7,
+      "description": "Ferramentas compartilhadas da operação.",
       "tools": [
         {
           "row_number": 2,
@@ -148,22 +147,6 @@
           "pages_owner": "silvathiagoferreira",
           "pages_repo_name": "openblast-nbr9653",
           "order": 9
-        },
-        {
-          "row_number": 11,
-          "repository_id": "conversor-pdf-seguro",
-          "formal_title": "Conversor PDF Seguro",
-          "github_url": "https://github.com/SILVAThiagoFerreira/conversor-pdf-seguro",
-          "pages_url": "https://silvathiagoferreira.github.io/conversor-pdf-seguro/",
-          "description": "Conversor local de PDFs e documentos com processamento 100% local, sem backend e com foco em privacidade.",
-          "kind": "shield",
-          "accent": "#e20313",
-          "accent2": "#6c8cff",
-          "github_owner": "SILVAThiagoFerreira",
-          "github_repo_name": "conversor-pdf-seguro",
-          "pages_owner": "silvathiagoferreira",
-          "pages_repo_name": "conversor-pdf-seguro",
-          "order": 10
         }
       ]
     },
@@ -171,7 +154,6 @@
       "slug": "ferramentas-us-vale-verde",
       "title": "Ferramentas US Vale Verde",
       "description": "Ferramentas dedicadas à operação da US Vale Verde.",
-      "tool_count": 3,
       "tools": [
         {
           "row_number": 3,
@@ -368,22 +350,6 @@
       "pages_owner": "silvathiagoferreira",
       "pages_repo_name": "openblast-nbr9653",
       "order": 9
-    },
-    {
-      "row_number": 11,
-      "repository_id": "conversor-pdf-seguro",
-      "formal_title": "Conversor PDF Seguro",
-      "github_url": "https://github.com/SILVAThiagoFerreira/conversor-pdf-seguro",
-      "pages_url": "https://silvathiagoferreira.github.io/conversor-pdf-seguro/",
-      "description": "Conversor local de PDFs e documentos com processamento 100% local, sem backend e com foco em privacidade.",
-      "kind": "shield",
-      "accent": "#e20313",
-      "accent2": "#6c8cff",
-      "github_owner": "SILVAThiagoFerreira",
-      "github_repo_name": "conversor-pdf-seguro",
-      "pages_owner": "silvathiagoferreira",
-      "pages_repo_name": "conversor-pdf-seguro",
-      "order": 10
     }
   ]
 }

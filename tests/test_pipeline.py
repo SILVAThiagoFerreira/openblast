@@ -28,14 +28,17 @@ def test_pipeline_end_to_end(temp_workspace):
 
     assert manifest_payload["project"]["name"] == "openblast"
     assert public_manifest_payload["project"]["name"] == "openblast"
-    assert len(manifest_payload["tools"]) == 10
+    assert len(manifest_payload["tools"]) == 9
     assert len(manifest_payload["hubs"]) == 2
     assert manifest_payload["hubs"][0]["title"] == "Ferramentas Gerais"
     assert manifest_payload["hubs"][1]["title"] == "Ferramentas US Vale Verde"
+    assert "tool_count" not in manifest_payload["hubs"][0]
+    assert "tool_count" not in manifest_payload["hubs"][1]
     assert manifest_payload["publication"]["slug"] == "usvaleverde"
     assert public_manifest_payload["publication"]["slug"] == "public"
-    assert len(public_manifest_payload["tools"]) == 7
+    assert len(public_manifest_payload["tools"]) == 6
     assert len(public_manifest_payload["hubs"]) == 1
+    assert "tool_count" not in public_manifest_payload["hubs"][0]
     assert len(summary_payload["publish"]["targets"]) == 2
     assert [target["slug"] for target in summary_payload["publish"]["targets"]] == ["public", "usvaleverde"]
     assert summary_payload["paths"]["manifest"].replace("\\", "/").endswith("output/usvaleverde/tools_manifest.json")

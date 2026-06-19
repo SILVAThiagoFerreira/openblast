@@ -66,7 +66,6 @@ def build_hub_groups(config: dict, tool_records: list[ToolRecord]) -> list[dict]
                 "slug": group_config["slug"],
                 "title": group_config["title"],
                 "description": group_config["description"],
-                "tool_count": len(records),
                 "tools": records,
             }
         )

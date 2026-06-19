@@ -122,7 +122,6 @@ function renderHubGroup(group) {
           <h2 id="hub-${group.slug}">${group.title}</h2>
           <p class="section-head__text">${group.description}</p>
         </div>
-        <span class="hub-section__count">${group.tool_count} ferramentas</span>
       </header>
       <div class="tool-grid tool-grid--group">${cards}</div>
     </section>

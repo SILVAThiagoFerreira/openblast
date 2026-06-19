@@ -248,23 +248,9 @@ a {
 .hub-section__header {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 20px;
   margin-bottom: 18px;
-}
-
-.hub-section__count {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 0 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--muted);
-  font-size: 0.84rem;
-  font-weight: 700;
-  white-space: nowrap;
 }
 
 .tool-grid {

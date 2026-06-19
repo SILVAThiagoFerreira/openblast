@@ -106,12 +106,6 @@
       "accent": "#e20313",
       "accent2": "#2bb3a3"
     },
-    "conversor-pdf-seguro": {
-      "description": "Conversor local de PDFs e documentos com processamento 100% local, sem backend e com foco em privacidade.",
-      "kind": "shield",
-      "accent": "#e20313",
-      "accent2": "#6c8cff"
-    },
     "analisador-de-sismograma": {
       "description": "Análise de sismogramas em CSV com gráficos por canal, intervalos de desmonte e exportação de relatório em PDF.",
       "kind": "wave",
@@ -130,15 +124,14 @@
       {
         "slug": "ferramentas-gerais",
         "title": "Ferramentas Gerais",
-        "description": "Ferramentas corporativas e operacionais de uso transversal.",
+        "description": "Ferramentas compartilhadas da operação.",
         "repository_ids": [
         "enaex-plano-de-voo",
         "correcao-de-cargas",
         "blasthole-profile-creator",
         "aquickreportofseismographicdata",
         "analisador-de-sismograma",
-        "openblast-nbr9653",
-        "conversor-pdf-seguro"
+        "openblast-nbr9653"
       ]
     },
       {

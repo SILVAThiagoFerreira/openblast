@@ -89,7 +89,6 @@ Arquivo: `output/usvaleverde/tools_manifest.json`
 | `slug` | string | sim | Identificador tecnico do hub |
 | `title` | string | sim | Nome exibido |
 | `description` | string | sim | Texto de apoio |
-| `tool_count` | inteiro | sim | Quantidade de ferramentas no hub |
 | `tools` | array | sim | Ferramentas do hub na ordem configurada |
 
 ### Estrutura de `publication`

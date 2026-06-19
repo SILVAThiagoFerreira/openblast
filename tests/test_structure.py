@@ -65,6 +65,7 @@ def test_frontend_reads_generated_manifest(project_root):
     assert 'cache: "no-store"' not in script_text
     assert 'cache: "default"' in script_text
     assert "initial-manifest" in script_text
+    assert "hub-section__count" not in (project_root / "styles.css").read_text(encoding="utf-8")
 
 
 def test_frontend_copy_is_clean(project_root):
@@ -72,6 +73,7 @@ def test_frontend_copy_is_clean(project_root):
     public_index_text = (project_root / "public" / "index.html").read_text(encoding="utf-8")
     us_index_text = (project_root / "usvaleverde" / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
+    config_text = (project_root / "config.json").read_text(encoding="utf-8")
 
     assert "OpenBlast" in index_text
     assert "usvaleverde/" in index_text
@@ -85,6 +87,11 @@ def test_frontend_copy_is_clean(project_root):
     assert "Hub Aberto" not in us_index_text
     assert "Hub Público de Ferramentas" in public_index_text
     assert "Hub de Ferramentas" in us_index_text
+    assert "Selecione um hub para abrir a ferramenta desejada." not in public_index_text
+    assert "Selecione um hub para abrir a ferramenta desejada." not in us_index_text
+    assert "Ferramentas corporativas e operacionais de uso transversal." not in config_text
+    assert "Ferramentas corporativas e operacionais de uso transversal." not in public_index_text
+    assert "Ferramentas corporativas e operacionais de uso transversal." not in us_index_text
     assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in public_index_text
     assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in us_index_text
     assert "brand__wordmark" in public_index_text
@@ -101,6 +108,8 @@ def test_frontend_copy_is_clean(project_root):
     assert "hero__description" not in us_index_text
     assert "<span>Ferramentas</span>" not in public_index_text
     assert "<span>Ferramentas</span>" not in us_index_text
+    assert "hub-section__count" not in script_text
+    assert "7 ferramentas" not in script_text
     assert "Abrir página" in script_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")
