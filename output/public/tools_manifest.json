@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-06-19T11:25:57Z",
-  "run_id": "20260619_112557",
+  "generated_at": "2026-06-19T12:07:49Z",
+  "run_id": "20260619_120749",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,7 +16,7 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "6ad7a1c9483a237cfddf647da9187a45bad93b02e276dd9e5094b070067d630f",
+    "sha256": "989f61dd40e909184a7bb553414fecabc02d6ba6b4f1b6d5e6c3eb5fb6b19762",
     "row_count": 9
   },
   "counts": {
@@ -72,7 +72,7 @@
         {
           "row_number": 9,
           "repository_id": "correcao-de-cargas",
-          "formal_title": "Correção de Cargas",
+          "formal_title": "Análise de Cargas - OpitAPP",
           "github_url": "https://github.com/SILVAThiagoFerreira/correcao-de-cargas",
           "pages_url": "https://silvathiagoferreira.github.io/correcao-de-cargas/",
           "description": "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado.",
@@ -220,7 +220,7 @@
     {
       "row_number": 9,
       "repository_id": "correcao-de-cargas",
-      "formal_title": "Correção de Cargas",
+      "formal_title": "Análise de Cargas - OpitAPP",
       "github_url": "https://github.com/SILVAThiagoFerreira/correcao-de-cargas",
       "pages_url": "https://silvathiagoferreira.github.io/correcao-de-cargas/",
       "description": "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado.",

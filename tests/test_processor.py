@@ -32,7 +32,7 @@ def test_processor_builds_manifest(temp_workspace):
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
         "Conversor DXF para KMZ Operacional",
-        "Correção de Cargas",
+        "Análise de Cargas - OpitAPP",
         "Blasthole Profile Creator",
         "Report Sismografia Enaex",
         "Analisador de Sismograma - Waveform",
@@ -51,7 +51,7 @@ def test_processor_builds_manifest(temp_workspace):
         "PFR | Plano de Fogo Realizado",
         "Report Sismografia Enaex",
         "Analisador de Sismograma - Waveform",
-        "Correção de Cargas",
+        "Análise de Cargas - OpitAPP",
         "OpenBlast NBR 9653",
     ]
     assert manifest["tools"][7]["description"] == (
@@ -100,6 +100,6 @@ def test_processor_builds_public_manifest(temp_workspace):
         "Blasthole Profile Creator",
         "Report Sismografia Enaex",
         "Analisador de Sismograma - Waveform",
-        "Correção de Cargas",
+        "Análise de Cargas - OpitAPP",
         "OpenBlast NBR 9653",
     ]
