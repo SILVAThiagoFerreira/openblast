@@ -46,6 +46,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - `publishing.targets`: define quais grupos entram no hub US Vale Verde e quais entram no hub público.
 - As ferramentas `correcao-de-cargas` e `analisador-de-sismograma` pertencem ao hub `Ferramentas Gerais`.
 - A ferramenta `openblast-nbr9653` tambem pertence ao hub `Ferramentas Gerais` e aparece no hub publico.
+- A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` tambem pertence ao hub `Ferramentas Gerais` e aparece nos dois hubs de ferramentas.
 - As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-enaex` pertencem ao hub `Ferramentas US Vale Verde`.
 
 ## Como executar
@@ -70,7 +71,7 @@ O arquivo `.nojekyll` na raiz evita processamento do Jekyll e mantém os caminho
 ## Como evoluir o projeto
 - Adicione novas ferramentas na planilha, em `tool_metadata` e no hub correspondente em `hubs.groups`.
 - Se a ferramenta puder ser compartilhada, mantenha-a em `Ferramentas Gerais`; se for interna, mantenha-a em `Ferramentas US Vale Verde`.
-- As ferramentas `correcao-de-cargas`, `analisador-de-sismograma` e `openblast-nbr9653` ja estao mapeadas para `Ferramentas Gerais`.
+- As ferramentas `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` ja estao mapeadas para `Ferramentas Gerais`.
 - Títulos exibidos vêm da planilha; descrições e metadados visuais vêm de `config.json`.
 - Nao altere o contrato do manifesto sem atualizar `script.js`, `DATA_SCHEMA.md` e os testes.
 - Toda mudanca de regra deve ser documentada em `SPEC.md`.

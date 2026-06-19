@@ -15,7 +15,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end com copy objetiva.
 - Criar publicacao do hub US Vale Verde e publicacao publica filtrada.
 - Criar testes automatizados minimos.
-- Manter `correcao-de-cargas`, `analisador-de-sismograma` e `openblast-nbr9653` no hub `Ferramentas Gerais`.
+- Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` no hub `Ferramentas Gerais`.
 
 ## Fora de escopo
 - Reescrever o visual do hub.

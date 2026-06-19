@@ -117,6 +117,12 @@
       "kind": "charge",
       "accent": "#e20313",
       "accent2": "#ff8a2a"
+    },
+    "analise-de-desvios-de-inclinacao-e-azimute": {
+      "description": "Dashboard estático para análise de desvios de inclinação, azimute e profundidade a partir de DXF de execução de furos.",
+      "kind": "target",
+      "accent": "#0f6a2b",
+      "accent2": "#c79517"
     }
   },
   "hubs": {
@@ -131,7 +137,8 @@
         "blasthole-profile-creator",
         "aquickreportofseismographicdata",
         "analisador-de-sismograma",
-        "openblast-nbr9653"
+        "openblast-nbr9653",
+        "analise-de-desvios-de-inclinacao-e-azimute"
       ]
     },
       {
