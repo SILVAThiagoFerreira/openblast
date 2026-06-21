@@ -94,7 +94,7 @@
       "accent": "#e20313",
       "accent2": "#ff5b35"
     },
-    "aquickreportofseismographicdata": {
+    "report-sismografia": {
       "description": "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
       "kind": "wave",
       "accent": "#e20313",
@@ -135,7 +135,7 @@
         "openblast-plano-de-voo",
         "correcao-de-cargas",
         "blasthole-profile-creator",
-        "aquickreportofseismographicdata",
+        "report-sismografia",
         "analisador-de-sismograma",
         "openblast-nbr9653",
         "analise-de-desvios-de-inclinacao-e-azimute"
