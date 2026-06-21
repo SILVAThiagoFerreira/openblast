@@ -11,10 +11,10 @@ Arquivo: `input/repositorios_github_pages.xlsx`
 ### Cabecalhos obrigatorios
 | Campo | Tipo | Obrigatorio | Significado | Formato permitido | Exemplo valido | Exemplo invalido |
 |---|---|---:|---|---|---|---|
-| `Repositório` | string | sim | Slug do repositorio | letras minusculas, numeros, `-`, `_`, `.` | `enaex-plano-de-voo` | `Plano de Voo` |
+| `Repositório` | string | sim | Slug do repositorio | letras minusculas, numeros, `-`, `_`, `.` | `openblast-plano-de-voo` | `Plano de Voo` |
 | `Título formal` | string | sim | Nome exibido no card | texto livre nao vazio | `PFR - Plano de Fogo Realizado` | vazio |
-| `GitHub` | string | sim | URL do repositorio | `https://github.com/<owner>/<repo>` | `https://github.com/SILVAThiagoFerreira/pfr-enaex` | `http://github.com/...` |
-| `Pages` | string | sim | URL da pagina publicada | `https://<owner>.github.io/<repo>/` | `https://silvathiagoferreira.github.io/pfr-enaex/` | `https://example.com/pfr-enaex/` |
+| `GitHub` | string | sim | URL do repositorio | `https://github.com/<owner>/<repo>` | `https://github.com/SILVAThiagoFerreira/pfr-openblast` | `http://github.com/...` |
+| `Pages` | string | sim | URL da pagina publicada | `https://<owner>.github.io/<repo>/` | `https://silvathiagoferreira.github.io/pfr-openblast/` | `https://example.com/pfr-openblast/` |
 
 ### Regras de validacao
 - Cabecalhos obrigatorios devem existir.
@@ -143,19 +143,19 @@ Arquivo: `output/run_summary_<run_id>.json`
 ### Valido
 ```json
 {
-  "repository_id": "pfr-enaex",
+  "repository_id": "pfr-openblast",
   "formal_title": "PFR - Plano de Fogo Realizado",
-  "github_url": "https://github.com/SILVAThiagoFerreira/pfr-enaex",
-  "pages_url": "https://silvathiagoferreira.github.io/pfr-enaex/"
+  "github_url": "https://github.com/SILVAThiagoFerreira/pfr-openblast",
+  "pages_url": "https://silvathiagoferreira.github.io/pfr-openblast/"
 }
 ```
 
 ### Invalido
 ```json
 {
-  "repository_id": "PFR ENAEX",
+  "repository_id": "PFR OPENBLAST",
   "formal_title": "",
-  "github_url": "github.com/SILVAThiagoFerreira/pfr-enaex",
-  "pages_url": "https://example.com/pfr-enaex/"
+  "github_url": "github.com/SILVAThiagoFerreira/pfr-openblast",
+  "pages_url": "https://example.com/pfr-openblast/"
 }
 ```

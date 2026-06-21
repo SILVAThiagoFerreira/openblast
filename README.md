@@ -47,7 +47,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - As ferramentas `correcao-de-cargas` e `analisador-de-sismograma` pertencem ao hub `Ferramentas Gerais`.
 - A ferramenta `openblast-nbr9653` tambem pertence ao hub `Ferramentas Gerais` e aparece no hub publico.
 - A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` tambem pertence ao hub `Ferramentas Gerais` e aparece nos dois hubs de ferramentas.
-- As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-enaex` pertencem ao hub `Ferramentas US Vale Verde`.
+- As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-openblast` pertencem ao hub `Ferramentas US Vale Verde`.
 
 ## Como executar
 ```bash

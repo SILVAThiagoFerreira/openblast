@@ -64,7 +64,7 @@
     ]
   },
   "tool_metadata": {
-    "enaex-plano-de-voo": {
+    "openblast-plano-de-voo": {
       "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",
       "kind": "flight",
       "accent": "#e20313",
@@ -88,7 +88,7 @@
       "accent": "#e20313",
       "accent2": "#8dd3ff"
     },
-    "pfr-enaex": {
+    "pfr-openblast": {
       "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
       "kind": "target",
       "accent": "#e20313",
@@ -132,7 +132,7 @@
         "title": "Ferramentas Gerais",
         "description": "Ferramentas compartilhadas da operação.",
         "repository_ids": [
-        "enaex-plano-de-voo",
+        "openblast-plano-de-voo",
         "correcao-de-cargas",
         "blasthole-profile-creator",
         "aquickreportofseismographicdata",
@@ -148,7 +148,7 @@
         "repository_ids": [
           "usmvv_planned_and_executed_data_consolidation",
           "temposemovimentos",
-          "pfr-enaex"
+          "pfr-openblast"
         ]
       }
     ]

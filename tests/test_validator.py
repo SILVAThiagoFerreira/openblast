@@ -26,7 +26,7 @@ def test_validate_inputs_rejects_invalid_github_url(temp_workspace):
     workbook_path = temp_workspace["input_workbook"]
     workbook = load_workbook(workbook_path)
     worksheet = workbook["Repositorios"]
-    worksheet[2][2].value = "http://github.com/SILVAThiagoFerreira/enaex-plano-de-voo"
+    worksheet[2][2].value = "http://github.com/SILVAThiagoFerreira/openblast-plano-de-voo"
     workbook.save(workbook_path)
     workbook.close()
 
