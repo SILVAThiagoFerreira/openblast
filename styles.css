@@ -101,7 +101,7 @@ a {
 }
 
 .brand__logo {
-  width: 120px;
+  width: 86px;
   height: auto;
   object-fit: contain;
 }
@@ -109,9 +109,9 @@ a {
 .brand__wordmark {
   color: var(--text);
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -182,7 +182,7 @@ a {
 .hero__title-row {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   min-width: 0;
 }
 
@@ -202,18 +202,11 @@ a {
 .hero__copy h1 {
   margin: 0;
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
-  font-size: clamp(1.9rem, 5vw, 4rem);
-  line-height: 0.94;
-  letter-spacing: -0.08em;
+  font-size: clamp(1.75rem, 4.4vw, 3.35rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
   text-transform: none;
   white-space: nowrap;
-}
-
-.hero__title-mark {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 auto;
-  object-fit: contain;
 }
 
 .section-head {
@@ -296,7 +289,7 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--line);
   background: #ffffff;
-  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.04);
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.025);
   transform: translateY(0);
   transition:
     transform 180ms ease,
@@ -308,8 +301,8 @@ a {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  height: 1px;
+  background: linear-gradient(90deg, rgba(226, 3, 19, 0.72), rgba(255, 122, 36, 0.42));
 }
 
 .tool-card::after {
@@ -322,9 +315,9 @@ a {
 }
 
 .tool-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(226, 3, 19, 0.18);
-  box-shadow: 0 4px 10px rgba(17, 17, 17, 0.07);
+  transform: translateY(-1px);
+  border-color: rgba(226, 3, 19, 0.14);
+  box-shadow: 0 3px 8px rgba(17, 17, 17, 0.05);
 }
 
 .tool-card__head {
@@ -336,7 +329,7 @@ a {
 }
 
 .tool-mark {
-  width: 54px;
+  width: 46px;
   aspect-ratio: 1;
   flex: 0 0 auto;
   display: grid;
@@ -345,8 +338,8 @@ a {
   color: #fff;
   background: linear-gradient(145deg, var(--accent), var(--accent-2));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 6px 12px rgba(17, 17, 17, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 4px 10px rgba(17, 17, 17, 0.08);
 }
 
 .tool-mark svg {
@@ -362,7 +355,7 @@ a {
 .tool-card h3 {
   position: relative;
   z-index: 1;
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
   font-size: 1.1rem;
   line-height: 1.08;
@@ -456,15 +449,6 @@ a {
 
   .page {
     padding-top: 6px;
-  }
-
-  .hero__title-row {
-    gap: 10px;
-  }
-
-  .hero__title-mark {
-    width: 34px;
-    height: 34px;
   }
 
   .hub-section,
