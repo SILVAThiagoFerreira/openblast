@@ -29,6 +29,7 @@ Atue como engenheiro de sistemas. Priorize arquitetura, rastreabilidade, modular
 - Atualize a documentacao junto com o codigo.
 - Mantenha o `main.py` apenas como orquestrador.
 - Dê preferencia a funcoes pequenas e com responsabilidade unica.
+- Em alteracoes visuais, consulte e respeite `VISUAL_STANDARD.md`.
 
 ## Cuidados com suposicoes
 - Toda suposicao deve virar decisao documentada em `SPEC.md`.

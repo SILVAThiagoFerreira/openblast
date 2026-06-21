@@ -11,6 +11,7 @@ def test_required_files_exist_and_are_not_empty(project_root):
         "PROMPT.md",
         "PIPELINE.md",
         "DATA_SCHEMA.md",
+        "VISUAL_STANDARD.md",
         "config.json",
         "main.py",
         "requirements.txt",
@@ -96,12 +97,12 @@ def test_frontend_copy_is_clean(project_root):
     assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in us_index_text
     assert "brand__wordmark" in public_index_text
     assert "brand__wordmark" in us_index_text
-    assert "brand__logo" not in public_index_text
-    assert "brand__logo" not in us_index_text
+    assert public_index_text.count("brand__logo") == 1
+    assert us_index_text.count("brand__logo") == 1
     assert "hero__title-row" in public_index_text
     assert "hero__title-row" in us_index_text
-    assert "hero__title-mark" in public_index_text
-    assert "hero__title-mark" in us_index_text
+    assert "hero__title-mark" not in public_index_text
+    assert "hero__title-mark" not in us_index_text
     assert "Acesso rápido" in public_index_text
     assert "Acesso rápido" in us_index_text
     assert "hero__description" not in public_index_text

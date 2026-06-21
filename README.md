@@ -17,6 +17,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - `public/index.html`: hub público filtrado.
 - `usvaleverde/index.html`: hub US Vale Verde completo.
 - `script.js`, `styles.css`: interface estatica compartilhada pelos dois hubs.
+- `VISUAL_STANDARD.md`: contrato do padrao visual OpenBlast para futuras alteracoes de interface.
 
 ## Fluxo de uso
 1. Ajuste a planilha de entrada se necessario.
@@ -67,6 +68,9 @@ O arquivo `.nojekyll` na raiz evita processamento do Jekyll e mantém os caminho
 - conferir `output/usvaleverde/tools_manifest.json`
 - conferir `output/run_summary_<run_id>.json`
 - conferir `logs/pipeline_<run_id>.log`
+
+## Padrao visual
+Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o padrao OpenBlast de luxo discreto, tons de branco, geometria mais quadrada, presenca minima do logo e regras para futuras IAs ou desenvolvedores.
 
 ## Como evoluir o projeto
 - Adicione novas ferramentas na planilha, em `tool_metadata` e no hub correspondente em `hubs.groups`.
