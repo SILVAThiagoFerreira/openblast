@@ -70,9 +70,21 @@ const icons = {
   `,
 };
 
+const labels = {
+  flight: "Plano de voo",
+  console: "Consolidação",
+  timer: "Tempos e mov.",
+  blast: "Perfil de furos",
+  target: "Desvios",
+  wave: "Sismografia",
+  charge: "Cargas",
+  shield: "Conformidade",
+};
+
 const grid = document.getElementById("hub-grid");
 
 const renderLogo = (kind) => (icons[kind] || icons.default)();
+const renderLabel = (kind) => labels[kind] || "Ferramenta";
 
 function resolveManifestUrl() {
   const currentScriptUrl = document.currentScript?.dataset?.manifestUrl;
@@ -101,13 +113,13 @@ function renderToolCard(tool) {
     <article class="tool-card" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
         <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
+        <span class="tool-card__tag">${renderLabel(tool.kind)}</span>
       </div>
       <h3>${tool.formal_title}</h3>
-      <p class="tool-card__id">${tool.repository_id}</p>
       <p>${tool.description}</p>
       <div class="tool-card__actions">
         <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página</a>
-        <a class="tool-link" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="tool-link tool-link--ghost" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </article>
   `;
@@ -116,13 +128,10 @@ function renderToolCard(tool) {
 function renderHubGroup(group) {
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
-    <section class="hub-section panel" aria-labelledby="hub-${group.slug}">
+    <section class="hub-section" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
-        <div>
-          <p class="eyebrow eyebrow--muted">HUB</p>
-          <h2 id="hub-${group.slug}">${group.title}</h2>
-          <p class="section-head__text">${group.description}</p>
-        </div>
+        <h2 id="hub-${group.slug}">${group.title}</h2>
+        <p class="section-head__text">${group.description}</p>
       </header>
       <div class="tool-grid tool-grid--group">${cards}</div>
     </section>
@@ -137,7 +146,7 @@ function renderManifest(manifest) {
     if (!tools.length) {
       throw new Error("Manifesto sem hubs ou ferramentas.");
     }
-    grid.innerHTML = `<section class="hub-section panel" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
+    grid.innerHTML = `<section class="hub-section" aria-labelledby="hub-fallback"><header class="hub-section__header"><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
     return;
   }
 
