@@ -103,6 +103,7 @@ function renderToolCard(tool) {
         <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
       </div>
       <h3>${tool.formal_title}</h3>
+      <p class="tool-card__id">${tool.repository_id}</p>
       <p>${tool.description}</p>
       <div class="tool-card__actions">
         <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página</a>
