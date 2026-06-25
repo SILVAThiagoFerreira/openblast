@@ -81,10 +81,22 @@ const labels = {
   shield: "Conformidade",
 };
 
+const categories = {
+  flight: "Plano de Voo",
+  console: "Consolidação",
+  timer: "Tempos e Movimentos",
+  blast: "Perfil de Furos",
+  target: "Análise",
+  wave: "Sismografia",
+  charge: "Cargas",
+  shield: "Conformidade",
+};
+
 const grid = document.getElementById("hub-grid");
 
-const renderLogo = (kind) => (icons[kind] || icons.default)();
-const renderLabel = (kind) => labels[kind] || "Ferramenta";
+const renderCategory = (kind) => categories[kind] || "Ferramenta";
+
+let toolCounter = 0;
 
 function resolveManifestUrl() {
   const currentScriptUrl = document.currentScript?.dataset?.manifestUrl;
@@ -109,17 +121,19 @@ function renderStatus(message, modifier = "") {
 }
 
 function renderToolCard(tool) {
+  toolCounter++;
+  const num = String(toolCounter).padStart(2, "0");
   return `
     <article class="tool-card" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
-        <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
-        <span class="tool-card__tag">${renderLabel(tool.kind)}</span>
+        <span class="tool-card__number">Ferramenta ${num}</span>
+        <span class="tool-card__status"><span class="tool-card__status-dot" aria-hidden="true"></span> Online</span>
       </div>
       <h3>${tool.formal_title}</h3>
       <p>${tool.description}</p>
-      <div class="tool-card__actions">
-        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página</a>
-        <a class="tool-link tool-link--ghost" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
+      <div class="tool-card__footer">
+        <span class="tool-card__category">${renderCategory(tool.kind)}</span>
+        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Acessar &rarr;</a>
       </div>
     </article>
   `;
@@ -139,6 +153,7 @@ function renderHubGroup(group) {
 }
 
 function renderManifest(manifest) {
+  toolCounter = 0;
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
 
   if (!hubs.length) {
