@@ -272,7 +272,9 @@ a {
   border-radius: var(--radius-md);
   transition:
     background 160ms ease,
-    box-shadow 160ms ease;
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
 }
 
 .tool-card::before {
@@ -281,7 +283,9 @@ a {
 
 .tool-card:hover {
   background: var(--surface-quiet);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
 }
 
 .tool-card__head {
