@@ -133,7 +133,7 @@ function renderToolCard(tool) {
       <p>${tool.description}</p>
       <div class="tool-card__footer">
         <span class="tool-card__category">${renderCategory(tool.kind)}</span>
-        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Acessar &rarr;</a>
+        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página &rarr;</a>
       </div>
     </article>
   `;

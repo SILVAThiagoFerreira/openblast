@@ -28,7 +28,7 @@ def test_processor_builds_manifest(temp_workspace):
     assert "tool_count" not in manifest["hubs"][1]
     assert [hub["title"] for hub in manifest["hubs"]] == [
         "Ferramentas Gerais",
-        "Ferramentas US Vale Verde",
+        "Ferramentas Locais",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
         "Conversor DXF para KMZ Operacional",
@@ -60,7 +60,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
     )
     assert manifest["tools"][1]["description"] == (
-        "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde."
+        "Algoritmo para consolidação operacional de dados de perfuração planejada e executada."
     )
     assert manifest["tools"][2]["description"] == (
         "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos."

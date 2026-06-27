@@ -1,20 +1,22 @@
 :root {
   --bg: #ffffff;
   --surface: #ffffff;
-  --surface-quiet: #fafafa;
-  --line: #e6e3dd;
-  --line-soft: #ecebe6;
-  --line-strong: #d3cec5;
-  --text: #0d0d0d;
-  --text-soft: #3a3a3a;
-  --muted: #76726b;
-  --muted-strong: #9a958c;
-  --accent: #e20313;
+  --surface-quiet: #f7f7f8;
+  --line: #e3e6ea;
+  --line-soft: #eceef1;
+  --line-strong: #d2d6db;
+  --text: #38424b;
+  --text-soft: #4a5560;
+  --muted: #6c7680;
+  --muted-strong: #8b949e;
+  --accent: #e20613;
   --accent-2: #ff7a24;
-  --radius-xs: 2px;
-  --radius-sm: 3px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
+  --enaex-gray: #38424b;
+  --enaex-red: #e20613;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   color-scheme: light;
 }
 
@@ -48,8 +50,8 @@ a {
 }
 
 ::selection {
-  background: rgba(226, 3, 19, 0.14);
-  color: #0d0d0d;
+  background: rgba(226, 6, 19, 0.14);
+  color: #38424b;
 }
 
 .shell {
@@ -81,9 +83,17 @@ a {
 }
 
 .brand__logo {
-  width: 34px;
+  width: 30px;
   height: auto;
   object-fit: contain;
+}
+
+.brand__wordmark {
+  color: var(--text);
+  font-family: "Archivo", "IBM Plex Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .topbar__unit {

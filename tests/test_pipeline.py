@@ -31,7 +31,7 @@ def test_pipeline_end_to_end(temp_workspace):
     assert len(manifest_payload["tools"]) == 10
     assert len(manifest_payload["hubs"]) == 2
     assert manifest_payload["hubs"][0]["title"] == "Ferramentas Gerais"
-    assert manifest_payload["hubs"][1]["title"] == "Ferramentas US Vale Verde"
+    assert manifest_payload["hubs"][1]["title"] == "Ferramentas Locais"
     assert "tool_count" not in manifest_payload["hubs"][0]
     assert "tool_count" not in manifest_payload["hubs"][1]
     assert manifest_payload["publication"]["slug"] == "usvaleverde"

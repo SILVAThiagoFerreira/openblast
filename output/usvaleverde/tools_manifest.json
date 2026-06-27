@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-06-21T14:36:58Z",
-  "run_id": "20260621_143658",
+  "generated_at": "2026-06-27T20:26:44Z",
+  "run_id": "20260627_202644",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -34,7 +34,7 @@
     "slug": "usvaleverde",
     "hub_slugs": [
       "ferramentas-gerais",
-      "ferramentas-us-vale-verde"
+      "ferramentas-locais"
     ],
     "source_hub_count": 2,
     "source_tool_count": 10,
@@ -167,9 +167,9 @@
       ]
     },
     {
-      "slug": "ferramentas-us-vale-verde",
-      "title": "Ferramentas US Vale Verde",
-      "description": "Ferramentas dedicadas à operação da US Vale Verde.",
+      "slug": "ferramentas-locais",
+      "title": "Ferramentas Locais",
+      "description": "Ferramentas dedicadas à operação local.",
       "tools": [
         {
           "row_number": 3,
@@ -177,7 +177,7 @@
           "formal_title": "Consolidação Plan./Exec. | US Vale Verde",
           "github_url": "https://github.com/SILVAThiagoFerreira/usmvv_planned_and_executed_data_consolidation",
           "pages_url": "https://silvathiagoferreira.github.io/usmvv_planned_and_executed_data_consolidation/",
-          "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde.",
+          "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada.",
           "kind": "console",
           "accent": "#e20313",
           "accent2": "#6c8cff",
@@ -245,7 +245,7 @@
       "formal_title": "Consolidação Plan./Exec. | US Vale Verde",
       "github_url": "https://github.com/SILVAThiagoFerreira/usmvv_planned_and_executed_data_consolidation",
       "pages_url": "https://silvathiagoferreira.github.io/usmvv_planned_and_executed_data_consolidation/",
-      "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde.",
+      "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada.",
       "kind": "console",
       "accent": "#e20313",
       "accent2": "#6c8cff",

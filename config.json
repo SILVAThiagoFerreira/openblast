@@ -58,7 +58,7 @@
         "html_path": "usvaleverde/index.html",
         "hub_slugs": [
           "ferramentas-gerais",
-          "ferramentas-us-vale-verde"
+          "ferramentas-locais"
         ]
       }
     ]
@@ -71,7 +71,7 @@
       "accent2": "#ff7a24"
     },
     "usmvv_planned_and_executed_data_consolidation": {
-      "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde.",
+      "description": "Algoritmo para consolidação operacional de dados de perfuração planejada e executada.",
       "kind": "console",
       "accent": "#e20313",
       "accent2": "#6c8cff"
@@ -142,9 +142,9 @@
       ]
     },
       {
-        "slug": "ferramentas-us-vale-verde",
-        "title": "Ferramentas US Vale Verde",
-        "description": "Ferramentas dedicadas à operação da US Vale Verde.",
+        "slug": "ferramentas-locais",
+        "title": "Ferramentas Locais",
+        "description": "Ferramentas dedicadas à operação local.",
         "repository_ids": [
           "usmvv_planned_and_executed_data_consolidation",
           "temposemovimentos",
