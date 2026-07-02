@@ -45,6 +45,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - `tool_metadata`: descricao, tipo de icone e cores de cada ferramenta.
 - `hubs`: agrupamento, ordenacao e copy dos hubs exibidos no front-end.
 - `publishing.targets`: define quais grupos entram no hub US Vale Verde e quais entram no hub público.
+- `publishing.targets[].excluded_repository_ids`: remove cards específicos de uma publicação sem alterar a planilha; use quando a ferramenta continua existindo na origem, mas nao deve aparecer em uma homepage publica.
 - As ferramentas `correcao-de-cargas` e `analisador-de-sismograma` pertencem ao hub `Ferramentas Gerais`.
 - A ferramenta `openblast-nbr9653` tambem pertence ao hub `Ferramentas Gerais` e aparece no hub publico.
 - A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` tambem pertence ao hub `Ferramentas Gerais` e aparece nos dois hubs de ferramentas.
@@ -76,6 +77,7 @@ Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o
 - Adicione novas ferramentas na planilha, em `tool_metadata` e no hub correspondente em `hubs.groups`.
 - Se a ferramenta puder ser compartilhada, mantenha-a em `Ferramentas Gerais`; se for interna, mantenha-a em `Ferramentas US Vale Verde`.
 - As ferramentas `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` ja estao mapeadas para `Ferramentas Gerais`.
+- Se uma ferramenta precisar sair de apenas uma publicacao, prefira `publishing.targets[].excluded_repository_ids` em vez de remover a linha da planilha.
 - Títulos exibidos vêm da planilha; descrições e metadados visuais vêm de `config.json`.
 - Nao altere o contrato do manifesto sem atualizar `script.js`, `DATA_SCHEMA.md` e os testes.
 - Toda mudanca de regra deve ser documentada em `SPEC.md`.

@@ -102,17 +102,39 @@ def build_manifest(
         }
     else:
         allowed_hub_slugs = set(publication_target["hub_slugs"])
-        hub_groups = [group for group in all_hub_groups if group["slug"] in allowed_hub_slugs]
+        excluded_repository_ids = set(publication_target.get("excluded_repository_ids", []))
+        hub_groups = []
+        for group in all_hub_groups:
+            if group["slug"] not in allowed_hub_slugs:
+                continue
+
+            filtered_tools = [
+                tool
+                for tool in group["tools"]
+                if tool["repository_id"] not in excluded_repository_ids
+            ]
+            if filtered_tools:
+                hub_groups.append(
+                    {
+                        "slug": group["slug"],
+                        "title": group["title"],
+                        "description": group["description"],
+                        "tools": filtered_tools,
+                    }
+                )
+
         allowed_repository_ids = {tool["repository_id"] for group in hub_groups for tool in group["tools"]}
         tool_payloads = [tool for tool in all_tools if tool["repository_id"] in allowed_repository_ids]
+        published_hub_slugs = [group["slug"] for group in hub_groups]
+        published_hub_slug_set = set(published_hub_slugs)
         publication_payload = {
             "slug": publication_target["slug"],
-            "hub_slugs": list(publication_target["hub_slugs"]),
+            "hub_slugs": published_hub_slugs,
             "source_hub_count": len(all_hub_groups),
             "source_tool_count": len(all_tools),
             "published_hub_count": len(hub_groups),
             "published_tool_count": len(tool_payloads),
-            "excluded_hub_slugs": [group["slug"] for group in all_hub_groups if group["slug"] not in allowed_hub_slugs],
+            "excluded_hub_slugs": [group["slug"] for group in all_hub_groups if group["slug"] not in published_hub_slug_set],
         }
 
     return {

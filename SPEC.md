@@ -10,6 +10,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 4. A ordem das ferramentas no manifesto segue a ordem das linhas da planilha.
 5. Cada ferramenta pertence a exatamente um hub definido em `config.json`.
 6. `publishing.targets` define quais grupos vao para cada hub publicado.
+7. `publishing.targets[].excluded_repository_ids` pode remover ferramentas especificas de uma publicacao sem alterar a origem da planilha.
 
 ## Validacoes obrigatorias
 - A planilha deve conter a aba configurada em `config.json`.
@@ -20,6 +21,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - O nome do repositorio nas URLs deve bater com `repository_id`; em `pages_url`, a comparacao e case-insensitive para cobrir o caminho canonico do GitHub Pages.
 - Cada `repository_id` deve existir em `tool_metadata`.
 - Cada `repository_id` deve existir em exatamente um grupo de `hubs.groups`.
+- Se `excluded_repository_ids` estiver presente em um target, todos os IDs devem existir em `tool_metadata` e nao podem se repetir.
 - Cor de acento deve ser hex valida.
 - IDs duplicados sao erro fatal.
 - A publicacao US Vale Verde deve usar `output/usvaleverde/tools_manifest.json` e `usvaleverde/index.html`.
@@ -32,6 +34,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - O resumo de execucao deve registrar sucesso ou falha.
 - Cada execucao gera um log timestampado.
 - O manifesto US Vale Verde inclui os dois grupos de hub; o manifesto publico inclui apenas `Ferramentas Gerais`.
+- Exclusions em `publishing.targets[].excluded_repository_ids` afetam apenas a publicacao alvo e nao alteram a origem da planilha.
 
 ## Tratamento de erros
 - Erros de configuracao: falha imediata antes do pipeline.
@@ -50,6 +53,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - `validation.require_tool_metadata` e um guardrail fixado em `true`; se for alterado, a configuracao falha.
 - `hubs.groups` define os blocos que o front-end renderiza e tambem a ordenacao dos cards.
 - `publishing.targets` define o recorte de grupo para o hub US Vale Verde e para o hub publico.
+- `publishing.targets[].excluded_repository_ids` remove cards selecionados apenas do target indicado, preservando os demais hubs.
 
 ## Limitacoes conhecidas
 - Novas ferramentas exigem atualizar a planilha e `tool_metadata`.

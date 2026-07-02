@@ -38,10 +38,10 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - O logo deve aparecer uma vez por pagina, normalmente no topo.
 - Nao duplicar logo no hero e no header ao mesmo tempo.
 - Tamanho alvo no desktop:
-  - Hub: entre 56px e 72px de largura.
-  - Ferramentas: entre 60px e 80px de largura.
+  - Hub: entre 24px e 32px de largura.
+  - Ferramentas: entre 22px e 48px de largura, priorizando o menor valor que preserve legibilidade.
 - Tamanho alvo no mobile:
-  - entre 48px e 60px.
+  - entre 20px e 32px.
 - Nao usar sombras fortes no logo.
 - Nao transformar o logo em elemento protagonista.
 

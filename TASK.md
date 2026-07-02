@@ -14,6 +14,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Criar saida consumida pelo front-end.
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end com copy objetiva.
 - Criar publicacao do hub US Vale Verde e publicacao publica filtrada.
+- Permitir exclusoes pontuais por publicacao via configuracao, sem mexer na planilha de origem.
 - Criar testes automatizados minimos.
 - Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` no hub `Ferramentas Gerais`.
 
@@ -38,3 +39,4 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - O manifesto gerado alimenta o front-end.
 - A execucao gera log e resumo identificaveis.
 - Os testes passam.
+- Cards podem ser ocultados de uma homepage especifica por configuracao, sem remover a ferramenta da origem.

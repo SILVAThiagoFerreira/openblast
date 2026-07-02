@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-06-27T20:26:44Z",
-  "run_id": "20260627_202644",
+  "generated_at": "2026-07-02T17:09:34Z",
+  "run_id": "20260702_170934",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,7 +16,7 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "ea0bf13949abe6bcf9c976985925e878f4031ba20f6bf19e6bb7db976d6ec298",
+    "sha256": "1a9591cba0b54025f188a3ec12243197efb0871ab605cac0bc87095c7b17eb24",
     "row_count": 10
   },
   "counts": {
@@ -56,7 +56,7 @@
         {
           "row_number": 2,
           "repository_id": "openblast-plano-de-voo",
-          "formal_title": "Conversor DXF para KMZ Operacional",
+          "formal_title": "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
           "github_url": "https://github.com/SILVAThiagoFerreira/openblast-plano-de-voo",
           "pages_url": "https://silvathiagoferreira.github.io/openblast-plano-de-voo/",
           "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",
@@ -136,7 +136,7 @@
         {
           "row_number": 10,
           "repository_id": "openblast-nbr9653",
-          "formal_title": "OpenBlast NBR 9653",
+          "formal_title": "ABNT NBR 9653*",
           "github_url": "https://github.com/SILVAThiagoFerreira/openblast-nbr9653",
           "pages_url": "https://silvathiagoferreira.github.io/openblast-nbr9653/",
           "description": "Leitor local de CSVs de sismogramas com gráficos de pressão e vibração, exportação em SVG/PNG/CSV/PDF e foco em conformidade com a ABNT NBR 9653:2018.",
@@ -172,7 +172,7 @@
     {
       "row_number": 2,
       "repository_id": "openblast-plano-de-voo",
-      "formal_title": "Conversor DXF para KMZ Operacional",
+      "formal_title": "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
       "github_url": "https://github.com/SILVAThiagoFerreira/openblast-plano-de-voo",
       "pages_url": "https://silvathiagoferreira.github.io/openblast-plano-de-voo/",
       "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",
@@ -252,7 +252,7 @@
     {
       "row_number": 10,
       "repository_id": "openblast-nbr9653",
-      "formal_title": "OpenBlast NBR 9653",
+      "formal_title": "ABNT NBR 9653*",
       "github_url": "https://github.com/SILVAThiagoFerreira/openblast-nbr9653",
       "pages_url": "https://silvathiagoferreira.github.io/openblast-nbr9653/",
       "description": "Leitor local de CSVs de sismogramas com gráficos de pressão e vibração, exportação em SVG/PNG/CSV/PDF e foco em conformidade com a ABNT NBR 9653:2018.",

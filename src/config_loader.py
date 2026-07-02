@@ -210,6 +210,30 @@ def _validate_sections(config: dict) -> None:
                 f"Publishing target '{target['slug']}' references unknown hub group(s): {', '.join(missing_hub_slugs)}"
             )
 
+        excluded_repository_ids = target.get("excluded_repository_ids", [])
+        if excluded_repository_ids is None:
+            excluded_repository_ids = []
+        if not isinstance(excluded_repository_ids, list):
+            raise ConfigError(
+                f"Publishing target '{target['slug']}' has an invalid excluded_repository_ids list"
+            )
+
+        seen_exclusions: set[str] = set()
+        for repository_id in excluded_repository_ids:
+            if not isinstance(repository_id, str) or not repository_id.strip():
+                raise ConfigError(
+                    f"Publishing target '{target['slug']}' has an invalid excluded repository id"
+                )
+            if repository_id in seen_exclusions:
+                raise ConfigError(
+                    f"Publishing target '{target['slug']}' repeats excluded repository id '{repository_id}'"
+                )
+            if repository_id not in all_group_ids:
+                raise ConfigError(
+                    f"Publishing target '{target['slug']}' excludes unknown repository id '{repository_id}'"
+                )
+            seen_exclusions.add(repository_id)
+
     tool_metadata = config["tool_metadata"]
     if not tool_metadata:
         raise ConfigError("tool_metadata cannot be empty")
@@ -268,6 +292,7 @@ def _resolve_publication_targets(config: dict, project_root: Path) -> list[dict]
                 "manifest_file": (project_root / target["manifest_path"]).resolve(),
                 "html_file": (project_root / target["html_path"]).resolve(),
                 "hub_slugs": list(target["hub_slugs"]),
+                "excluded_repository_ids": list(target.get("excluded_repository_ids", [])),
             }
         )
     return resolved_targets

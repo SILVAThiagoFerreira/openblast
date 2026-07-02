@@ -88,7 +88,7 @@ def run_pipeline(config_path: str | Path) -> int:
                     "slug": target["slug"],
                     "manifest": str(target["manifest_file"]),
                     "html": str(target["html_file"]),
-                    "hub_slugs": target["hub_slugs"],
+                    "hub_slugs": manifest["publication"]["hub_slugs"],
                     "hub_count": manifest["counts"]["hub_count"],
                     "tool_count": manifest["counts"]["valid_rows"],
                 }
