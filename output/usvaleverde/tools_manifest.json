@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-07-02T17:09:34Z",
-  "run_id": "20260702_170934",
+  "generated_at": "2026-07-02T18:21:41Z",
+  "run_id": "20260702_182141",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,7 +16,7 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "1a9591cba0b54025f188a3ec12243197efb0871ab605cac0bc87095c7b17eb24",
+    "sha256": "45ccd488ddfb2bac6d03da17084079e5284e385487e71b22db65a7fbbf42da22",
     "row_count": 10
   },
   "counts": {
@@ -55,7 +55,7 @@
         {
           "row_number": 2,
           "repository_id": "openblast-plano-de-voo",
-          "formal_title": "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
+          "formal_title": "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
           "github_url": "https://github.com/SILVAThiagoFerreira/openblast-plano-de-voo",
           "pages_url": "https://silvathiagoferreira.github.io/openblast-plano-de-voo/",
           "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",
@@ -194,7 +194,7 @@
     {
       "row_number": 2,
       "repository_id": "openblast-plano-de-voo",
-      "formal_title": "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
+      "formal_title": "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
       "github_url": "https://github.com/SILVAThiagoFerreira/openblast-plano-de-voo",
       "pages_url": "https://silvathiagoferreira.github.io/openblast-plano-de-voo/",
       "description": "Conversão DXF em poligonal operacional com exportação KMZ para visualização no Google Earth.",

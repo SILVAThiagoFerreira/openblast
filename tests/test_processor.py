@@ -38,7 +38,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Ferramentas Locais",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
-        "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
+        "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
         "Análise de Cargas - OpitAPP",
         "Blasthole Profile Creator",
         "Analisador de Sismograma - Waveform",
@@ -50,7 +50,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Tempos e Movimentos | Carregamento de Explosivo",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
-        "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
+        "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
         "Consolidação Plan./Exec. | US Vale Verde",
         "Tempos e Movimentos | Carregamento de Explosivo",
         "Blasthole Profile Creator",
@@ -98,7 +98,7 @@ def test_processor_builds_public_manifest(temp_workspace):
     assert "tool_count" not in manifest["hubs"][0]
     assert [hub["title"] for hub in manifest["hubs"]] == ["Ferramentas Gerais"]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
-        "Conversor: Boreholes/DXF para Limite DXF e KMZ (Plano de Voo)",
+        "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
         "Blasthole Profile Creator",
         "Report Sismografia OpenBlast",
         "Analisador de Sismograma - Waveform",
