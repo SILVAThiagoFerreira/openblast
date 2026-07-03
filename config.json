@@ -61,7 +61,6 @@
           "ferramentas-locais"
         ],
         "excluded_repository_ids": [
-          "report-sismografia",
           "pfr-openblast"
         ]
       }
