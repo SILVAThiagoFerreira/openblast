@@ -52,10 +52,11 @@ def test_processor_builds_manifest(temp_workspace):
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-        "Consolidação Plan./Exec. | US Vale Verde",
-        "Tempos e Movimentos | Carregamento de Explosivo",
-        "Blasthole Profile Creator",
-        "Analisador de Sismograma - Waveform",
+            "Consolidação Plan./Exec. | US Vale Verde",
+            "Tempos e Movimentos | Carregamento de Explosivo",
+            "Blasthole Profile Creator",
+            "Reporte de Sismografia",
+            "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
         "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
