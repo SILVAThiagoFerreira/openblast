@@ -140,6 +140,7 @@ function renderToolCard(tool) {
 }
 
 function renderHubGroup(group) {
+  toolCounter = 0;
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
     <section class="hub-section" aria-labelledby="hub-${group.slug}">
