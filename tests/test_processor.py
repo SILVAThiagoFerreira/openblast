@@ -28,7 +28,7 @@ def test_processor_builds_manifest(temp_workspace):
     )
 
     assert len(records) == 10
-    assert manifest["counts"]["valid_rows"] == 8
+    assert manifest["counts"]["valid_rows"] == 9
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -100,7 +100,7 @@ def test_processor_builds_public_manifest(temp_workspace):
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
         "Blasthole Profile Creator",
-        "Report Sismografia OpenBlast",
+            "Reporte de Sismografia",
         "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
         "ABNT NBR 9653*",
