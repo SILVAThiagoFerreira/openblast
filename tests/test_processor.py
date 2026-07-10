@@ -38,10 +38,11 @@ def test_processor_builds_manifest(temp_workspace):
         "Ferramentas Locais",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
-        "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-        "Análise de Cargas - OpitAPP",
-        "Blasthole Profile Creator",
-        "Analisador de Sismograma - Waveform",
+            "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
+            "Análise de Cargas - OpitAPP",
+            "Blasthole Profile Creator",
+            "Reporte de Sismografia",
+            "Analisador de Sismograma - Waveform",
         "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
     ]
