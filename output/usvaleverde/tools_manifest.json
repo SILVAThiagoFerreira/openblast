@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-07-12T15:16:09Z",
-  "run_id": "20260712_151609",
+  "generated_at": "2026-07-12T22:32:08Z",
+  "run_id": "20260712_223208",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -20,8 +20,8 @@
     "row_count": 10
   },
   "counts": {
-    "total_rows": 9,
-    "valid_rows": 9,
+    "total_rows": 8,
+    "valid_rows": 8,
     "invalid_rows": 0,
     "hub_count": 2
   },
@@ -39,7 +39,7 @@
     "source_hub_count": 2,
     "source_tool_count": 10,
     "published_hub_count": 2,
-    "published_tool_count": 9,
+    "published_tool_count": 8,
     "excluded_hub_slugs": []
   },
   "generator": {
@@ -186,22 +186,6 @@
           "pages_owner": "silvathiagoferreira",
           "pages_repo_name": "usmvv_planned_and_executed_data_consolidation",
           "order": 2
-        },
-        {
-          "row_number": 4,
-          "repository_id": "temposemovimentos",
-          "formal_title": "Tempos e Movimentos | Carregamento de Explosivo",
-          "github_url": "https://github.com/SILVAThiagoFerreira/temposemovimentos",
-          "pages_url": "https://silvathiagoferreira.github.io/temposemovimentos/",
-          "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
-          "kind": "timer",
-          "accent": "#e20313",
-          "accent2": "#ffb12a",
-          "github_owner": "SILVAThiagoFerreira",
-          "github_repo_name": "temposemovimentos",
-          "pages_owner": "silvathiagoferreira",
-          "pages_repo_name": "temposemovimentos",
-          "order": 3
         }
       ]
     }
@@ -238,22 +222,6 @@
       "pages_owner": "silvathiagoferreira",
       "pages_repo_name": "usmvv_planned_and_executed_data_consolidation",
       "order": 2
-    },
-    {
-      "row_number": 4,
-      "repository_id": "temposemovimentos",
-      "formal_title": "Tempos e Movimentos | Carregamento de Explosivo",
-      "github_url": "https://github.com/SILVAThiagoFerreira/temposemovimentos",
-      "pages_url": "https://silvathiagoferreira.github.io/temposemovimentos/",
-      "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
-      "kind": "timer",
-      "accent": "#e20313",
-      "accent2": "#ffb12a",
-      "github_owner": "SILVAThiagoFerreira",
-      "github_repo_name": "temposemovimentos",
-      "pages_owner": "silvathiagoferreira",
-      "pages_repo_name": "temposemovimentos",
-      "order": 3
     },
     {
       "row_number": 5,
