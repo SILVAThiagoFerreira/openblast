@@ -70,16 +70,22 @@ a {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  min-height: 60px;
-  padding: 11px 0 10px;
-  background: #ffffff;
-  border-top: 3px solid var(--openblast-red);
-  border-bottom: 1px solid var(--line-soft);
+  min-height: 54px;
+  padding: 8px 32px;
+  background: #263540;
+  border-top: 0;
+  border-bottom: 3px solid var(--openblast-red);
+}
+
+.topbar.shell {
+  width: 100vw;
+  margin-right: 0;
+  margin-left: calc(50% - 50vw);
 }
 
 .brand {
   position: absolute;
-  left: 0;
+  left: 32px;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -91,12 +97,13 @@ a {
   max-height: 38px;
   height: auto;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .brand__wordmark {
   display: inline-flex;
   align-items: baseline;
-  color: var(--openblast-ink);
+  color: #ffffff;
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
   font-size: 1rem;
   font-weight: 700;
@@ -104,12 +111,12 @@ a {
 }
 
 .brand__wordmark strong {
-  color: var(--openblast-red);
+  color: #ff4b55;
   font-weight: 700;
 }
 
 .topbar__title {
-  color: var(--openblast-ink);
+  color: #ffffff;
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
   font-size: 1rem;
   font-weight: 700;
@@ -482,8 +489,18 @@ a {
   }
 
   .topbar {
-    justify-content: flex-end;
-    padding: 14px 0 12px;
+    justify-content: center;
+    min-height: 52px;
+    padding: 8px 16px;
+  }
+
+  .topbar.shell {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .brand {
+    left: 16px;
   }
 
   .topbar__title {
