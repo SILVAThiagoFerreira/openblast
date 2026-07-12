@@ -61,8 +61,7 @@
           "ferramentas-locais"
         ],
         "excluded_repository_ids": [
-          "pfr-openblast",
-          "temposemovimentos"
+          "pfr-openblast"
         ]
       }
     ]
