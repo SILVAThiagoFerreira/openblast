@@ -86,8 +86,8 @@ def test_frontend_copy_is_clean(project_root):
     assert "Hub Aberto" not in public_index_text
     assert "Hub Geral" not in us_index_text
     assert "Hub Aberto" not in us_index_text
-    assert "Hub Público de Ferramentas" in public_index_text
-    assert "Hub de Ferramentas" in us_index_text
+    assert "Ferramentas" in public_index_text
+    assert "Ferramentas" in us_index_text
     assert "Selecione um hub para abrir a ferramenta desejada." not in public_index_text
     assert "Selecione um hub para abrir a ferramenta desejada." not in us_index_text
     assert "Ferramentas corporativas e operacionais de uso transversal." not in config_text

@@ -36,6 +36,7 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 
 ## Logo e branding
 - O logo deve aparecer uma vez por pagina, normalmente no topo.
+- A faixa de topo deve usar fundo branco, linha vermelha OpenBlast de 3px e titulo centralizado; o logo fica discreto alinhado à esquerda.
 - Nao duplicar logo no hero e no header ao mesmo tempo.
 - Tamanho alvo no desktop:
   - Hub: entre 24px e 32px de largura.

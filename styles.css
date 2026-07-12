@@ -11,8 +11,8 @@
   --muted-strong: #8b949e;
   --accent: #e20613;
   --accent-2: #ff7a24;
-  --enaex-gray: #38424b;
-  --enaex-red: #e20613;
+  --openblast-ink: #293642;
+  --openblast-red: #ed1c24;
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -34,7 +34,7 @@ body {
   color: var(--text);
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   font-size: 15px;
-  background: #ffffff;
+  background: #fcfcfb;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -63,19 +63,23 @@ a {
 /* ---------- Topbar ---------- */
 
 .topbar {
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px;
-  padding: 16px 0 14px;
-  background: rgba(255, 255, 255, 0.94);
+  min-height: 66px;
+  padding: 14px 0 13px;
+  background: #ffffff;
+  border-top: 3px solid var(--openblast-red);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .brand {
+  position: absolute;
+  left: 0;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -83,17 +87,22 @@ a {
 }
 
 .brand__logo {
-  width: 26px;
+  width: 112px;
+  max-height: 38px;
   height: auto;
   object-fit: contain;
 }
 
 .brand__wordmark {
-  color: var(--text);
+  display: none;
+}
+
+.topbar__title {
+  color: var(--openblast-ink);
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .topbar__unit {
@@ -108,7 +117,7 @@ a {
 /* ---------- Page ---------- */
 
 .page {
-  padding: 28px 0 8px;
+  padding: 34px 0 8px;
 }
 
 /* ---------- Hero ---------- */
@@ -122,7 +131,7 @@ a {
 
 .hero__copy {
   position: relative;
-  padding: 4px 0 24px;
+  padding: 8px 0 28px;
   border-bottom: 1px solid var(--line-soft);
 }
 
@@ -131,9 +140,9 @@ a {
   position: absolute;
   top: 2px;
   left: 0;
-  width: 40px;
-  height: 2px;
-  background: var(--accent);
+  width: 38px;
+  height: 3px;
+  background: var(--openblast-red);
 }
 
 .hero__title-row {
@@ -163,7 +172,7 @@ a {
 .hero__copy h1 {
   margin: 0;
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
-  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.035em;
@@ -171,7 +180,7 @@ a {
 }
 
 .hero__subtitle {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.5;
@@ -279,7 +288,7 @@ a {
   background: #ffffff;
   border: 1px solid var(--line-soft);
   border-top: 2px solid var(--accent);
-  border-radius: var(--radius-md);
+  border-radius: 5px;
   transition:
     background 160ms ease,
     box-shadow 160ms ease,
@@ -294,7 +303,7 @@ a {
 .tool-card:hover {
   background: var(--surface-quiet);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   border-color: var(--line-strong);
 }
 
@@ -461,11 +470,17 @@ a {
   }
 
   .topbar {
+    justify-content: flex-end;
     padding: 14px 0 12px;
   }
 
+  .topbar__title {
+    font-size: 0.92rem;
+  }
+
   .brand__logo {
-    width: 24px;
+    width: 86px;
+    max-height: 30px;
   }
 
   .page {

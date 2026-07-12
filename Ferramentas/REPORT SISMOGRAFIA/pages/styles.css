@@ -65,6 +65,8 @@ a { color: inherit; }
 
 .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
 .brand__logo { width: 26px; height: auto; object-fit: contain; }
+.topbar { border-top: 3px solid #ed1c24; background: #fff; box-shadow: 0 1px 0 #e9ecef; }
+.brand__logo { width: 112px; max-height: 38px; }
 .brand__wordmark {
   color: var(--text);
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
