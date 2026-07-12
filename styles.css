@@ -274,8 +274,8 @@ a {
 
 .tool-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .tool-grid--group {
@@ -301,12 +301,12 @@ a {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 184px;
-  padding: 18px 20px 16px;
+  min-height: 248px;
+  padding: 24px 26px 22px;
   background: #ffffff;
   border: 1px solid var(--line-soft);
-  border-top: 2px solid var(--accent);
-  border-radius: 5px;
+  border-top: 3px solid var(--openblast-red);
+  border-radius: 3px;
   transition:
     background 160ms ease,
     box-shadow 160ms ease,
@@ -319,10 +319,10 @@ a {
 }
 
 .tool-card:hover {
-  background: var(--surface-quiet);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(38, 53, 64, 0.09);
   transform: translateY(-1px);
-  border-color: var(--line-strong);
+  border-color: var(--openblast-red);
 }
 
 .tool-card__head {
@@ -330,7 +330,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .tool-card__number {
@@ -357,26 +357,26 @@ a {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #22c55e;
+  background: var(--openblast-red);
   flex-shrink: 0;
 }
 
 .tool-card h3 {
   margin: 0;
   font-family: "Archivo", "IBM Plex Sans", sans-serif;
-  font-size: 0.98rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
   color: var(--text);
-  min-height: 2.4em;
+  min-height: 0;
 }
 
 .tool-card p {
-  margin: 6px 0 0;
+  margin: 10px 0 0;
   color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 0.92rem;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -390,7 +390,7 @@ a {
   justify-content: space-between;
   gap: 16px;
   margin-top: auto;
-  padding-top: 14px;
+  padding-top: 20px;
   border-top: 1px solid var(--line-soft);
 }
 
@@ -535,6 +535,10 @@ a {
   .tool-card__footer {
     flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .tool-grid {
+    grid-template-columns: 1fr;
   }
 
   .page-footer {
