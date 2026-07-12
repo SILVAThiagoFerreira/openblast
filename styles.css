@@ -87,14 +87,25 @@ a {
 }
 
 .brand__logo {
-  width: 112px;
+  width: 34px;
   max-height: 38px;
   height: auto;
   object-fit: contain;
 }
 
 .brand__wordmark {
-  display: none;
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--openblast-ink);
+  font-family: "Archivo", "IBM Plex Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.brand__wordmark strong {
+  color: var(--openblast-red);
+  font-weight: 700;
 }
 
 .topbar__title {
@@ -479,8 +490,12 @@ a {
   }
 
   .brand__logo {
-    width: 86px;
+    width: 30px;
     max-height: 30px;
+  }
+
+  .brand__wordmark {
+    font-size: 0.9rem;
   }
 
   .page {
