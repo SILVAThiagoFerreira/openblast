@@ -40,8 +40,8 @@ def test_processor_builds_manifest(temp_workspace):
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
             "Análise de Cargas - OpitAPP",
-            "Blasthole Profile Creator",
-            "Reporte de Sismografia",
+            "Criador de Perfil de Furo de Desmonte",
+            "Report de Monitoramento Sismografico",
             "Analisador de Sismograma - Waveform",
         "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
@@ -55,9 +55,9 @@ def test_processor_builds_manifest(temp_workspace):
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
                 "Consolidação Plan./Exec. | US Vale Verde",
                     "Tempos e Movimentos | Carregamento de Explosivo",
-                    "Blasthole Profile Creator",
+                        "Criador de Perfil de Furo de Desmonte",
                 "Plano de Fogo Realizado",
-            "Reporte de Sismografia",
+                "Report de Monitoramento Sismografico",
             "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
         "ABNT NBR 9653*",
@@ -103,8 +103,8 @@ def test_processor_builds_public_manifest(temp_workspace):
     assert [hub["title"] for hub in manifest["hubs"]] == ["Ferramentas Gerais"]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-        "Blasthole Profile Creator",
-            "Reporte de Sismografia",
+            "Criador de Perfil de Furo de Desmonte",
+                "Report de Monitoramento Sismografico",
         "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
         "ABNT NBR 9653*",
