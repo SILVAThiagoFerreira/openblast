@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-07-13T17:35:18Z",
-  "run_id": "20260713_173518",
+  "generated_at": "2026-07-13T19:15:17Z",
+  "run_id": "20260713_191517",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",

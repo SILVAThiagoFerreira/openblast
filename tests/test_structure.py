@@ -103,8 +103,12 @@ def test_frontend_copy_is_clean(project_root):
     assert "hero__title-row" in us_index_text
     assert "hero__title-mark" not in public_index_text
     assert "hero__title-mark" not in us_index_text
-    assert "Acesso rápido" in public_index_text
-    assert "Acesso rápido" in us_index_text
+    assert "Acesso rápido" not in public_index_text
+    assert "Acesso rápido" not in us_index_text
+    assert "Hubs disponíveis" not in public_index_text
+    assert "Hubs disponíveis" not in us_index_text
+    assert "Ferramentas operacionais." in us_index_text
+    assert "Ferramentas operacionais da OpenBlast." not in us_index_text
     assert "hero__description" not in public_index_text
     assert "hero__description" not in us_index_text
     assert "<span>Ferramentas</span>" not in public_index_text
