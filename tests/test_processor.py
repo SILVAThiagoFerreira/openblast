@@ -49,14 +49,14 @@ def test_processor_builds_manifest(temp_workspace):
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
         "Tempos e Movimentos | Carregamento de Explosivo",
-        "PFR | Plano de Fogo Realizado",
+        "Plano de Fogo Realizado",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
                 "Consolidação Plan./Exec. | US Vale Verde",
                     "Tempos e Movimentos | Carregamento de Explosivo",
                     "Blasthole Profile Creator",
-                "PFR | Plano de Fogo Realizado",
+                "Plano de Fogo Realizado",
             "Reporte de Sismografia",
             "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",

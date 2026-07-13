@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-07-13T13:00:48Z",
-  "run_id": "20260713_130048",
+  "generated_at": "2026-07-13T13:16:27Z",
+  "run_id": "20260713_131627",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,7 +16,7 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "92e1d5b0dfb667e8d9971b3d34b5156010dba4e5e7f12919abaa5f8825450889",
+    "sha256": "df1f0e2118c73704eeb7a24df7eecb2efe28d6610500d5d60bf39261837f9a9f",
     "row_count": 10
   },
   "counts": {
@@ -206,7 +206,7 @@
         {
           "row_number": 6,
           "repository_id": "pfr-openblast",
-          "formal_title": "PFR | Plano de Fogo Realizado",
+          "formal_title": "Plano de Fogo Realizado",
           "github_url": "https://github.com/SILVAThiagoFerreira/pfr-openblast",
           "pages_url": "https://silvathiagoferreira.github.io/pfr-openblast/",
           "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
@@ -290,7 +290,7 @@
     {
       "row_number": 6,
       "repository_id": "pfr-openblast",
-      "formal_title": "PFR | Plano de Fogo Realizado",
+      "formal_title": "Plano de Fogo Realizado",
       "github_url": "https://github.com/SILVAThiagoFerreira/pfr-openblast",
       "pages_url": "https://silvathiagoferreira.github.io/pfr-openblast/",
       "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
