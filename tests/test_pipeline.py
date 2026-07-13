@@ -28,8 +28,9 @@ def test_pipeline_end_to_end(temp_workspace):
 
     assert manifest_payload["project"]["name"] == "openblast"
     assert public_manifest_payload["project"]["name"] == "openblast"
-    assert len(manifest_payload["tools"]) == 10
+    assert len(manifest_payload["tools"]) == 11
     assert any(tool["repository_id"] == "pfr-openblast" for tool in manifest_payload["tools"])
+    assert any(tool["repository_id"] == "plano-de-fogo-previsto" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "temposemovimentos" for tool in manifest_payload["tools"])
     assert len(manifest_payload["hubs"]) == 2
     assert manifest_payload["hubs"][0]["title"] == "Ferramentas Gerais"

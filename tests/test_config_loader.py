@@ -9,7 +9,7 @@ def test_load_config_normalizes_paths(project_root):
     assert config["project"]["name"] == "openblast"
     assert config["resolved_paths"]["input_workbook"].exists()
     assert config["resolved_paths"]["manifest_file"].name == "tools_manifest.json"
-    assert len(config["tool_metadata"]) == 10
+    assert len(config["tool_metadata"]) == 11
     assert len(config["resolved_publication_targets"]) == 2
     assert [target["slug"] for target in config["resolved_publication_targets"]] == ["public", "usvaleverde"]
     assert config["resolved_publication_targets"][1]["html_file"].as_posix().endswith("/usvaleverde/index.html")

@@ -94,6 +94,12 @@
       "accent": "#e20313",
       "accent2": "#ff5b35"
     },
+    "plano-de-fogo-previsto": {
+      "description": "Gerador de plano de fogo previsto a partir de dados de perfuração, com processamento local no navegador e exportação em XLSX.",
+      "kind": "target",
+      "accent": "#e20313",
+      "accent2": "#ffb12a"
+    },
     "report-sismografia": {
       "description": "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
       "kind": "wave",
@@ -148,7 +154,8 @@
         "repository_ids": [
           "usmvv_planned_and_executed_data_consolidation",
           "temposemovimentos",
-          "pfr-openblast"
+          "pfr-openblast",
+          "plano-de-fogo-previsto"
         ]
       }
     ]

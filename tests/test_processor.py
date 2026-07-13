@@ -27,8 +27,8 @@ def test_processor_builds_manifest(temp_workspace):
         publication_target=config["resolved_primary_publication_target"],
     )
 
-    assert len(records) == 10
-    assert manifest["counts"]["valid_rows"] == 10
+    assert len(records) == 11
+    assert manifest["counts"]["valid_rows"] == 11
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -43,13 +43,14 @@ def test_processor_builds_manifest(temp_workspace):
             "Criador de Perfil de Furo de Desmonte",
             "Report de Monitoramento Sismografico",
             "Analisador de Sismograma - Waveform",
-        "ABNT NBR 9653*",
-        "Análise de Desvios de Inclinação e Azimute",
-    ]
+            "ABNT NBR 9653*",
+            "Análise de Desvios de Inclinação e Azimute",
+        ]
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
         "Tempos e Movimentos | Carregamento de Explosivo",
         "Plano de Fogo Realizado",
+        "Plano de Fogo Previsto",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
@@ -62,6 +63,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Análise de Cargas - OpitAPP",
         "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
+        "Plano de Fogo Previsto",
     ]
     assert manifest["tools"][1]["description"] == (
         "Algoritmo para consolidação operacional de dados de perfuração planejada e executada."

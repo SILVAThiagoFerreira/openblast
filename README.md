@@ -50,6 +50,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - A ferramenta `openblast-nbr9653` tambem pertence ao hub `Ferramentas Gerais` e aparece no hub publico.
 - A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` tambem pertence ao hub `Ferramentas Gerais` e aparece nos dois hubs de ferramentas.
 - As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-openblast` pertencem ao hub `Ferramentas US Vale Verde`.
+- A ferramenta `plano-de-fogo-previsto` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/plano-de-fogo-previsto/`.
 
 ## Como executar
 ```bash
