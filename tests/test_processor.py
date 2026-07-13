@@ -28,7 +28,7 @@ def test_processor_builds_manifest(temp_workspace):
     )
 
     assert len(records) == 10
-    assert manifest["counts"]["valid_rows"] == 9
+    assert manifest["counts"]["valid_rows"] == 10
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -49,12 +49,14 @@ def test_processor_builds_manifest(temp_workspace):
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
         "Tempos e Movimentos | Carregamento de Explosivo",
+        "PFR | Plano de Fogo Realizado",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
                 "Consolidação Plan./Exec. | US Vale Verde",
-                "Tempos e Movimentos | Carregamento de Explosivo",
-                "Blasthole Profile Creator",
+                    "Tempos e Movimentos | Carregamento de Explosivo",
+                    "Blasthole Profile Creator",
+                "PFR | Plano de Fogo Realizado",
             "Reporte de Sismografia",
             "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
@@ -67,10 +69,10 @@ def test_processor_builds_manifest(temp_workspace):
     assert manifest["tools"][2]["description"] == (
         "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos."
     )
-    assert manifest["tools"][6]["description"] == (
+    assert manifest["tools"][7]["description"] == (
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
     )
-    assert manifest["tools"][8]["description"] == (
+    assert manifest["tools"][9]["description"] == (
         "Dashboard estático para análise de desvios de inclinação, azimute e profundidade a partir de DXF de execução de furos."
     )
 

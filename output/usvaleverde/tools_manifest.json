@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-07-12T22:32:08Z",
-  "run_id": "20260712_223208",
+  "generated_at": "2026-07-13T13:00:48Z",
+  "run_id": "20260713_130048",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -20,8 +20,8 @@
     "row_count": 10
   },
   "counts": {
-    "total_rows": 8,
-    "valid_rows": 8,
+    "total_rows": 10,
+    "valid_rows": 10,
     "invalid_rows": 0,
     "hub_count": 2
   },
@@ -39,7 +39,7 @@
     "source_hub_count": 2,
     "source_tool_count": 10,
     "published_hub_count": 2,
-    "published_tool_count": 8,
+    "published_tool_count": 10,
     "excluded_hub_slugs": []
   },
   "generator": {
@@ -186,6 +186,38 @@
           "pages_owner": "silvathiagoferreira",
           "pages_repo_name": "usmvv_planned_and_executed_data_consolidation",
           "order": 2
+        },
+        {
+          "row_number": 4,
+          "repository_id": "temposemovimentos",
+          "formal_title": "Tempos e Movimentos | Carregamento de Explosivo",
+          "github_url": "https://github.com/SILVAThiagoFerreira/temposemovimentos",
+          "pages_url": "https://silvathiagoferreira.github.io/temposemovimentos/",
+          "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
+          "kind": "timer",
+          "accent": "#e20313",
+          "accent2": "#ffb12a",
+          "github_owner": "SILVAThiagoFerreira",
+          "github_repo_name": "temposemovimentos",
+          "pages_owner": "silvathiagoferreira",
+          "pages_repo_name": "temposemovimentos",
+          "order": 3
+        },
+        {
+          "row_number": 6,
+          "repository_id": "pfr-openblast",
+          "formal_title": "PFR | Plano de Fogo Realizado",
+          "github_url": "https://github.com/SILVAThiagoFerreira/pfr-openblast",
+          "pages_url": "https://silvathiagoferreira.github.io/pfr-openblast/",
+          "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
+          "kind": "target",
+          "accent": "#e20313",
+          "accent2": "#ff5b35",
+          "github_owner": "SILVAThiagoFerreira",
+          "github_repo_name": "pfr-openblast",
+          "pages_owner": "silvathiagoferreira",
+          "pages_repo_name": "pfr-openblast",
+          "order": 5
         }
       ]
     }
@@ -224,6 +256,22 @@
       "order": 2
     },
     {
+      "row_number": 4,
+      "repository_id": "temposemovimentos",
+      "formal_title": "Tempos e Movimentos | Carregamento de Explosivo",
+      "github_url": "https://github.com/SILVAThiagoFerreira/temposemovimentos",
+      "pages_url": "https://silvathiagoferreira.github.io/temposemovimentos/",
+      "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
+      "kind": "timer",
+      "accent": "#e20313",
+      "accent2": "#ffb12a",
+      "github_owner": "SILVAThiagoFerreira",
+      "github_repo_name": "temposemovimentos",
+      "pages_owner": "silvathiagoferreira",
+      "pages_repo_name": "temposemovimentos",
+      "order": 3
+    },
+    {
       "row_number": 5,
       "repository_id": "blasthole-profile-creator",
       "formal_title": "Blasthole Profile Creator",
@@ -238,6 +286,22 @@
       "pages_owner": "silvathiagoferreira",
       "pages_repo_name": "blasthole-profile-creator",
       "order": 4
+    },
+    {
+      "row_number": 6,
+      "repository_id": "pfr-openblast",
+      "formal_title": "PFR | Plano de Fogo Realizado",
+      "github_url": "https://github.com/SILVAThiagoFerreira/pfr-openblast",
+      "pages_url": "https://silvathiagoferreira.github.io/pfr-openblast/",
+      "description": "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX).",
+      "kind": "target",
+      "accent": "#e20313",
+      "accent2": "#ff5b35",
+      "github_owner": "SILVAThiagoFerreira",
+      "github_repo_name": "pfr-openblast",
+      "pages_owner": "silvathiagoferreira",
+      "pages_repo_name": "pfr-openblast",
+      "order": 5
     },
     {
       "row_number": 7,

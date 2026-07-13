@@ -59,9 +59,6 @@
         "hub_slugs": [
           "ferramentas-gerais",
           "ferramentas-locais"
-        ],
-        "excluded_repository_ids": [
-          "pfr-openblast"
         ]
       }
     ]
