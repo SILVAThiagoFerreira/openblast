@@ -22,9 +22,9 @@ execução.
 
 A identidade do relatório é centralizada em `js/config.js`, no objeto
 `branding.palette`: Cinza Enaex `#38424B`, Vermelho Enaex `#E20613` e variações
-de branco/cinza nos fundos e rótulos. O verde `#67C70A` é reservado somente a
-conformidade positiva e às séries de medição que precisam ser distinguidas nos
-gráficos; não é usado em cabeçalhos, réguas ou sublinhados estruturais.
+de branco/cinza nos fundos e rótulos. A série longitudinal usa Cinza Enaex,
+a série vertical mantém o verde `#16A34A` e o verde `#67C70A` fica reservado
+à conformidade positiva; nenhum azul é usado no template.
 
 O formulário também permite informar o **Target dos índices de vibração** em
 mm/s (inicialmente `0,8`) e escolher se a linha “Índices de vibração” será
@@ -120,7 +120,7 @@ Testado com os três CSVs de referência do projeto:
   Helvetica não codifica `■` (U+25A0) — substituímos por `•` na única
   ocorrência (linha "Índices de vibração" do escopo).
 - **Gráficos**: canvas 1430×1001, mesma paleta e mesmos marcadores (quadrado
-  vermelho / diamante azul / triângulo verde), curva NBR com quebra de eixo
+  vermelho / diamante cinza Enaex / triângulo verde), curva NBR com quebra de eixo
   Y quando aplicável. A proporção vertical 6.5×4.55in é a mesma do renderer
   Python e a área dos eixos usa margens compactas para evitar gráficos
   pequenos dentro dos cartões A4.
