@@ -5,7 +5,9 @@
   const PAGE_W = 595.28;
   const PAGE_H = 841.89;
   const FIRST_PAGE_CARD_SLOTS = 3;
-  const FIRST_PAGE_LAST_CARD_Y = 70;
+  // A primeira página fica dedicada ao resumo e aos pontos; os gráficos
+  // ganham uma página própria para não serem reduzidos a miniaturas.
+  const FIRST_PAGE_LAST_CARD_Y = 220;
   const POINT_CARD_HEIGHT = 58;
   const POINT_CARD_GAP = 14;
   const POINTS_TITLE_GAP = 22;
@@ -157,11 +159,12 @@
     drawText(page, `Data do evento: ${eventDate}`, x + 12, y0, 8, COLORS.text, false, fonts, pdflib);
     drawText(page, `Cliente: ${client}`, x + 12, y0 - 11, 8, COLORS.text, false, fonts, pdflib);
     drawText(page, `Pontos monitorados: ${records.length} fonte(s) de dados de sismógrafos processadas com sucesso.`, x + 12, y0 - 22, 8, COLORS.text, false, fonts, pdflib);
-    const vibLimit = config.limits?.vibration_status_mm_s ?? 0.8;
-    const status = summary.all_below_configured_vibration_limit ? "abaixo" : "acima";
-    // pdf-lib com fonte Helvetica (WinAnsi) não codifica U+25A0. Usamos "•" (U+2022) que
-    // é o mesmo bullet usado nas outras seções e cabe no encoding.
-    drawText(page, `• Índices de vibração: ${status} de ${String(vibLimit).replace(".", ",")} mm/s.`, x + 12, y0 - 33, 8, COLORS.green, true, fonts, pdflib);
+    if (config.report?.show_vibration_index !== false) {
+      const vibLimit = config.limits?.vibration_status_mm_s ?? 0.8;
+      const status = summary.all_below_configured_vibration_limit ? "abaixo" : "acima";
+      // pdf-lib com fonte Helvetica (WinAnsi) não codifica U+25A0. Usamos "•" (U+2022).
+      drawText(page, `• Índices de vibração: ${status} de ${String(vibLimit).replace(".", ",")} mm/s.`, x + 12, y0 - 33, 8, COLORS.green, true, fonts, pdflib);
+    }
   };
 
   const drawConclusion = (page, x, y, w, h, records, summary, fonts, pdflib) => {
@@ -202,6 +205,25 @@
     drawRoundRect(page, { x, y, w, h, radius: 5, fill: "#FFFFFF", shadow: true }, pdflib);
     drawSectionHeader(page, x, y + h - 20, w, 20, title, COLORS.green, fonts, pdflib);
     fitImage(page, chartImage, x + 9, y + 10, w - 18, h - 38);
+  };
+
+  const drawChartPage = (page, config, chartImages, fonts, pdflib) => {
+    const chartCfg = config.charts || {};
+    const cardH = Number(chartCfg.report_chart_page_card_height ?? 300);
+    const gap = Number(chartCfg.report_chart_page_gap ?? 24);
+    const title = chartCfg.report_chart_page_title || "Gráficos Normativos — ABNT NBR 9653:2018";
+    const chartW = PAGE_W - 2 * MARGIN;
+    const topY = PAGE_H - 86 - cardH;
+    const bottomY = topY - gap - cardH;
+
+    drawText(page, title, MARGIN, PAGE_H - 55, 17, COLORS.text, false, fonts, pdflib);
+    page.drawRectangle({
+      x: MARGIN, y: PAGE_H - 62, width: 42, height: 2,
+      color: rgbColor(COLORS.green, pdflib),
+    });
+    drawChartCard(page, MARGIN, topY, chartW, cardH, "Pressão Sonora x Distância", chartImages.pressure, fonts, pdflib);
+    drawChartCard(page, MARGIN, bottomY, chartW, cardH, "PPV x Limite ABNT", chartImages.vibration, fonts, pdflib);
+    drawFooter(page, config, fonts, pdflib);
   };
 
   const pointStatusText = (record) => {
@@ -301,13 +323,10 @@
   const firstPageLayout = () => {
     const firstCardY = FIRST_PAGE_LAST_CARD_Y + (FIRST_PAGE_CARD_SLOTS - 1) * (POINT_CARD_HEIGHT + POINT_CARD_GAP);
     const pointsTitleY = firstCardY + POINT_CARD_HEIGHT + POINTS_TITLE_GAP;
-    const chartY = pointsTitleY + CHART_TO_POINTS_GAP;
-    const chartH = CHARTS_TOP_LIMIT - chartY;
     return {
       pointsTitleY, firstCardY,
       cardHeight: POINT_CARD_HEIGHT,
       cardGap: POINT_CARD_GAP,
-      chartY, chartH,
     };
   };
 
@@ -351,10 +370,6 @@
     drawScope(page, MARGIN, 566, PAGE_W - 2 * MARGIN, 72, config, records, summary, fonts, pdflib);
     drawConclusion(page, MARGIN, 488, PAGE_W - 2 * MARGIN, 72, records, summary, fonts, pdflib);
 
-    const chartW = (PAGE_W - 2 * MARGIN - 17) / 2;
-    drawChartCard(page, MARGIN, layout.chartY, chartW, layout.chartH, "Pressão Sonora x Distância", pressureImg, fonts, pdflib);
-    drawChartCard(page, MARGIN + chartW + 17, layout.chartY, chartW, layout.chartH, "PPV x Limite ABNT", vibrationImg, fonts, pdflib);
-
     drawText(page, "Pontos Monitorados", MARGIN, layout.pointsTitleY, 17, COLORS.text, false, fonts, pdflib);
     page.drawRectangle({
       x: MARGIN, y: layout.pointsTitleY - 7, width: 42, height: 2,
@@ -370,6 +385,9 @@
       drawText(page, `+ ${records.length - FIRST_PAGE_CARD_SLOTS} ponto(s) adicionais no JSON consolidado.`, MARGIN + 10, y + 10, 8, COLORS.muted, false, fonts, pdflib);
     }
     drawFooter(page, config, fonts, pdflib);
+
+    const chartPage = doc.addPage([PAGE_W, PAGE_H]);
+    drawChartPage(chartPage, config, { pressure: pressureImg, vibration: vibrationImg }, fonts, pdflib);
 
     // Páginas extras.
     if (records.length > FIRST_PAGE_CARD_SLOTS) {

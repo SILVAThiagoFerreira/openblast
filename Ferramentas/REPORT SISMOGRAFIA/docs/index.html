@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sismografia — OpenBlast</title>
+  <link rel="icon" href="assets/openblast-favicon-white.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <img src="assets/openblast-logo.png" alt="OpenBlast" />
+      <span class="title">Sismografia</span>
+    </div>
+    <div class="context" id="ctx-client">CAMPANHA</div>
+  </header>
+
+  <section class="toolbar">
+    <div class="toolbar-row">
+      <div>
+        <div class="overline">Sismografia · NBR 9653:2018</div>
+        <h1>Vibração e Sobrepressão do Desmonte</h1>
+        <div class="status-line"><span class="dot"></span><span id="event-count">Carregando…</span></div>
+      </div>
+      <div class="filters">
+        <div class="filter">
+          <label>Ano</label>
+          <select id="f-year"><option value="">Todos os anos</option></select>
+        </div>
+        <div class="filter">
+          <label>Mês</label>
+          <select id="f-month"><option value="">Todos os meses</option></select>
+        </div>
+        <div class="filter">
+          <label>Ponto</label>
+          <select id="f-point"><option value="">Todos os pontos</option></select>
+        </div>
+        <div class="filter">
+          <label>Critério NBR 9653</label>
+          <select id="f-crit">
+            <option value="nbr9653">NBR 9653:2018 (limite legal)</option>
+            <option value="din4150-2">DIN 4150-3 — L2 (residencial)</option>
+            <option value="din4150-3">DIN 4150-3 — L3 (sensível)</option>
+            <option value="usbm">USBM RI 8507</option>
+          </select>
+        </div>
+        <div class="filter">
+          <label>Dados</label>
+          <input id="f-file" type="file" accept=".csv,.CSV" multiple />
+          <label class="file-btn" for="f-file">Carregar CSVs…</label>
+        </div>
+        <div class="filter">
+          <label>&nbsp;</label>
+          <button class="btn" id="btn-clear">Limpar</button>
+        </div>
+      </div>
+    </div>
+    <div class="chip-row" id="chip-row"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+      <div></div>
+      <div class="updated" id="updated"></div>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <div class="kpi-row" id="kpis">
+      <div class="kpi"><div class="label">Eventos medidos</div><div class="value" id="kpi-events">—</div><div class="foot" id="kpi-events-foot">&nbsp;</div></div>
+      <div class="kpi"><div class="label">PPV Máximo</div><div class="value" id="kpi-ppv">—</div><div class="foot" id="kpi-ppv-foot">&nbsp;</div></div>
+      <div class="kpi"><div class="label">Conformidade Vibração</div><div class="value" id="kpi-conf">—</div><div class="foot" id="kpi-conf-foot">&nbsp;</div></div>
+      <div class="kpi"><div class="label">Airblast Máximo</div><div class="value" id="kpi-air">—</div><div class="foot" id="kpi-air-foot">&nbsp;</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Velocidade × Frequência — NBR 9653 e referências</h2>
+      <div class="sub">Cada ponto é um evento. Linhas: limite de PPV por frequência — NBR 9653:2018 (curva única, sólida) e referências DIN 4150-3 / USBM (tracejadas).</div>
+      <div class="chart-wrap h-lg"><canvas id="ch-vxf"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>Velocidade resultante (PPV) por evento</h2>
+      <div class="sub">Ordenado por data · cor = conformidade ao critério selecionado</div>
+      <div class="chart-wrap h-md"><canvas id="ch-ppv"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>Sobrepressão acústica (airblast) por evento</h2>
+      <div class="sub">Ordenado por data · linhas: 134 dBL (NBR 9653), 133 e 129 dBL (referências)</div>
+      <div class="chart-wrap h-md"><canvas id="ch-air"></canvas></div>
+    </div>
+
+    <div class="chart-grid-2">
+      <div class="card">
+        <h2>Evolução do PPV</h2>
+        <div class="sub">Média mensal da velocidade resultante (mm/s)</div>
+        <div class="chart-wrap h-md"><canvas id="ch-ppv-month"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Evolução do airblast</h2>
+        <div class="sub">Média mensal da sobrepressão (dBL)</div>
+        <div class="chart-wrap h-md"><canvas id="ch-air-month"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-grid-2">
+      <div class="card">
+        <h2>PPV por ponto de monitoramento</h2>
+        <div class="sub">Máximo e percentil 95 da velocidade resultante</div>
+        <div class="chart-wrap h-md"><canvas id="ch-ppv-point"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Distribuição de frequências</h2>
+        <div class="sub">Eventos por faixa da NBR 9653 (frequência dominante)</div>
+        <div class="chart-wrap h-md"><canvas id="ch-freq-dist"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Distância escalada × PPV</h2>
+      <div class="sub" id="sub-de">DE = R / √Q (m/√kg) · ajuste: v = a·DEᵇ</div>
+      <div class="chart-wrap h-md"><canvas id="ch-de"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>Séries por eixo (Longitudinal · Vertical · Transversal)</h2>
+      <div class="sub">Evolução temporal da velocidade e da frequência de cada eixo medido</div>
+      <div class="axes-grid">
+        <div><div style="font-size:11px;color:var(--ink-mute);margin-bottom:4px">Velocidade — Longitudinal (L)</div><div class="chart-wrap h-sm"><canvas id="ch-ax-vL"></canvas></div></div>
+        <div><div style="font-size:11px;color:var(--ink-mute);margin-bottom:4px">Frequência — Longitudinal (L)</div><div class="chart-wrap h-sm"><canvas id="ch-ax-fL"></canvas></div></div>
+        <div><div style="font-size:11px;color:var(--ink-mute);margin-bottom:4px">Velocidade — Vertical (V)</div><div class="chart-wrap h-sm"><canvas id="ch-ax-vV"></canvas></div></div>
+        <div><div style="font-size:11px;color:var(--ink-mute);margin-bottom:4px">Frequência — Vertical (V)</div><div class="chart-wrap h-sm"><canvas id="ch-ax-fV"></canvas></div></div>
+        <div><div style="font-size:11px;color:var(--ink-mute);margin-bottom:4px">Velocidade — Transversal (T)</div><div class="chart-wrap h-sm"><canvas id="ch-ax-vT"></canvas></div></div>
+        <div><div style="font-size:11px;color:var(--ink-mute);margin-bottom:4px">Frequência — Transversal (T)</div><div class="chart-wrap h-sm"><canvas id="ch-ax-fT"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <b>Fonte:</b> planilha de sismografia carregada no navegador. Nada é enviado a servidor.
+      <b>Critério de conformidade:</b> NBR 9653:2018 — curva única de PPV × frequência (15→20 mm/s em 4→15 Hz; 20→50 mm/s em 15→40 Hz; 50 mm/s acima de 40 Hz; 50 mm/s derivada da BS 7385-2).
+      <b>Airblast em dBL pico (Linear);</b> limite NBR = 134 dBL (≈100 Pa).
+      <b>Notas:</b> frequência dominante = frequência do eixo de maior velocidade; PPV = velocidade resultante; distâncias/cargas inconsistentes são descartadas; a equação v = a·DEᵇ é o método de previsão (USBM), não prescrição textual da NBR.
+    </div>
+  </main>
+
+  <!-- CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/compliance.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

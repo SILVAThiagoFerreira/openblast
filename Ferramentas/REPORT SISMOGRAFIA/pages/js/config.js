@@ -41,6 +41,12 @@ window.SISMO_CONFIG = {
     pressure_x_min: 0.0,
     pressure_y_min: 0.0,
     pressure_y_max: 160.0,
+    report_chart_page_title: "Gráficos Normativos — ABNT NBR 9653:2018",
+    report_chart_page_card_height: 300,
+    report_chart_page_gap: 24,
+  },
+  report: {
+    show_vibration_index: true,
   },
   branding: {
     // Logo OpenBlast embutido no header do PDF — resolvido em runtime como fetch.

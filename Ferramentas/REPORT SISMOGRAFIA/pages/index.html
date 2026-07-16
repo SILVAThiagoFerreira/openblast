@@ -79,6 +79,16 @@
           <p class="field-hint">Este nome será usado no cabeçalho e no escopo do relatório.</p>
         </div>
 
+        <div class="field-group">
+          <label class="field-label" for="vibration-target-input">Target dos índices de vibração (mm/s)</label>
+          <input id="vibration-target-input" class="text-input" type="number" value="0.8" min="0" step="0.01" inputmode="decimal" aria-describedby="vibration-target-hint" />
+          <p id="vibration-target-hint" class="field-hint">Usado no texto “Índices de vibração” e na avaliação do limite executivo.</p>
+          <label class="check-field" for="show-vibration-index-input">
+            <input id="show-vibration-index-input" type="checkbox" checked />
+            <span>Exibir “Índices de vibração” no relatório</span>
+          </label>
+        </div>
+
         <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Selecionar CSVs">
           <input id="file-input" type="file" accept=".csv,.CSV" multiple hidden />
           <div class="dropzone__icon" aria-hidden="true">

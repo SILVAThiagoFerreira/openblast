@@ -14,6 +14,8 @@
   const zipLink = document.getElementById("zip-link");
   const zipMeta = document.getElementById("zip-meta");
   const clientInput = document.getElementById("client-input");
+  const vibrationTargetInput = document.getElementById("vibration-target-input");
+  const showVibrationIndexInput = document.getElementById("show-vibration-index-input");
 
   /** @type {File[]} */
   let selected = [];
@@ -191,6 +193,14 @@
     // O valor digitado substitui o padrão apenas nesta execução; a configuração
     // permanece com US MINERAÇÃO VALE-VERDE para a próxima abertura do site.
     cfg.project.client_override = clientName;
+    const target = Number(String(vibrationTargetInput?.value || "").trim().replace(",", "."));
+    if (!Number.isFinite(target) || target < 0) {
+      vibrationTargetInput?.focus();
+      throw new Error("Informe um target de vibração válido, maior ou igual a zero.");
+    }
+    cfg.limits.vibration_status_mm_s = target;
+    cfg.report = cfg.report || {};
+    cfg.report.show_vibration_index = showVibrationIndexInput?.checked !== false;
     setStatus(`Processando ${selected.length} sismograma(s)…`);
 
     // 1) Parse.

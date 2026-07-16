@@ -62,7 +62,7 @@ Dentro dela são gerados:
 - pasta `graficos/` com os PNGs dos gráficos
 - pasta `entrada_csv/` com cópia dos CSVs processados
 
-O relatório da primeira página preserva uma área dedicada ao rodapé para evitar sobreposição entre a seção `Pontos Monitorados` e os elementos finais de assinatura visual.
+O relatório usa a primeira página para resumo executivo e pontos monitorados. Os gráficos normativos são apresentados em uma segunda página, em cartões de largura total, para preservar a leitura de eixos, legenda, curva ABNT e anotações.
 
 O escopo é apresentado em linhas textuais, e os pontos monitorados usam cartões horizontais com botão de status à direita.
 
@@ -78,6 +78,7 @@ O arquivo `config.json` centraliza:
 - nomes e templates dos artefatos
 - limites técnicos
 - parâmetros de gráficos
+- target executivo de vibração e visibilidade da linha “Índices de vibração”
 - regras de execução
 
 Se um valor precisar mudar, a decisão deve ser feita na configuração, não no código.

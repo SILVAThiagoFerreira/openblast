@@ -39,7 +39,7 @@
 ## 7. Geração Das Saídas
 
 - Entrada: resultados processados e configuração
-- Saída: PDF, PNG, nota WhatsApp, JSON consolidado, manifesto e gráficos
+- Saída: PDF (resumo na primeira página e gráficos normativos em página dedicada), PNG da primeira página, nota WhatsApp, JSON consolidado, manifesto e gráficos
 - Validação: todos os arquivos devem existir, ter tamanho maior que zero e manter a composição visual em escopo textual, cartões horizontais por ponto e marcador circular do cabeçalho, sem sobreposição entre conteúdo técnico e rodapé
 
 ## 8. Geração De Logs

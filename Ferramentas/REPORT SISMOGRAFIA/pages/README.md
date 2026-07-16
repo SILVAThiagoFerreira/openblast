@@ -18,6 +18,12 @@ Antes da geração, o usuário informa a unidade de serviço no campo
 preenchido é aplicado ao cabeçalho e ao escopo do relatório somente naquela
 execução.
 
+O formulário também permite informar o **Target dos índices de vibração** em
+mm/s (inicialmente `0,8`) e escolher se a linha “Índices de vibração” será
+exibida no relatório. O target continua sendo aplicado à avaliação do limite
+executivo e à nota para WhatsApp; a caixa de seleção controla apenas a
+visibilidade da linha no PDF.
+
 ## Testar localmente
 
 ```bash
@@ -100,7 +106,9 @@ Testado com os três CSVs de referência do projeto:
   quebras de linha do Windows).
 - **Compliance NBR 9653**: interpolação da curva com o mesmo algoritmo.
 - **Layout do PDF**: coordenadas idênticas ao `report.py` (origem A4 canto
-  inferior esquerdo, 1 pt = 1/72"). Diferença conhecida: o pdf-lib com fonte
+  inferior esquerdo, 1 pt = 1/72"). A primeira página concentra resumo e
+  pontos monitorados; a segunda apresenta os gráficos normativos em largura
+  total para preservar a legibilidade. Diferença conhecida: o pdf-lib com fonte
   Helvetica não codifica `■` (U+25A0) — substituímos por `•` na única
   ocorrência (linha "Índices de vibração" do escopo).
 - **Gráficos**: canvas 1430×1001, mesma paleta e mesmos marcadores (quadrado

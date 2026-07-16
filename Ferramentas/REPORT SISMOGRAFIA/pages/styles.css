@@ -207,6 +207,20 @@ a { color: inherit; }
   color: var(--muted);
   font-size: 0.76rem;
 }
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 11px;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.check-field input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
 
 .dropzone {
   display: flex;
