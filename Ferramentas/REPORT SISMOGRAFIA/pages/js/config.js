@@ -49,7 +49,20 @@ window.SISMO_CONFIG = {
     show_vibration_index: true,
   },
   branding: {
-    // Logo OpenBlast embutido no header do PDF — resolvido em runtime como fetch.
-    logo_path: "assets/openblast.png",
+    logo_path: "assets/enaex_logo_horizontal.png",
+    // Cores estruturais do relatório. Verde é reservado a estados e séries de dados.
+    palette: {
+      enaex_gray: "#38424B",
+      enaex_red: "#E20613",
+      white: "#FFFFFF",
+      gray_50: "#F7F8FA",
+      gray_100: "#E8EAEE",
+      gray_200: "#D9DEE7",
+      gray_300: "#E1E5EA",
+      text: "#111827",
+      muted: "#667085",
+      status_conforme: "#67C70A",
+      status_ausente: "#9AA1AC",
+    },
   },
 };

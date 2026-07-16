@@ -18,6 +18,14 @@ Antes da geração, o usuário informa a unidade de serviço no campo
 preenchido é aplicado ao cabeçalho e ao escopo do relatório somente naquela
 execução.
 
+## Paleta ENAEX
+
+A identidade do relatório é centralizada em `js/config.js`, no objeto
+`branding.palette`: Cinza Enaex `#38424B`, Vermelho Enaex `#E20613` e variações
+de branco/cinza nos fundos e rótulos. O verde `#67C70A` é reservado somente a
+conformidade positiva e às séries de medição que precisam ser distinguidas nos
+gráficos; não é usado em cabeçalhos, réguas ou sublinhados estruturais.
+
 O formulário também permite informar o **Target dos índices de vibração** em
 mm/s (inicialmente `0,8`) e escolher se a linha “Índices de vibração” será
 exibida no relatório. O target continua sendo aplicado à avaliação do limite
