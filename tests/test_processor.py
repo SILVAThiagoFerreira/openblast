@@ -27,8 +27,8 @@ def test_processor_builds_manifest(temp_workspace):
         publication_target=config["resolved_primary_publication_target"],
     )
 
-    assert len(records) == 11
-    assert manifest["counts"]["valid_rows"] == 11
+    assert len(records) == 12
+    assert manifest["counts"]["valid_rows"] == 12
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -51,6 +51,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Tempos e Movimentos | Carregamento de Explosivo",
         "Plano de Fogo Realizado",
         "Plano de Fogo Previsto",
+        "ANALIZADOR DE PRÉ-CORTE - OPITDEV",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
@@ -64,6 +65,7 @@ def test_processor_builds_manifest(temp_workspace):
         "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
         "Plano de Fogo Previsto",
+        "ANALIZADOR DE PRÉ-CORTE - OPITDEV",
     ]
     assert manifest["tools"][1]["description"] == (
         "Algoritmo para consolidação operacional de dados de perfuração planejada e executada."
@@ -76,6 +78,9 @@ def test_processor_builds_manifest(temp_workspace):
     )
     assert manifest["tools"][9]["description"] == (
         "Dashboard estático para análise de desvios de inclinação, azimute e profundidade a partir de DXF de execução de furos."
+    )
+    assert manifest["tools"][11]["description"] == (
+        "Analisador local de pré-corte a partir de DXF do O-PitDev, com tratativas por furo e exportação de lâmina operacional em PNG/PDF."
     )
 
 

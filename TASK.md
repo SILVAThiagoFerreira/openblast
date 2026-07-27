@@ -15,6 +15,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end com copy objetiva.
 - Criar publicacao do hub US Vale Verde e publicacao publica filtrada.
 - Permitir exclusoes pontuais por publicacao via configuracao, sem mexer na planilha de origem.
+- Manter as ferramentas locais `plano-de-fogo-previsto` e `analizador-de-pre-corte-opitdev` somente no hub US Vale Verde.
 - Criar testes automatizados minimos.
 - Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` no hub `Ferramentas Gerais`.
 

@@ -100,6 +100,12 @@
       "accent": "#e20313",
       "accent2": "#ffb12a"
     },
+    "analizador-de-pre-corte-opitdev": {
+      "description": "Analisador local de pré-corte a partir de DXF do O-PitDev, com tratativas por furo e exportação de lâmina operacional em PNG/PDF.",
+      "kind": "target",
+      "accent": "#e20313",
+      "accent2": "#37c6b3"
+    },
     "report-sismografia": {
       "description": "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
       "kind": "wave",
@@ -155,7 +161,8 @@
           "usmvv_planned_and_executed_data_consolidation",
           "temposemovimentos",
           "pfr-openblast",
-          "plano-de-fogo-previsto"
+          "plano-de-fogo-previsto",
+          "analizador-de-pre-corte-opitdev"
         ]
       }
     ]

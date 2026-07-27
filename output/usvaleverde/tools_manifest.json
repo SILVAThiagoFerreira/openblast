@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-07-13T19:15:17Z",
-  "run_id": "20260713_191517",
+  "generated_at": "2026-07-27T15:46:14Z",
+  "run_id": "20260727_154614",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,12 +16,12 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "cb36816d8d1b77ce899501c19df5428f1f59ca3f222a38b0e364e19480a19a73",
-    "row_count": 11
+    "sha256": "2432051dec0be61fd2d8910716889a4c2ed110de43c0beac4ab26893373489c7",
+    "row_count": 12
   },
   "counts": {
-    "total_rows": 11,
-    "valid_rows": 11,
+    "total_rows": 12,
+    "valid_rows": 12,
     "invalid_rows": 0,
     "hub_count": 2
   },
@@ -37,9 +37,9 @@
       "ferramentas-locais"
     ],
     "source_hub_count": 2,
-    "source_tool_count": 11,
+    "source_tool_count": 12,
     "published_hub_count": 2,
-    "published_tool_count": 11,
+    "published_tool_count": 12,
     "excluded_hub_slugs": []
   },
   "generator": {
@@ -234,6 +234,22 @@
           "pages_owner": "silvathiagoferreira",
           "pages_repo_name": "plano-de-fogo-previsto",
           "order": 11
+        },
+        {
+          "row_number": 13,
+          "repository_id": "analizador-de-pre-corte-opitdev",
+          "formal_title": "ANALIZADOR DE PRÉ-CORTE - OPITDEV",
+          "github_url": "https://github.com/SILVAThiagoFerreira/analizador-de-pre-corte-opitdev",
+          "pages_url": "https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/",
+          "description": "Analisador local de pré-corte a partir de DXF do O-PitDev, com tratativas por furo e exportação de lâmina operacional em PNG/PDF.",
+          "kind": "target",
+          "accent": "#e20313",
+          "accent2": "#37c6b3",
+          "github_owner": "SILVAThiagoFerreira",
+          "github_repo_name": "analizador-de-pre-corte-opitdev",
+          "pages_owner": "silvathiagoferreira",
+          "pages_repo_name": "analizador-de-pre-corte-opitdev",
+          "order": 12
         }
       ]
     }
@@ -414,6 +430,22 @@
       "pages_owner": "silvathiagoferreira",
       "pages_repo_name": "plano-de-fogo-previsto",
       "order": 11
+    },
+    {
+      "row_number": 13,
+      "repository_id": "analizador-de-pre-corte-opitdev",
+      "formal_title": "ANALIZADOR DE PRÉ-CORTE - OPITDEV",
+      "github_url": "https://github.com/SILVAThiagoFerreira/analizador-de-pre-corte-opitdev",
+      "pages_url": "https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/",
+      "description": "Analisador local de pré-corte a partir de DXF do O-PitDev, com tratativas por furo e exportação de lâmina operacional em PNG/PDF.",
+      "kind": "target",
+      "accent": "#e20313",
+      "accent2": "#37c6b3",
+      "github_owner": "SILVAThiagoFerreira",
+      "github_repo_name": "analizador-de-pre-corte-opitdev",
+      "pages_owner": "silvathiagoferreira",
+      "pages_repo_name": "analizador-de-pre-corte-opitdev",
+      "order": 12
     }
   ]
 }
