@@ -51,7 +51,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` tambem pertence ao hub `Ferramentas Gerais` e aparece nos dois hubs de ferramentas.
 - As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-openblast` pertencem ao hub `Ferramentas US Vale Verde`.
 - A ferramenta `plano-de-fogo-previsto` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/plano-de-fogo-previsto/`.
-- A ferramenta `analizador-de-pre-corte-opitdev` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/`.
+- A ferramenta `ANALIZADOR DE FUROS - OPITDEV` pertence ao grupo `Ferramentas Locais` e é publicada no endereço estável `https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/`.
 
 ## Como executar
 ```bash

@@ -101,7 +101,7 @@
       "accent2": "#ffb12a"
     },
     "analizador-de-pre-corte-opitdev": {
-      "description": "Analisador local de pré-corte a partir de DXF do O-PitDev, com tratativas por furo e exportação de lâmina operacional em PNG/PDF.",
+      "description": "Analisador local de furos a partir de DXF do O-PitDev, com seleção entre pré-corte e face, tratativas por furo e exportação de lâmina operacional em PNG/PDF.",
       "kind": "target",
       "accent": "#e20313",
       "accent2": "#37c6b3"
