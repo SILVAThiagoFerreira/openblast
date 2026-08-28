@@ -114,6 +114,8 @@ Arquivo: `output/usvaleverde/tools_manifest.json`
 | `kind` | string | sim | Tipo de icone |
 | `accent` | string | sim | Cor principal |
 | `accent2` | string | sim | Cor secundaria |
+| `status` | string | nao | Status exibido no cabecalho do card; ausente significa `Online` |
+| `status_indicator` | boolean | nao | Exibe o indicador visual do status; ausente significa `true` |
 | `github_owner` | string | sim | Owner do GitHub |
 | `github_repo_name` | string | sim | Nome do repo |
 | `pages_owner` | string | sim | Owner do Pages |

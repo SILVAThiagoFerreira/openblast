@@ -123,11 +123,15 @@ function renderStatus(message, modifier = "") {
 function renderToolCard(tool) {
   toolCounter++;
   const num = String(toolCounter).padStart(2, "0");
+  const status = tool.status || "Online";
+  const statusIndicator = tool.status_indicator !== false
+    ? '<span class="tool-card__status-dot" aria-hidden="true"></span>'
+    : "";
   return `
     <article class="tool-card" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
         <span class="tool-card__number">Ferramenta ${num}</span>
-        <span class="tool-card__status"><span class="tool-card__status-dot" aria-hidden="true"></span> Online</span>
+        <span class="tool-card__status${tool.status_indicator === false ? " tool-card__status--development" : ""}">${statusIndicator}${status}</span>
       </div>
       <h3>${tool.formal_title}</h3>
       <p>${tool.description}</p>

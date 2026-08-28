@@ -248,6 +248,10 @@ def _validate_sections(config: dict) -> None:
                 raise ConfigError(
                     f"tool_metadata entry for '{tool_id}' has invalid {color_field}: {metadata[color_field]}"
                 )
+        if "status" in metadata:
+            _require_string(metadata, "status")
+        if "status_indicator" in metadata:
+            _require_bool(metadata, "status_indicator")
 
     missing_grouped_tools = [tool_id for tool_id in tool_metadata if tool_id not in all_group_ids]
     if missing_grouped_tools:

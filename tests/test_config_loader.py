@@ -14,6 +14,8 @@ def test_load_config_normalizes_paths(project_root):
     assert [target["slug"] for target in config["resolved_publication_targets"]] == ["public", "usvaleverde"]
     assert config["resolved_publication_targets"][1]["html_file"].as_posix().endswith("/usvaleverde/index.html")
     assert config["resolved_publication_targets"][1]["excluded_repository_ids"] == []
+    assert config["tool_metadata"]["temposemovimentos"]["status"] == "Em desenvolvimento"
+    assert config["tool_metadata"]["temposemovimentos"]["status_indicator"] is False
 
 
 def test_build_runtime_paths_uses_run_id(project_root):

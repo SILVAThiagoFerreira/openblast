@@ -75,6 +75,10 @@ def test_processor_builds_manifest(temp_workspace):
     assert manifest["tools"][2]["description"] == (
         "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos."
     )
+    assert manifest["tools"][2]["status"] == "Em desenvolvimento"
+    assert manifest["tools"][2]["status_indicator"] is False
+    assert manifest["tools"][1]["status"] == "Online"
+    assert manifest["tools"][1]["status_indicator"] is True
     assert manifest["tools"][7]["description"] == (
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
     )

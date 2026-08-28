@@ -80,7 +80,9 @@
       "description": "Sistema de acompanhamento de frota em operações de carregamento de explosivo para análise de tempos e movimentos.",
       "kind": "timer",
       "accent": "#e20313",
-      "accent2": "#ffb12a"
+      "accent2": "#ffb12a",
+      "status": "Em desenvolvimento",
+      "status_indicator": false
     },
     "blasthole-profile-creator": {
       "description": "Ferramenta para criação e leitura de perfis de blastholes com foco em clareza operacional.",

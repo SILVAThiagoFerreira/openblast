@@ -36,6 +36,8 @@ def build_tool_records(config: dict, workbook_result) -> list[ToolRecord]:
                 kind=tool_meta["kind"],
                 accent=tool_meta["accent"],
                 accent2=tool_meta["accent2"],
+                status=tool_meta.get("status", "Online"),
+                status_indicator=tool_meta.get("status_indicator", True),
                 github_owner=github_owner,
                 github_repo_name=github_repo,
                 pages_owner=pages_owner,

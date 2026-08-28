@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 
 def test_required_files_exist_and_are_not_empty(project_root):
     required_files = [
@@ -52,10 +53,10 @@ def test_frontend_reads_generated_manifest(project_root):
     assert "window.location.replace(\"usvaleverde/\")" in index_text
     assert "<!-- MANIFEST:START -->" not in index_text
     assert '<script type="application/json" id="initial-manifest">' not in index_text
-    assert 'script src="../script.js" defer data-manifest-url="../output/public/tools_manifest.json"' in public_index_text
+    assert re.search(r'script src="../script\.js\?v=\d{8}_\d{6}" defer data-manifest-url="../output/public/tools_manifest.json"', public_index_text)
     assert "<!-- MANIFEST:START -->" in public_index_text
     assert '<script type="application/json" id="initial-manifest">' in public_index_text
-    assert 'script src="../script.js" defer data-manifest-url="../output/usvaleverde/tools_manifest.json"' in us_index_text
+    assert re.search(r'script src="../script\.js\?v=\d{8}_\d{6}" defer data-manifest-url="../output/usvaleverde/tools_manifest.json"', us_index_text)
     assert "<!-- MANIFEST:START -->" in us_index_text
     assert '<script type="application/json" id="initial-manifest">' in us_index_text
     assert "output/public/tools_manifest.json" in script_text

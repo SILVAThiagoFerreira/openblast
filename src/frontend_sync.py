@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from .exceptions import OutputError
@@ -11,6 +12,7 @@ from .exceptions import OutputError
 MANIFEST_MARKER_START = "<!-- MANIFEST:START -->"
 MANIFEST_MARKER_END = "<!-- MANIFEST:END -->"
 MANIFEST_SCRIPT_ID = "initial-manifest"
+SCRIPT_SRC_PATTERN = re.compile(r'(<script\b[^>]*\bsrc="[^"]*script\.js)(?:\?[^" ]*)?(\")')
 
 
 def sync_manifest_snapshot(index_path: str | Path, manifest_path: str | Path) -> Path:
@@ -42,5 +44,13 @@ def sync_manifest_snapshot(index_path: str | Path, manifest_path: str | Path) ->
 
     end += len(MANIFEST_MARKER_END)
     updated_html = html[:start] + script_block + html[end:]
+    run_id = manifest.get("run_id")
+    if not isinstance(run_id, str) or not run_id.strip():
+        raise OutputError(f"Manifest is missing a valid run_id for asset cache busting: {manifest_file}")
+    updated_html = re.sub(
+        SCRIPT_SRC_PATTERN,
+        rf'\1?v={run_id}\2',
+        updated_html,
+    )
     index_file.write_text(updated_html, encoding="utf-8")
     return index_file

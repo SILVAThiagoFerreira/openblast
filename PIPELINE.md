@@ -7,7 +7,7 @@
 4. Ler a planilha de entrada.
 5. Extrair cabecalhos e linhas brutas.
 6. Validar estrutura, semantica e consistencia dos dados.
-7. Processar e enriquecer os registros validados.
+7. Processar e enriquecer os registros validados, aplicando status visual configurável com padrão `Online`.
 8. Agrupar os registros por hub conforme `config.json`.
 9. Aplicar `publishing.targets[].excluded_repository_ids` ao target de publicacao correspondente.
 10. Gerar a publicacao do hub US Vale Verde.
@@ -16,7 +16,7 @@
 13. Escrever `output/usvaleverde/tools_manifest.json`.
 14. Escrever `output/public/tools_manifest.json`.
 15. Escrever `output/run_summary_<run_id>.json`.
-16. Sincronizar `usvaleverde/index.html` e `public/index.html` com seus manifestos.
+16. Sincronizar `usvaleverde/index.html` e `public/index.html` com seus manifestos, versionando a URL do `script.js` com o `run_id` para evitar cache antigo.
 17. Registrar o resultado final no log.
 18. Encerrar com codigo de saida apropriado.
 

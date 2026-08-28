@@ -11,6 +11,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 5. Cada ferramenta pertence a exatamente um hub definido em `config.json`.
 6. `publishing.targets` define quais grupos vao para cada hub publicado.
 7. `publishing.targets[].excluded_repository_ids` pode remover ferramentas especificas de uma publicacao sem alterar a origem da planilha.
+8. O status visual de cada card pode ser configurado em `tool_metadata`; sem configuração, o card permanece `Online` com indicador.
 
 ## Validacoes obrigatorias
 - A planilha deve conter a aba configurada em `config.json`.
@@ -21,6 +22,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - O nome do repositorio nas URLs deve bater com `repository_id`; em `pages_url`, a comparacao e case-insensitive para cobrir o caminho canonico do GitHub Pages.
 - Cada `repository_id` deve existir em `tool_metadata`.
 - Cada `repository_id` deve existir em exatamente um grupo de `hubs.groups`.
+- Se informado, `tool_metadata.<repository_id>.status` deve ser texto nao vazio e `status_indicator` deve ser booleano.
 - Se `excluded_repository_ids` estiver presente em um target, todos os IDs devem existir em `tool_metadata` e nao podem se repetir.
 - Cor de acento deve ser hex valida.
 - IDs duplicados sao erro fatal.

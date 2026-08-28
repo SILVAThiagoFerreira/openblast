@@ -87,7 +87,7 @@ Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o
 
 ## Decisoes tecnicas fixadas
 - A planilha e a fonte de verdade para IDs e URLs.
-- Metadados visuais vivem no config porque nao existem na planilha.
+- Metadados visuais e status vivem no config porque nao existem na planilha; por padrão, os cards exibem `Online` com indicador.
 - O front-end consome `output/usvaleverde/tools_manifest.json` para o hub US Vale Verde e `output/public/tools_manifest.json` para o hub publico.
 - O front-end renderiza os grupos `Ferramentas Gerais` e `Ferramentas US Vale Verde` no hub US Vale Verde e somente `Ferramentas Gerais` no hub publico.
 - Erros de validacao interrompem a geracao do manifesto.

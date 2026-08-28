@@ -35,6 +35,8 @@ class ToolRecord:
     kind: str
     accent: str
     accent2: str
+    status: str
+    status_indicator: bool
     github_owner: str
     github_repo_name: str
     pages_owner: str
