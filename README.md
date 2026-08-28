@@ -52,6 +52,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-openblast` pertencem ao hub `Ferramentas US Vale Verde`.
 - A ferramenta `plano-de-fogo-previsto` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/plano-de-fogo-previsto/`.
 - A ferramenta `ANALIZADOR DE FUROS - OPITDEV` pertence ao grupo `Ferramentas Locais` e é publicada no endereço estável `https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/`.
+- A ferramenta `Criador de Aviso de Desmonte` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/aviso-desmonte/`.
 
 ## Como executar
 ```bash
@@ -76,7 +77,7 @@ O arquivo `.nojekyll` na raiz evita processamento do Jekyll e mantém os caminho
 Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o padrao OpenBlast de luxo discreto, tons de branco, geometria mais quadrada, presenca minima do logo e regras para futuras IAs ou desenvolvedores.
 
 ## Como evoluir o projeto
-- Adicione novas ferramentas na planilha, em `tool_metadata` e no hub correspondente em `hubs.groups`.
+- Adicione novas ferramentas na planilha, em `tool_metadata` e no hub correspondente em `hubs.groups`; em seguida, execute o pipeline para regerar os manifestos e os snapshots das páginas iniciais.
 - Se a ferramenta puder ser compartilhada, mantenha-a em `Ferramentas Gerais`; se for interna, mantenha-a em `Ferramentas US Vale Verde`.
 - As ferramentas `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` ja estao mapeadas para `Ferramentas Gerais`.
 - Se uma ferramenta precisar sair de apenas uma publicacao, prefira `publishing.targets[].excluded_repository_ids` em vez de remover a linha da planilha.

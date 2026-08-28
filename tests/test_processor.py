@@ -27,8 +27,8 @@ def test_processor_builds_manifest(temp_workspace):
         publication_target=config["resolved_primary_publication_target"],
     )
 
-    assert len(records) == 12
-    assert manifest["counts"]["valid_rows"] == 12
+    assert len(records) == 13
+    assert manifest["counts"]["valid_rows"] == 13
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -52,6 +52,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Plano de Fogo Realizado",
         "Plano de Fogo Previsto",
         "ANALIZADOR DE FUROS - OPITDEV",
+        "Criador de Aviso de Desmonte",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
@@ -66,6 +67,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Análise de Desvios de Inclinação e Azimute",
         "Plano de Fogo Previsto",
         "ANALIZADOR DE FUROS - OPITDEV",
+        "Criador de Aviso de Desmonte",
     ]
     assert manifest["tools"][1]["description"] == (
         "Algoritmo para consolidação operacional de dados de perfuração planejada e executada."
@@ -81,6 +83,9 @@ def test_processor_builds_manifest(temp_workspace):
     )
     assert manifest["tools"][11]["description"] == (
         "Analisador local de furos a partir de DXF do O-PitDev, com seleção entre pré-corte e face, tratativas por furo e exportação de lâmina operacional em PNG/PDF."
+    )
+    assert manifest["tools"][12]["description"] == (
+        "Criação de avisos de desmonte com áreas de influência, estruturas próximas, croqui operacional e exportação em PDF."
     )
 
 

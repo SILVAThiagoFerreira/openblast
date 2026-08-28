@@ -106,6 +106,12 @@
       "accent": "#e20313",
       "accent2": "#37c6b3"
     },
+    "aviso-desmonte": {
+      "description": "Criação de avisos de desmonte com áreas de influência, estruturas próximas, croqui operacional e exportação em PDF.",
+      "kind": "target",
+      "accent": "#e20313",
+      "accent2": "#ff7a24"
+    },
     "report-sismografia": {
       "description": "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
       "kind": "wave",
@@ -162,7 +168,8 @@
           "temposemovimentos",
           "pfr-openblast",
           "plano-de-fogo-previsto",
-          "analizador-de-pre-corte-opitdev"
+          "analizador-de-pre-corte-opitdev",
+          "aviso-desmonte"
         ]
       }
     ]
