@@ -19,6 +19,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Manter a ferramenta local `Criador de Aviso de Desmonte` somente no hub US Vale Verde.
 - Criar testes automatizados minimos.
 - Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` no hub `Ferramentas Gerais`.
+- Manter a ferramenta de análise de desvios separada do dashboard operacional de inclinação, azimute e profundidade publicado no Hub de Dashboards.
 
 ## Fora de escopo
 - Reescrever o visual do hub.

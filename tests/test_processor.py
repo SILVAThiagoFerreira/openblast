@@ -83,7 +83,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
     )
     assert manifest["tools"][9]["description"] == (
-        "Dashboard estático para análise de desvios de inclinação, azimute e profundidade a partir de DXF de execução de furos."
+        "Ferramenta web para importar DXF de execução de furos, analisar desvios de inclinação, azimute e profundidade e exportar relatórios em PDF e Excel."
     )
     assert manifest["tools"][11]["description"] == (
         "Analisador local de furos a partir de DXF do O-PitDev, com seleção entre pré-corte e face, tratativas por furo e exportação de lâmina operacional em PNG/PDF."

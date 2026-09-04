@@ -48,7 +48,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - `publishing.targets[].excluded_repository_ids`: remove cards específicos de uma publicação sem alterar a planilha; use quando a ferramenta continua existindo na origem, mas nao deve aparecer em uma homepage publica.
 - As ferramentas `correcao-de-cargas` e `analisador-de-sismograma` pertencem ao hub `Ferramentas Gerais`.
 - A ferramenta `openblast-nbr9653` tambem pertence ao hub `Ferramentas Gerais` e aparece no hub publico.
-- A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` tambem pertence ao hub `Ferramentas Gerais` e aparece nos dois hubs de ferramentas.
+- A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` pertence ao hub `Ferramentas Gerais`, aparece nos dois hubs de ferramentas e deve ser descrita como ferramenta de importação DXF e exportação de relatórios, não como dashboard.
 - As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-openblast` pertencem ao hub `Ferramentas US Vale Verde`.
 - A ferramenta `plano-de-fogo-previsto` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/plano-de-fogo-previsto/`.
 - A ferramenta `ANALIZADOR DE FUROS - OPITDEV` pertence ao grupo `Ferramentas Locais` e é publicada no endereço estável `https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/`.

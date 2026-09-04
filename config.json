@@ -139,7 +139,7 @@
       "accent2": "#ff8a2a"
     },
     "analise-de-desvios-de-inclinacao-e-azimute": {
-      "description": "Dashboard estático para análise de desvios de inclinação, azimute e profundidade a partir de DXF de execução de furos.",
+      "description": "Ferramenta web para importar DXF de execução de furos, analisar desvios de inclinação, azimute e profundidade e exportar relatórios em PDF e Excel.",
       "kind": "target",
       "accent": "#0f6a2b",
       "accent2": "#c79517"
