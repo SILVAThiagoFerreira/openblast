@@ -114,6 +114,12 @@
       "accent": "#e20313",
       "accent2": "#ff7a24"
     },
+    "planejador-campanha-sismografia": {
+      "description": "Planejamento de campanhas de sismografia a partir de \u00e1reas DXF, compara\u00e7\u00e3o de cen\u00e1rios de posicionamento e exporta\u00e7\u00e3o do relat\u00f3rio da campanha.",
+      "kind": "wave",
+      "accent": "#e20313",
+      "accent2": "#37c6b3"
+    },
     "report-sismografia": {
       "description": "Relatório rápido para dados sismográficos, com foco em consulta visual objetiva e limpa.",
       "kind": "wave",
@@ -171,7 +177,8 @@
           "pfr-openblast",
           "plano-de-fogo-previsto",
           "analizador-de-pre-corte-opitdev",
-          "aviso-desmonte"
+          "aviso-desmonte",
+          "planejador-campanha-sismografia"
         ]
       }
     ]

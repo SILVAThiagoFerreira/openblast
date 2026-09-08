@@ -34,7 +34,7 @@ body {
   color: var(--text);
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   font-size: 15px;
-  background: #ffffff;
+  background: #fbfbfa;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -135,7 +135,7 @@ a {
 /* ---------- Page ---------- */
 
 .page {
-  padding: 34px 0 8px;
+  padding: 38px 0 8px;
 }
 
 /* ---------- Hero ---------- */
@@ -149,7 +149,7 @@ a {
 
 .hero__copy {
   position: relative;
-  padding: 8px 0 28px;
+  padding: 8px 0 30px;
   border-bottom: 1px solid var(--line-soft);
 }
 
@@ -204,6 +204,96 @@ a {
   line-height: 1.5;
 }
 
+/* ---------- Directory controls ---------- */
+
+.directory-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(190px, 228px) auto;
+  align-items: end;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.directory-controls label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted-strong);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.directory-search__field {
+  display: flex;
+  align-items: stretch;
+  min-height: 42px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+}
+
+.directory-search input,
+.directory-filter select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.88rem;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+}
+
+.directory-search input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+}
+
+.directory-search input::placeholder {
+  color: var(--muted-strong);
+}
+
+.directory-search__field:focus-within,
+.directory-filter select:focus-visible {
+  border-color: var(--openblast-red);
+  box-shadow: 0 0 0 3px rgba(237, 28, 36, 0.1);
+  outline: 0;
+}
+
+.search-clear {
+  align-self: center;
+  margin: 0 8px 0 4px;
+  padding: 5px 7px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.search-clear:hover {
+  color: var(--accent);
+}
+
+.directory-count {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
 /* ---------- Section head ---------- */
 
 .section-head {
@@ -252,11 +342,23 @@ a {
 }
 
 .hub-section__header {
+  position: relative;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 14px;
+  padding-left: 14px;
+}
+
+.hub-section__header::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 0;
+  width: 3px;
+  background: var(--openblast-red);
 }
 
 .hub-section__header h2 {
@@ -301,11 +403,11 @@ a {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 248px;
+  min-height: 264px;
   padding: 24px 26px 22px;
-  background: #ffffff;
+  background: var(--surface);
   border: 1px solid var(--line-soft);
-  border-top: 3px solid var(--openblast-red);
+  border-top: 3px solid var(--accent, var(--openblast-red));
   border-radius: 3px;
   transition:
     background 160ms ease,
@@ -319,10 +421,10 @@ a {
 }
 
 .tool-card:hover {
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 12px 26px rgba(38, 53, 64, 0.09);
   transform: translateY(-1px);
-  border-color: var(--openblast-red);
+  border-color: var(--accent, var(--openblast-red));
 }
 
 .tool-card__head {
@@ -334,7 +436,7 @@ a {
 }
 
 .tool-card__number {
-  color: var(--text-soft);
+  color: var(--accent, var(--text-soft));
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.66rem;
   font-weight: 500;
@@ -443,9 +545,21 @@ a {
 }
 
 .tool-link:focus-visible,
-.brand:focus-visible {
+.brand:focus-visible,
+.search-clear:focus-visible,
+.directory-filter select:focus-visible {
   outline: 2px solid rgba(226, 3, 19, 0.5);
   outline-offset: 3px;
+}
+
+.directory-empty {
+  margin-top: 18px;
+  padding: 22px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .reveal {
@@ -524,6 +638,15 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  .directory-controls {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .directory-count {
+    margin: 2px 0 0;
   }
 
   .hub-section__header {

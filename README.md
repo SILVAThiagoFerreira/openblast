@@ -53,6 +53,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - A ferramenta `plano-de-fogo-previsto` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/plano-de-fogo-previsto/`.
 - A ferramenta `ANALIZADOR DE FUROS - OPITDEV` pertence ao grupo `Ferramentas Locais` e é publicada no endereço estável `https://silvathiagoferreira.github.io/analizador-de-pre-corte-opitdev/`.
 - A ferramenta `Criador de Aviso de Desmonte` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/aviso-desmonte/`.
+- A ferramenta `Criador de Report de Planejamento de Sismografia` pertence ao grupo `Ferramentas Locais` e usa o Pages `https://silvathiagoferreira.github.io/planejador-campanha-sismografia/`.
 
 ## Como executar
 ```bash
@@ -82,6 +83,7 @@ Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o
 - As ferramentas `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` ja estao mapeadas para `Ferramentas Gerais`.
 - Se uma ferramenta precisar sair de apenas uma publicacao, prefira `publishing.targets[].excluded_repository_ids` em vez de remover a linha da planilha.
 - Títulos exibidos vêm da planilha; descrições e metadados visuais vêm de `config.json`.
+- A homepage oferece busca textual, filtro por grupo e contagem dinâmica sem alterar o contrato dos manifestos.
 - Nao altere o contrato do manifesto sem atualizar `script.js`, `DATA_SCHEMA.md` e os testes.
 - Toda mudanca de regra deve ser documentada em `SPEC.md`.
 

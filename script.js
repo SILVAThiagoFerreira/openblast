@@ -93,6 +93,47 @@ const categories = {
 };
 
 const grid = document.getElementById("hub-grid");
+let activeGroup = "all";
+let searchTerm = "";
+const normalizeSearch = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+function setupDirectory(manifest) {
+  const groups = Array.isArray(manifest.hubs) ? manifest.hubs : [];
+  const toolbar = document.createElement("section");
+  toolbar.className = "directory-controls";
+  toolbar.setAttribute("aria-label", "Encontrar ferramentas");
+  toolbar.innerHTML = `<div class="directory-search"><label for="tool-search">Buscar ferramenta</label><div class="directory-search__field"><input id="tool-search" type="search" placeholder="Nome, atividade ou formato de arquivo" autocomplete="off" aria-controls="hub-grid"><button type="button" class="search-clear" hidden>Limpar</button></div></div><div class="directory-filter"><label for="tool-group">Grupo</label><select id="tool-group" aria-controls="hub-grid"><option value="all">Todos os grupos</option></select></div><p id="directory-count" class="directory-count" role="status" aria-live="polite"></p>`;
+  const select = toolbar.querySelector("select");
+  groups.forEach((group) => select.add(new Option(group.title, group.slug)));
+  grid.before(toolbar);
+  const empty = document.createElement("div");
+  empty.className = "directory-empty";
+  empty.hidden = true;
+  empty.textContent = "Nenhuma ferramenta encontrada. Tente outro termo ou selecione todos os grupos.";
+  grid.after(empty);
+  const input = toolbar.querySelector("input");
+  const clear = toolbar.querySelector("button");
+  const apply = () => {
+    let visible = 0;
+    const cards = grid.querySelectorAll(".tool-card");
+    grid.querySelectorAll(".hub-section").forEach((section) => {
+      let groupCount = 0;
+      section.querySelectorAll(".tool-card").forEach((card) => {
+        const matches = (activeGroup === "all" || section.dataset.group === activeGroup) && normalizeSearch(card.textContent).includes(searchTerm);
+        card.hidden = !matches;
+        if (matches) { visible++; groupCount++; }
+      });
+      section.hidden = groupCount === 0;
+    });
+    toolbar.querySelector("#directory-count").textContent = `${visible} de ${cards.length} ferramentas`;
+    empty.hidden = visible !== 0;
+    clear.hidden = !input.value;
+  };
+  input.addEventListener("input", () => { searchTerm = normalizeSearch(input.value.trim()); apply(); });
+  select.addEventListener("change", () => { activeGroup = select.value; apply(); });
+  clear.addEventListener("click", () => { input.value = ""; searchTerm = ""; apply(); input.focus(); });
+  apply();
+}
 
 const renderCategory = (kind) => categories[kind] || "Ferramenta";
 
@@ -137,7 +178,7 @@ function renderToolCard(tool) {
       <p>${tool.description}</p>
       <div class="tool-card__footer">
         <span class="tool-card__category">${renderCategory(tool.kind)}</span>
-        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página &rarr;</a>
+        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${tool.formal_title.replace(/"/g, '&quot;')} em nova aba">Abrir ferramenta <span aria-hidden="true">↗</span></a>
       </div>
     </article>
   `;
@@ -147,7 +188,7 @@ function renderHubGroup(group) {
   toolCounter = 0;
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
-    <section class="hub-section" aria-labelledby="hub-${group.slug}">
+    <section class="hub-section" data-group="${group.slug}" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
         <h2 id="hub-${group.slug}">${group.title}</h2>
         <p class="section-head__text">${group.description}</p>
@@ -181,6 +222,7 @@ async function loadManifest() {
     if (embeddedManifestElement?.textContent?.trim()) {
       const manifest = JSON.parse(embeddedManifestElement.textContent);
       renderManifest(manifest);
+      setupDirectory(manifest);
       return;
     }
 
@@ -191,6 +233,7 @@ async function loadManifest() {
 
     const manifest = await response.json();
     renderManifest(manifest);
+    setupDirectory(manifest);
   } catch (error) {
     renderStatus(`Não foi possível carregar o manifesto. ${error.message}`, "error");
   } finally {

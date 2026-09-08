@@ -54,6 +54,7 @@ def test_frontend_reads_generated_manifest(project_root):
     assert "<!-- MANIFEST:START -->" not in index_text
     assert '<script type="application/json" id="initial-manifest">' not in index_text
     assert re.search(r'script src="../script\.js\?v=\d{8}_\d{6}" defer data-manifest-url="../output/public/tools_manifest.json"', public_index_text)
+    assert re.search(r'link rel="stylesheet" href="../styles\.css\?v=\d{8}_\d{6}"', public_index_text)
     assert "<!-- MANIFEST:START -->" in public_index_text
     assert '<script type="application/json" id="initial-manifest">' in public_index_text
     assert re.search(r'script src="../script\.js\?v=\d{8}_\d{6}" defer data-manifest-url="../output/usvaleverde/tools_manifest.json"', us_index_text)
@@ -116,6 +117,9 @@ def test_frontend_copy_is_clean(project_root):
     assert "<span>Ferramentas</span>" not in us_index_text
     assert "hub-section__count" not in script_text
     assert "7 ferramentas" not in script_text
-    assert "Abrir página" in script_text
+    assert "Abrir ferramenta" in script_text
+    assert "directory-controls" in script_text
+    assert "directory-count" in script_text
+    assert ".directory-controls" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

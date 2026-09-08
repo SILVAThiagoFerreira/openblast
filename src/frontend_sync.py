@@ -13,6 +13,7 @@ MANIFEST_MARKER_START = "<!-- MANIFEST:START -->"
 MANIFEST_MARKER_END = "<!-- MANIFEST:END -->"
 MANIFEST_SCRIPT_ID = "initial-manifest"
 SCRIPT_SRC_PATTERN = re.compile(r'(<script\b[^>]*\bsrc="[^"]*script\.js)(?:\?[^" ]*)?(\")')
+STYLE_HREF_PATTERN = re.compile(r'(<link\b[^>]*\bhref="[^"]*styles\.css)(?:\?[^" ]*)?(\")')
 
 
 def sync_manifest_snapshot(index_path: str | Path, manifest_path: str | Path) -> Path:
@@ -52,5 +53,6 @@ def sync_manifest_snapshot(index_path: str | Path, manifest_path: str | Path) ->
         rf'\1?v={run_id}\2',
         updated_html,
     )
+    updated_html = STYLE_HREF_PATTERN.sub(rf'\1?v={run_id}\2', updated_html)
     index_file.write_text(updated_html, encoding="utf-8")
     return index_file

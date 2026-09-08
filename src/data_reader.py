@@ -6,6 +6,7 @@ from hashlib import sha256
 from pathlib import Path
 
 from openpyxl import load_workbook
+from openpyxl.utils.cell import range_boundaries
 
 from .exceptions import InputDataError
 from .models import WorkbookReadResult, WorkbookRow
@@ -48,9 +49,10 @@ def read_workbook(workbook_path: str | Path, sheet_name: str, header_row: int, l
 
 
 def _read_headers(worksheet, header_row: int) -> list[str]:
+    _, max_column = _worksheet_bounds(worksheet)
     headers = [
         _normalize_cell_value(worksheet.cell(row=header_row, column=column_index).value)
-        for column_index in range(1, worksheet.max_column + 1)
+        for column_index in range(1, max_column + 1)
     ]
 
     if not any(headers):
@@ -61,8 +63,9 @@ def _read_headers(worksheet, header_row: int) -> list[str]:
 
 def _read_rows(worksheet, headers: list[str], header_row: int) -> list[WorkbookRow]:
     rows: list[WorkbookRow] = []
+    max_row, _ = _worksheet_bounds(worksheet)
 
-    for row_number in range(header_row + 1, worksheet.max_row + 1):
+    for row_number in range(header_row + 1, max_row + 1):
         values = [
             _normalize_cell_value(worksheet.cell(row=row_number, column=column_index).value)
             for column_index in range(1, len(headers) + 1)
@@ -83,6 +86,19 @@ def _read_rows(worksheet, headers: list[str], header_row: int) -> list[WorkbookR
         )
 
     return rows
+
+
+def _worksheet_bounds(worksheet) -> tuple[int, int]:
+    """Return worksheet bounds, including unsized read-only XLSX sheets."""
+
+    max_row = worksheet.max_row
+    max_column = worksheet.max_column
+    if max_row is not None and max_column is not None:
+        return max_row, max_column
+
+    dimension = worksheet.calculate_dimension(force=True)
+    _, _, max_column, max_row = range_boundaries(dimension)
+    return max_row, max_column
 
 
 def _normalize_cell_value(value) -> str:

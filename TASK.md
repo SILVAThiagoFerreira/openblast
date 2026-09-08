@@ -17,12 +17,13 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Permitir exclusoes pontuais por publicacao via configuracao, sem mexer na planilha de origem.
 - Manter as ferramentas locais `plano-de-fogo-previsto` e `ANALIZADOR DE FUROS - OPITDEV` somente no hub US Vale Verde.
 - Manter a ferramenta local `Criador de Aviso de Desmonte` somente no hub US Vale Verde.
+- Manter a ferramenta local `Criador de Report de Planejamento de Sismografia` somente no hub US Vale Verde.
 - Criar testes automatizados minimos.
 - Manter `correcao-de-cargas`, `analisador-de-sismograma`, `openblast-nbr9653` e `analise-de-desvios-de-inclinacao-e-azimute` no hub `Ferramentas Gerais`.
 - Manter a ferramenta de análise de desvios separada do dashboard operacional de inclinação, azimute e profundidade publicado no Hub de Dashboards.
 
 ## Fora de escopo
-- Reescrever o visual do hub.
+- Reescrever o visual do hub fora do padrão OpenBlast; refinamentos de hierarquia, busca, filtro e responsividade permanecem no escopo quando preservam o padrão visual.
 - Trocar a planilha por outro formato de origem.
 - Implementar banco de dados ou backend persistente.
 

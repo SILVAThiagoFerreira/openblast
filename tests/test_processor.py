@@ -27,8 +27,8 @@ def test_processor_builds_manifest(temp_workspace):
         publication_target=config["resolved_primary_publication_target"],
     )
 
-    assert len(records) == 13
-    assert manifest["counts"]["valid_rows"] == 13
+    assert len(records) == 14
+    assert manifest["counts"]["valid_rows"] == 14
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -53,6 +53,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Plano de Fogo Previsto",
         "ANALIZADOR DE FUROS - OPITDEV",
         "Criador de Aviso de Desmonte",
+        "Criador de Report de Planejamento de Sismografia",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
             "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
@@ -68,6 +69,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Plano de Fogo Previsto",
         "ANALIZADOR DE FUROS - OPITDEV",
         "Criador de Aviso de Desmonte",
+        "Criador de Report de Planejamento de Sismografia",
     ]
     assert manifest["tools"][1]["description"] == (
         "Algoritmo para consolidação operacional de dados de perfuração planejada e executada."

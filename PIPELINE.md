@@ -5,7 +5,7 @@
 2. Resolver caminhos relativos a partir da pasta do config.
 3. Inicializar logs com `run_id` e timestamp.
 4. Ler a planilha de entrada.
-5. Extrair cabecalhos e linhas brutas.
+5. Extrair cabecalhos e linhas brutas, resolvendo explicitamente a dimensão quando o XLSX estiver sem dimensão materializada no modo somente leitura.
 6. Validar estrutura, semantica e consistencia dos dados.
 7. Processar e enriquecer os registros validados, aplicando status visual configurável com padrão `Online`.
 8. Agrupar os registros por hub conforme `config.json`.
@@ -17,8 +17,9 @@
 14. Escrever `output/public/tools_manifest.json`.
 15. Escrever `output/run_summary_<run_id>.json`.
 16. Sincronizar `usvaleverde/index.html` e `public/index.html` com seus manifestos, versionando a URL do `script.js` com o `run_id` para evitar cache antigo.
-17. Registrar o resultado final no log.
-18. Encerrar com codigo de saida apropriado.
+17. Versionar também a URL do `styles.css` sincronizado para que os refinamentos visuais da homepage não sejam mascarados por cache do Pages.
+18. Registrar o resultado final no log.
+19. Encerrar com codigo de saida apropriado.
 
 ## Pontos de decisao
 - Se o config estiver invalido, a execucao para antes do pipeline.

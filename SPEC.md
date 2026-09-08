@@ -12,6 +12,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 6. `publishing.targets` define quais grupos vao para cada hub publicado.
 7. `publishing.targets[].excluded_repository_ids` pode remover ferramentas especificas de uma publicacao sem alterar a origem da planilha.
 8. O status visual de cada card pode ser configurado em `tool_metadata`; sem configuração, o card permanece `Online` com indicador.
+9. A homepage pode filtrar os cards por texto e grupo no cliente, preservando o manifesto como fonte única dos dados.
 
 ## Validacoes obrigatorias
 - A planilha deve conter a aba configurada em `config.json`.
