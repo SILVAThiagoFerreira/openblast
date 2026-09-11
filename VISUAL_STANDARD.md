@@ -11,6 +11,13 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - Destaques visuais pequenos, nunca espalhafatosos.
 - Identidade com cara de produto tecnico premium, nao de landing page promocional.
 
+## Referencia editorial aplicada à home
+- A página inicial pode usar uma abertura técnica em azul-marinho como contraponto controlado ao fundo branco.
+- A composição deve aproveitar a linguagem do material de referência DT5G: títulos grandes, numeração discreta, linhas finas e organização assimétrica de informação.
+- O azul-marinho fica restrito ao cabeçalho e ao bloco de abertura; o restante da navegação permanece claro.
+- A primeira ferramenta de cada grupo pode funcionar como ponto de entrada visual, sem alterar sua ordem nem seu link no manifesto.
+- Ícones devem reforçar o tipo da ferramenta e manter traço simples, sem virar ilustração decorativa.
+
 ## Principios obrigatorios
 - Usar somente referencias OpenBlast.
 - Nao usar referencias textuais ou visuais da Enaex.

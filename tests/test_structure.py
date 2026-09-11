@@ -109,7 +109,7 @@ def test_frontend_copy_is_clean(project_root):
     assert "Acesso rápido" not in us_index_text
     assert "Hubs disponíveis" not in public_index_text
     assert "Hubs disponíveis" not in us_index_text
-    assert "Ferramentas operacionais." in us_index_text
+    assert "Acesso direto ao conjunto de ferramentas operacionais da unidade." in us_index_text
     assert "Ferramentas operacionais da OpenBlast." not in us_index_text
     assert "hero__description" not in public_index_text
     assert "hero__description" not in us_index_text

@@ -97,6 +97,23 @@ let activeGroup = "all";
 let searchTerm = "";
 const normalizeSearch = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
+function updateHeroSummary(manifest) {
+  const tools = Array.isArray(manifest.tools)
+    ? manifest.tools
+    : (Array.isArray(manifest.hubs) ? manifest.hubs.flatMap((hub) => hub.tools || []) : []);
+  const online = tools.filter((tool) => tool.status_indicator !== false).length;
+  const stats = {
+    tools: tools.length,
+    groups: Array.isArray(manifest.hubs) ? manifest.hubs.length : 0,
+    online,
+  };
+
+  Object.entries(stats).forEach(([key, value]) => {
+    const element = document.querySelector(`[data-stat="${key}"]`);
+    if (element) element.textContent = String(value).padStart(2, "0");
+  });
+}
+
 function setupDirectory(manifest) {
   const groups = Array.isArray(manifest.hubs) ? manifest.hubs : [];
   const toolbar = document.createElement("section");
@@ -169,13 +186,18 @@ function renderToolCard(tool) {
     ? '<span class="tool-card__status-dot" aria-hidden="true"></span>'
     : "";
   return `
-    <article class="tool-card" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
+    <article class="tool-card" data-kind="${tool.kind || "default"}" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
         <span class="tool-card__number">Ferramenta ${num}</span>
         <span class="tool-card__status${tool.status_indicator === false ? " tool-card__status--development" : ""}">${statusIndicator}${status}</span>
       </div>
-      <h3>${tool.formal_title}</h3>
-      <p>${tool.description}</p>
+      <div class="tool-card__content">
+        <div class="tool-card__visual">${(icons[tool.kind] || icons.default)()}</div>
+        <div>
+          <h3>${tool.formal_title}</h3>
+          <p>${tool.description}</p>
+        </div>
+      </div>
       <div class="tool-card__footer">
         <span class="tool-card__category">${renderCategory(tool.kind)}</span>
         <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${tool.formal_title.replace(/"/g, '&quot;')} em nova aba">Abrir ferramenta <span aria-hidden="true">↗</span></a>
@@ -184,13 +206,13 @@ function renderToolCard(tool) {
   `;
 }
 
-function renderHubGroup(group) {
+function renderHubGroup(group, index = 1) {
   toolCounter = 0;
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
     <section class="hub-section" data-group="${group.slug}" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
-        <h2 id="hub-${group.slug}">${group.title}</h2>
+        <div class="hub-section__title"><span class="hub-section__index" aria-hidden="true">${String(index).padStart(2, "0")}</span><h2 id="hub-${group.slug}">${group.title}</h2></div>
         <p class="section-head__text">${group.description}</p>
       </header>
       <div class="tool-grid tool-grid--group">${cards}</div>
@@ -201,6 +223,7 @@ function renderHubGroup(group) {
 function renderManifest(manifest) {
   toolCounter = 0;
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
+  updateHeroSummary(manifest);
 
   if (!hubs.length) {
     const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
@@ -211,7 +234,7 @@ function renderManifest(manifest) {
     return;
   }
 
-  grid.innerHTML = hubs.map((group) => renderHubGroup(group)).join("");
+  grid.innerHTML = hubs.map((group, index) => renderHubGroup(group, index + 1)).join("");
 }
 
 async function loadManifest() {
