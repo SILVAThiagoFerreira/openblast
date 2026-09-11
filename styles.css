@@ -11,6 +11,17 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+}
 body {
   margin: 0;
   min-height: 100vh;
@@ -227,7 +238,8 @@ a { color: inherit; }
   z-index: 10;
   top: calc(100% + 9px);
   left: 50%;
-  width: min(238px, calc(100vw - 32px));
+  width: min(280px, calc(100vw - 24px));
+  max-height: 220px;
   padding: 10px 12px;
   color: var(--white);
   font-size: 0.78rem;
@@ -239,6 +251,7 @@ a { color: inherit; }
   border-top: 2px solid var(--red-enaex);
   border-radius: 7px;
   box-shadow: 0 10px 24px rgba(56, 66, 75, 0.2);
+  overflow: auto;
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -5px);
@@ -263,6 +276,8 @@ a { color: inherit; }
   transform: translate(-50%, 0);
   visibility: visible;
 }
+.tool-card__tooltip::-webkit-scrollbar { width: 6px; }
+.tool-card__tooltip::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.34); border-radius: 6px; }
 .directory-empty { margin-top: 18px; padding: 22px; color: var(--gray-muted); border: 1px solid var(--line); font-size: 0.9rem; line-height: 1.6; }
 .reveal { animation: none; }
 

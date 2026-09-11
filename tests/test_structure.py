@@ -107,7 +107,8 @@ def test_frontend_copy_is_clean(project_root):
     assert "function iconForTool" in script_text
     assert "stroke-linecap=\"round\"" in script_text
     assert "tool-card__tooltip" in script_text
-    assert "aria-describedby=\"${tooltipId}\"" in script_text
+    assert "aria-describedby=\"${descriptionId}\"" in script_text
+    assert "class=\"sr-only\"" in script_text
     assert "tool-card__link" not in script_text
     assert "Acesso rápido" not in public_index_text
     assert "Acesso rápido" not in us_index_text
@@ -124,8 +125,8 @@ def test_frontend_copy_is_clean(project_root):
     assert 'aria-label="Abrir ' in script_text
     assert "directory-controls" in script_text
     assert "directory-count" in script_text
-    assert "truncateDescription" in script_text
-    assert "maxLength = 100" in script_text
+    assert "truncateDescription" not in script_text
+    assert 'String(tool.description ?? "").trim()' in script_text
     assert ".directory-controls" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "--gray-enaex: #38424B" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "--red-enaex: #E20613" in (project_root / "styles.css").read_text(encoding="utf-8")
@@ -135,5 +136,8 @@ def test_frontend_copy_is_clean(project_root):
     assert ".tool-card:hover .tool-card__tooltip" in styles_text
     assert ".tool-card:focus-visible .tool-card__tooltip" in styles_text
     assert ".tool-card:focus-visible { position: relative; z-index: 20; }" in styles_text
+    assert "max-height: 220px" in styles_text
+    assert "overflow: auto" in styles_text
+    assert ".sr-only" in styles_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

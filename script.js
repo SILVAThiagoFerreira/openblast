@@ -133,12 +133,6 @@ const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character
   "'": "&#39;",
 }[character]));
 
-function truncateDescription(value, maxLength = 100) {
-  const text = String(value ?? "").trim();
-  if (text.length <= maxLength) return text;
-  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
-}
-
 function setupDirectory(manifest) {
   const groups = Array.isArray(manifest.hubs) ? manifest.hubs : [];
   const toolbar = document.createElement("section");
@@ -202,24 +196,27 @@ function renderStatus(message, modifier = "") {
 
 function renderToolCard(tool) {
   const title = escapeHtml(tool.formal_title);
-  const description = truncateDescription(tool.description);
+  const description = String(tool.description ?? "").trim();
   const fullSearchText = escapeHtml(`${tool.formal_title} ${tool.description}`);
   const tooltipId = `tool-tooltip-${++toolTooltipIndex}`;
+  const descriptionId = `${tooltipId}-description`;
   return `
-    <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}" aria-describedby="${tooltipId}">
+    <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}" aria-describedby="${descriptionId}">
       <span class="tool-card__hex" aria-hidden="true">${iconForTool(tool)()}</span>
       <h3>${title}</h3>
-      <span class="tool-card__tooltip" id="${tooltipId}" role="tooltip">${escapeHtml(description)}</span>
+      <span class="tool-card__tooltip" id="${tooltipId}" role="tooltip" aria-hidden="true">${escapeHtml(description)}</span>
+      <span class="sr-only" id="${descriptionId}">${escapeHtml(description)}</span>
     </a>
   `;
 }
 
 function renderHubGroup(group) {
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
+  const groupSlug = String(group.slug || "group").replace(/[^a-z0-9_-]/gi, "-");
   return `
-    <section class="hub-section" data-group="${group.slug}" aria-labelledby="hub-${group.slug}">
+    <section class="hub-section" data-group="${escapeHtml(group.slug)}" aria-labelledby="hub-${groupSlug}">
       <header class="hub-section__header">
-        <h2 id="hub-${group.slug}">${group.title}</h2>
+        <h2 id="hub-${groupSlug}">${escapeHtml(group.title)}</h2>
       </header>
       <div class="tool-grid tool-grid--group">${cards}</div>
     </section>
