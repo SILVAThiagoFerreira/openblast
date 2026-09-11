@@ -122,6 +122,7 @@ function iconForTool(tool) {
 const grid = document.getElementById("hub-grid");
 let activeGroup = "all";
 let searchTerm = "";
+let toolTooltipIndex = 0;
 const normalizeSearch = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
@@ -203,11 +204,12 @@ function renderToolCard(tool) {
   const title = escapeHtml(tool.formal_title);
   const description = truncateDescription(tool.description);
   const fullSearchText = escapeHtml(`${tool.formal_title} ${tool.description}`);
+  const tooltipId = `tool-tooltip-${++toolTooltipIndex}`;
   return `
-    <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}. ${escapeHtml(description)}">
+    <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}" aria-describedby="${tooltipId}">
       <span class="tool-card__hex" aria-hidden="true">${iconForTool(tool)()}</span>
       <h3>${title}</h3>
-      <p>${escapeHtml(description)}</p>
+      <span class="tool-card__tooltip" id="${tooltipId}" role="tooltip">${escapeHtml(description)}</span>
     </a>
   `;
 }
@@ -218,7 +220,6 @@ function renderHubGroup(group) {
     <section class="hub-section" data-group="${group.slug}" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
         <h2 id="hub-${group.slug}">${group.title}</h2>
-        <p>${group.description}</p>
       </header>
       <div class="tool-grid tool-grid--group">${cards}</div>
     </section>
@@ -227,13 +228,14 @@ function renderHubGroup(group) {
 
 function renderManifest(manifest) {
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
+  toolTooltipIndex = 0;
 
   if (!hubs.length) {
     const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
     if (!tools.length) {
       throw new Error("Manifesto sem hubs ou ferramentas.");
     }
-    grid.innerHTML = `<section class="hub-section" aria-labelledby="hub-fallback"><header class="hub-section__header"><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
+    grid.innerHTML = `<section class="hub-section" aria-labelledby="hub-fallback"><header class="hub-section__header"><h2 id="hub-fallback">Ferramentas</h2></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
     return;
   }
 
