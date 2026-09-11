@@ -208,14 +208,14 @@ a { color: inherit; }
 .tool-card__hex {
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 78px;
+  width: 88px;
+  height: 70px;
   margin: 0 auto;
   color: var(--white);
   background: var(--red-enaex);
-  clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
 }
-.tool-card__hex svg { width: 42px; height: 42px; }
+.tool-card__hex svg { width: 43px; height: 43px; }
 .tool-card h3 {
   margin: 17px 0 0;
   color: var(--gray-enaex);
@@ -272,6 +272,7 @@ a { color: inherit; }
 }
 @media (max-width: 480px) {
   .tool-grid { grid-template-columns: 1fr; }
+  .tool-card__hex { width: 82px; height: 66px; }
   .tool-card { min-height: 210px; }
   .page-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
 }

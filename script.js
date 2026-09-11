@@ -1,74 +1,114 @@
 const embeddedManifestElement = document.getElementById("initial-manifest");
 const manifestUrl = resolveManifestUrl();
 
+const iconSvg = (content) => `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${content}</svg>`;
+
 const icons = {
-  flight: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <path d="M11 43c6-8 13-13 21-15s16-1 21 3" />
-      <path d="M37 18l12 12-16 2z" fill="currentColor" stroke="none" />
-      <circle cx="19" cy="36" r="2.2" fill="currentColor" stroke="none" />
-      <circle cx="29" cy="32" r="2.2" fill="currentColor" stroke="none" />
-      <circle cx="40" cy="28" r="2.2" fill="currentColor" stroke="none" />
-      <path d="M26 45l6 5 7-12" />
-    </svg>
-  `,
-  console: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <path d="M12 42h40" />
-      <path d="M17 38v10M25 29v19M33 24v24M41 30v18M49 34v14" />
-      <path d="M14 23c6 3 11 4 17 1s11-2 15 1" />
-      <path d="M43 16l6 6-8 1z" fill="currentColor" stroke="none" />
-    </svg>
-  `,
-  timer: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <circle cx="32" cy="35" r="18" />
-      <path d="M24 16h16" />
-      <path d="M32 28v8l6 4" />
-      <path d="M21 16l-4-4M43 16l4-4" />
-      <path d="M15 35h5M44 35h5" />
-    </svg>
-  `,
-  blast: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <path d="M11 43l10-7 10 3 11-8 9 2" />
-      <path d="M11 50l10-7 10 3 11-8 9 2" opacity="0.7" />
-      <circle cx="18" cy="55" r="2.2" fill="currentColor" stroke="none" />
-      <circle cx="28" cy="50" r="2.2" fill="currentColor" stroke="none" />
-      <circle cx="39" cy="53" r="2.2" fill="currentColor" stroke="none" />
-      <circle cx="50" cy="45" r="2.2" fill="currentColor" stroke="none" />
-    </svg>
-  `,
-  target: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <circle cx="32" cy="32" r="18" />
-      <circle cx="32" cy="32" r="10" />
-      <circle cx="32" cy="32" r="3" fill="currentColor" stroke="none" />
-      <path d="M42 22l10-10" />
-      <path d="M44 12h8v8" />
-    </svg>
-  `,
-  wave: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <path d="M10 36h8l5-12 7 28 7-18 5 10h12" />
-      <path d="M12 24h40" opacity="0.35" />
-      <path d="M12 48h40" opacity="0.35" />
-    </svg>
-  `,
-  shield: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <path d="M32 10l16 6v12c0 12-8 20-16 26-8-6-16-14-16-26V16l16-6z" />
-      <path d="M24 33l6 6 11-13" />
-    </svg>
-  `,
-  default: () => `
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-      <rect x="14" y="14" width="36" height="36" rx="12" />
-      <path d="M22 32h20" />
-      <path d="M32 22v20" />
-    </svg>
-  `,
+  flight: () => iconSvg(`
+    <path d="M12 46c7-10 15-16 24-18 6-1 11 0 16 3" />
+    <path d="M38 17l13 14-18 1 5-7z" fill="currentColor" stroke="none" />
+    <circle cx="17" cy="40" r="2" fill="currentColor" stroke="none" />
+    <circle cx="27" cy="34" r="2" fill="currentColor" stroke="none" />
+    <circle cx="39" cy="29" r="2" fill="currentColor" stroke="none" />
+    <path d="M15 51h34" opacity="0.45" />
+  `),
+  charge: () => iconSvg(`
+    <rect x="17" y="13" width="10" height="38" rx="5" />
+    <rect x="37" y="13" width="10" height="38" rx="5" />
+    <path d="M22 19v7M22 35v7M42 19v7M42 35v7" />
+    <path d="M31 21l-4 9h6l-4 12" stroke-width="3" />
+  `),
+  blast: () => iconSvg(`
+    <path d="M16 15v30" />
+    <path d="M24 20v25M32 24v21M40 29v16" />
+    <path d="M12 46h40" />
+    <path d="M11 51h42M15 56h34" opacity="0.58" />
+    <path d="M13 15h8M21 20h8M29 24h8M37 29h8" />
+    <path d="M48 14l1.6 3.4L53 19l-3.4 1.6L48 24l-1.6-3.4L43 19l3.4-1.6z" fill="currentColor" stroke="none" />
+  `),
+  monitor: () => iconSvg(`
+    <path d="M10 35h8l4-10 7 22 7-28 6 16h12" />
+    <path d="M16 18v6M48 18v6M12 49h40" opacity="0.52" />
+    <circle cx="29" cy="47" r="2.2" fill="currentColor" stroke="none" />
+  `),
+  waveform: () => iconSvg(`
+    <path d="M10 36h7l4-7 5 14 6-24 6 32 6-15 4 6h8" />
+    <path d="M12 18h40M12 52h40" opacity="0.38" />
+    <path d="M18 15v6M46 15v6" />
+  `),
+  standard: () => iconSvg(`
+    <path d="M19 11h20l8 8v34H19z" />
+    <path d="M39 11v10h8" />
+    <path d="M25 30h16M25 37h16M25 44h10" />
+    <path d="M43 44l3 3 6-7" />
+  `),
+  plan: () => iconSvg(`
+    <path d="M12 43c7-8 13-11 20-11s14 3 20-8" />
+    <circle cx="12" cy="43" r="3" />
+    <circle cx="32" cy="32" r="3" />
+    <circle cx="52" cy="24" r="3" />
+    <path d="M32 18v8M28 22h8M12 52h40" opacity="0.62" />
+  `),
+  compass: () => iconSvg(`
+    <circle cx="32" cy="34" r="17" />
+    <path d="M32 10v7M32 51v5M8 34h7M49 34h7" />
+    <path d="M37 29l9-9-12 4-9 9 12-4z" fill="currentColor" stroke="none" />
+    <circle cx="32" cy="34" r="3" />
+  `),
+  bench: () => iconSvg(`
+    <path d="M12 47h40M12 39h38M18 31h32M24 23h24" />
+    <path d="M18 47V28M30 47V21M42 47V26" />
+    <path d="M14 53h36" opacity="0.55" />
+  `),
+  borehole: () => iconSvg(`
+    <path d="M19 12h26" />
+    <path d="M22 12v39M42 12v39" />
+    <path d="M22 20h20M22 29h20M22 38h20M22 47h20" opacity="0.65" />
+    <path d="M15 16h7M15 25h7M15 34h7M15 43h7" />
+    <path d="M42 17l8 8-8 8" />
+  `),
+  warning: () => iconSvg(`
+    <path d="M32 10l23 42H9z" />
+    <path d="M32 24v13" stroke-width="3" />
+    <circle cx="32" cy="44" r="1.8" fill="currentColor" stroke="none" />
+    <path d="M15 55h34" opacity="0.5" />
+  `),
+  console: () => iconSvg(`
+    <rect x="11" y="16" width="27" height="31" rx="3" />
+    <rect x="26" y="23" width="27" height="31" rx="3" />
+    <path d="M18 25h13M18 32h13M18 39h8M33 32h13M33 39h13M33 46h8" />
+    <path d="M38 12v7M34 15h8" />
+  `),
+  timer: () => iconSvg(`
+    <circle cx="32" cy="35" r="18" />
+    <path d="M26 11h12M32 17v-6M24 16l-4-4M40 16l4-4" />
+    <path d="M32 25v11l7 4" />
+    <path d="M10 35h6M48 35h6" opacity="0.7" />
+  `),
+  default: () => iconSvg(`
+    <path d="M15 20h34M15 32h34M15 44h34" />
+    <circle cx="25" cy="20" r="4" fill="currentColor" stroke="none" />
+    <circle cx="40" cy="32" r="4" fill="currentColor" stroke="none" />
+    <circle cx="29" cy="44" r="4" fill="currentColor" stroke="none" />
+  `),
 };
+
+function iconForTool(tool) {
+  const title = String(tool.formal_title || "").toLowerCase();
+  if (tool.kind === "wave") {
+    if (title.includes("abnt")) return icons.standard;
+    if (title.includes("planejamento")) return icons.plan;
+    if (title.includes("waveform")) return icons.waveform;
+    return icons.monitor;
+  }
+  if (tool.kind === "target") {
+    if (title.includes("desvios")) return icons.compass;
+    if (title.includes("aviso")) return icons.warning;
+    if (title.includes("opitdev")) return icons.borehole;
+    return icons.bench;
+  }
+  return icons[tool.kind] || icons.default;
+}
 
 const grid = document.getElementById("hub-grid");
 let activeGroup = "all";
@@ -156,7 +196,7 @@ function renderToolCard(tool) {
   const fullSearchText = escapeHtml(`${tool.formal_title} ${tool.description}`);
   return `
     <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}. ${escapeHtml(description)}">
-      <span class="tool-card__hex" aria-hidden="true">${(icons[tool.kind] || icons.default)()}</span>
+      <span class="tool-card__hex" aria-hidden="true">${iconForTool(tool)()}</span>
       <h3>${title}</h3>
       <p>${escapeHtml(description)}</p>
     </a>

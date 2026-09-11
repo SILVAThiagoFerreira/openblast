@@ -15,9 +15,10 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - A página inicial usa somente uma faixa superior com o logo e o nome do hub.
 - O fundo da página permanece branco, sem hero, números ou blocos escuros adicionais.
 - A faixa usa Cinza Enaex `#38424B` e Vermelho Enaex `#E20613`.
-- Cada ferramenta aparece como um link simples: ícone dentro de hexágono vermelho, nome e descrição curta.
+- Cada ferramenta aparece como um link simples: ícone personalizado em branco dentro de hexágono vermelho mais largo, nome e descrição curta.
+- O hexágono deve ser visualmente horizontal, com proporção de referência 88x70px no desktop e 82x66px no mobile.
 - A descrição exibida deve ter no máximo 100 caracteres.
-- O ícone reforça o tipo da ferramenta, mas não substitui o nome nem o link acessível.
+- O desenho do ícone deve reforçar a função da ferramenta (carga, furo, sismografia, alvo, documento ou tempo), mas não substitui o nome nem o link acessível.
 
 ## Principios obrigatorios
 - Usar somente referencias OpenBlast.

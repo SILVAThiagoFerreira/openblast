@@ -104,6 +104,8 @@ def test_frontend_copy_is_clean(project_root):
     assert "hero__title-row" not in public_index_text
     assert "hero__title-row" not in us_index_text
     assert "tool-card__hex" in script_text
+    assert "function iconForTool" in script_text
+    assert "stroke-linecap=\"round\"" in script_text
     assert "tool-card__link" not in script_text
     assert "Acesso rápido" not in public_index_text
     assert "Acesso rápido" not in us_index_text
@@ -125,5 +127,8 @@ def test_frontend_copy_is_clean(project_root):
     assert ".directory-controls" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "--gray-enaex: #38424B" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "--red-enaex: #E20613" in (project_root / "styles.css").read_text(encoding="utf-8")
+    styles_text = (project_root / "styles.css").read_text(encoding="utf-8")
+    assert "width: 88px" in styles_text
+    assert "height: 70px" in styles_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")
