@@ -11,12 +11,13 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - Destaques visuais pequenos, nunca espalhafatosos.
 - Identidade com cara de produto tecnico premium, nao de landing page promocional.
 
-## Referencia editorial aplicada à home
-- A página inicial pode usar uma abertura técnica em azul-marinho como contraponto controlado ao fundo branco.
-- A composição deve aproveitar a linguagem do material de referência DT5G: títulos grandes, numeração discreta, linhas finas e organização assimétrica de informação.
-- O azul-marinho fica restrito ao cabeçalho e ao bloco de abertura; o restante da navegação permanece claro.
-- A primeira ferramenta de cada grupo pode funcionar como ponto de entrada visual, sem alterar sua ordem nem seu link no manifesto.
-- Ícones devem reforçar o tipo da ferramenta e manter traço simples, sem virar ilustração decorativa.
+## Referencia aplicada à home
+- A página inicial usa somente uma faixa superior com o logo e o nome do hub.
+- O fundo da página permanece branco, sem hero, números ou blocos escuros adicionais.
+- A faixa usa Cinza Enaex `#38424B` e Vermelho Enaex `#E20613`.
+- Cada ferramenta aparece como um link simples: ícone dentro de hexágono vermelho, nome e descrição curta.
+- A descrição exibida deve ter no máximo 100 caracteres.
+- O ícone reforça o tipo da ferramenta, mas não substitui o nome nem o link acessível.
 
 ## Principios obrigatorios
 - Usar somente referencias OpenBlast.
@@ -32,8 +33,8 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - Linhas: cinza suave, de baixa agressividade.
 - Texto principal: quase preto, sem contraste brutal.
 - Texto secundario: cinza quente ou cinza frio suave.
-- Acento principal: vermelho OpenBlast.
-- Acento secundario: laranja de apoio, usado com moderacao.
+- Cinza de identidade: Cinza Enaex `#38424B`.
+- Acento principal: Vermelho Enaex `#E20613`.
 
 ## Tipografia
 - Titulos: fortes, compactos e tecnicos.
@@ -43,7 +44,7 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 
 ## Logo e branding
 - O logo deve aparecer uma vez por pagina, normalmente no topo.
-- No hub de ferramentas, a faixa de topo deve ocupar toda a largura, usar azul-escuro técnico, linha vermelha OpenBlast de 3px na base e título branco centralizado; o logo fica discreto à esquerda.
+- No hub de ferramentas, a faixa de topo deve ocupar toda a largura, usar Cinza Enaex, linha Vermelho Enaex de 3px na base e título branco centralizado; o logo fica discreto à esquerda.
 - Nao duplicar logo no hero e no header ao mesmo tempo.
 - Tamanho alvo no desktop:
   - Hub: entre 24px e 32px de largura.

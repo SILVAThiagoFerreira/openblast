@@ -101,15 +101,15 @@ def test_frontend_copy_is_clean(project_root):
     assert "brand__wordmark" in us_index_text
     assert public_index_text.count("brand__logo") == 1
     assert us_index_text.count("brand__logo") == 1
-    assert "hero__title-row" in public_index_text
-    assert "hero__title-row" in us_index_text
-    assert "hero__title-mark" not in public_index_text
-    assert "hero__title-mark" not in us_index_text
+    assert "hero__title-row" not in public_index_text
+    assert "hero__title-row" not in us_index_text
+    assert "tool-card__hex" in script_text
+    assert "tool-card__link" not in script_text
     assert "Acesso rápido" not in public_index_text
     assert "Acesso rápido" not in us_index_text
     assert "Hubs disponíveis" not in public_index_text
     assert "Hubs disponíveis" not in us_index_text
-    assert "Acesso direto ao conjunto de ferramentas operacionais da unidade." in us_index_text
+    assert "Acesso direto ao conjunto de ferramentas operacionais da unidade." not in us_index_text
     assert "Ferramentas operacionais da OpenBlast." not in us_index_text
     assert "hero__description" not in public_index_text
     assert "hero__description" not in us_index_text
@@ -117,9 +117,13 @@ def test_frontend_copy_is_clean(project_root):
     assert "<span>Ferramentas</span>" not in us_index_text
     assert "hub-section__count" not in script_text
     assert "7 ferramentas" not in script_text
-    assert "Abrir ferramenta" in script_text
+    assert 'aria-label="Abrir ' in script_text
     assert "directory-controls" in script_text
     assert "directory-count" in script_text
+    assert "truncateDescription" in script_text
+    assert "maxLength = 100" in script_text
     assert ".directory-controls" in (project_root / "styles.css").read_text(encoding="utf-8")
+    assert "--gray-enaex: #38424B" in (project_root / "styles.css").read_text(encoding="utf-8")
+    assert "--red-enaex: #E20613" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

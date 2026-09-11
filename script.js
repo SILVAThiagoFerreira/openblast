@@ -70,48 +70,23 @@ const icons = {
   `,
 };
 
-const labels = {
-  flight: "Plano de voo",
-  console: "Consolidação",
-  timer: "Tempos e mov.",
-  blast: "Perfil de furos",
-  target: "Desvios",
-  wave: "Sismografia",
-  charge: "Cargas",
-  shield: "Conformidade",
-};
-
-const categories = {
-  flight: "Plano de Voo",
-  console: "Consolidação",
-  timer: "Tempos e Movimentos",
-  blast: "Perfil de Furos",
-  target: "Análise",
-  wave: "Sismografia",
-  charge: "Cargas",
-  shield: "Conformidade",
-};
-
 const grid = document.getElementById("hub-grid");
 let activeGroup = "all";
 let searchTerm = "";
 const normalizeSearch = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-function updateHeroSummary(manifest) {
-  const tools = Array.isArray(manifest.tools)
-    ? manifest.tools
-    : (Array.isArray(manifest.hubs) ? manifest.hubs.flatMap((hub) => hub.tools || []) : []);
-  const online = tools.filter((tool) => tool.status_indicator !== false).length;
-  const stats = {
-    tools: tools.length,
-    groups: Array.isArray(manifest.hubs) ? manifest.hubs.length : 0,
-    online,
-  };
+const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+}[character]));
 
-  Object.entries(stats).forEach(([key, value]) => {
-    const element = document.querySelector(`[data-stat="${key}"]`);
-    if (element) element.textContent = String(value).padStart(2, "0");
-  });
+function truncateDescription(value, maxLength = 100) {
+  const text = String(value ?? "").trim();
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
 }
 
 function setupDirectory(manifest) {
@@ -136,7 +111,8 @@ function setupDirectory(manifest) {
     grid.querySelectorAll(".hub-section").forEach((section) => {
       let groupCount = 0;
       section.querySelectorAll(".tool-card").forEach((card) => {
-        const matches = (activeGroup === "all" || section.dataset.group === activeGroup) && normalizeSearch(card.textContent).includes(searchTerm);
+        const searchableText = `${card.textContent} ${card.dataset.searchText || ""}`;
+        const matches = (activeGroup === "all" || section.dataset.group === activeGroup) && normalizeSearch(searchableText).includes(searchTerm);
         card.hidden = !matches;
         if (matches) { visible++; groupCount++; }
       });
@@ -151,10 +127,6 @@ function setupDirectory(manifest) {
   clear.addEventListener("click", () => { input.value = ""; searchTerm = ""; apply(); input.focus(); });
   apply();
 }
-
-const renderCategory = (kind) => categories[kind] || "Ferramenta";
-
-let toolCounter = 0;
 
 function resolveManifestUrl() {
   const currentScriptUrl = document.currentScript?.dataset?.manifestUrl;
@@ -179,41 +151,25 @@ function renderStatus(message, modifier = "") {
 }
 
 function renderToolCard(tool) {
-  toolCounter++;
-  const num = String(toolCounter).padStart(2, "0");
-  const status = tool.status || "Online";
-  const statusIndicator = tool.status_indicator !== false
-    ? '<span class="tool-card__status-dot" aria-hidden="true"></span>'
-    : "";
+  const title = escapeHtml(tool.formal_title);
+  const description = truncateDescription(tool.description);
+  const fullSearchText = escapeHtml(`${tool.formal_title} ${tool.description}`);
   return `
-    <article class="tool-card" data-kind="${tool.kind || "default"}" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
-      <div class="tool-card__head">
-        <span class="tool-card__number">Ferramenta ${num}</span>
-        <span class="tool-card__status${tool.status_indicator === false ? " tool-card__status--development" : ""}">${statusIndicator}${status}</span>
-      </div>
-      <div class="tool-card__content">
-        <div class="tool-card__visual">${(icons[tool.kind] || icons.default)()}</div>
-        <div>
-          <h3>${tool.formal_title}</h3>
-          <p>${tool.description}</p>
-        </div>
-      </div>
-      <div class="tool-card__footer">
-        <span class="tool-card__category">${renderCategory(tool.kind)}</span>
-        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${tool.formal_title.replace(/"/g, '&quot;')} em nova aba">Abrir ferramenta <span aria-hidden="true">↗</span></a>
-      </div>
-    </article>
+    <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}. ${escapeHtml(description)}">
+      <span class="tool-card__hex" aria-hidden="true">${(icons[tool.kind] || icons.default)()}</span>
+      <h3>${title}</h3>
+      <p>${escapeHtml(description)}</p>
+    </a>
   `;
 }
 
-function renderHubGroup(group, index = 1) {
-  toolCounter = 0;
+function renderHubGroup(group) {
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
     <section class="hub-section" data-group="${group.slug}" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
-        <div class="hub-section__title"><span class="hub-section__index" aria-hidden="true">${String(index).padStart(2, "0")}</span><h2 id="hub-${group.slug}">${group.title}</h2></div>
-        <p class="section-head__text">${group.description}</p>
+        <h2 id="hub-${group.slug}">${group.title}</h2>
+        <p>${group.description}</p>
       </header>
       <div class="tool-grid tool-grid--group">${cards}</div>
     </section>
@@ -221,9 +177,7 @@ function renderHubGroup(group, index = 1) {
 }
 
 function renderManifest(manifest) {
-  toolCounter = 0;
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
-  updateHeroSummary(manifest);
 
   if (!hubs.length) {
     const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
@@ -234,7 +188,7 @@ function renderManifest(manifest) {
     return;
   }
 
-  grid.innerHTML = hubs.map((group, index) => renderHubGroup(group, index + 1)).join("");
+  grid.innerHTML = hubs.map((group) => renderHubGroup(group)).join("");
 }
 
 async function loadManifest() {
