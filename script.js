@@ -58,7 +58,15 @@ const icons = {
   bench: () => iconSvg(`
     <path d="M12 47h40M12 39h38M18 31h32M24 23h24" />
     <path d="M18 47V28M30 47V21M42 47V26" />
+    <path d="M14 53h20" opacity="0.55" />
+    <path d="M39 48l4 4 8-9" />
+  `),
+  planned: () => iconSvg(`
+    <path d="M12 47h40M12 39h38M18 31h32M24 23h24" />
+    <path d="M18 47V28M30 47V21M42 47V26" />
     <path d="M14 53h36" opacity="0.55" />
+    <path d="M16 16h32" stroke-dasharray="3 4" />
+    <path d="M43 12l7 4-7 4" />
   `),
   borehole: () => iconSvg(`
     <path d="M19 12h26" />
@@ -105,6 +113,7 @@ function iconForTool(tool) {
     if (title.includes("desvios")) return icons.compass;
     if (title.includes("aviso")) return icons.warning;
     if (title.includes("opitdev")) return icons.borehole;
+    if (title.includes("previsto")) return icons.planned;
     return icons.bench;
   }
   return icons[tool.kind] || icons.default;
