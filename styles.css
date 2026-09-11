@@ -186,11 +186,14 @@ a { color: inherit; }
   transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
 .tool-card:hover {
+  position: relative;
+  z-index: 20;
   border-color: var(--line);
   border-top-color: var(--red-enaex);
   box-shadow: 0 8px 20px rgba(56, 66, 75, 0.08);
   transform: translateY(-1px);
 }
+.tool-card:focus-visible { position: relative; z-index: 20; }
 .tool-card:focus-visible,
 .brand:focus-visible,
 .search-clear:focus-visible,

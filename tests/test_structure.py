@@ -134,5 +134,6 @@ def test_frontend_copy_is_clean(project_root):
     assert "height: 66px" in styles_text
     assert ".tool-card:hover .tool-card__tooltip" in styles_text
     assert ".tool-card:focus-visible .tool-card__tooltip" in styles_text
+    assert ".tool-card:focus-visible { position: relative; z-index: 20; }" in styles_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")
