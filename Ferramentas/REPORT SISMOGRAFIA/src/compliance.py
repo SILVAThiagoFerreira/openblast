@@ -107,6 +107,17 @@ def campaign_summary(records: List[Dict], config: Dict) -> Dict:
     if not client_display:
         client_display = project_cfg.get("client_default")
 
+    max_ppv_axis_field = {
+        "Tran": "tran_ppv_mm_s",
+        "Vert": "vert_ppv_mm_s",
+        "Long": "long_ppv_mm_s",
+    }.get(max_ppv_record.get("evaluation", {}).get("ppv_max_axis") if max_ppv_record else None)
+    max_ppv_qualifier = (
+        (max_ppv_record.get("numeric_qualifiers", {}) or {}).get(max_ppv_axis_field)
+        if max_ppv_record and max_ppv_axis_field
+        else None
+    )
+
     return {
         "points_count": len(records),
         "event_date": records[0].get("event_date") if records else None,
@@ -116,14 +127,17 @@ def campaign_summary(records: List[Dict], config: Dict) -> Dict:
         "max_pspl": {
             "value_db": max_pspl_record.get("pspl_db") if max_pspl_record else None,
             "point_name": max_pspl_record.get("point_name") if max_pspl_record else None,
+            "qualifier": (max_pspl_record.get("numeric_qualifiers", {}) or {}).get("pspl_db") if max_pspl_record else None,
         },
         "max_ppv": {
             "value_mm_s": max_ppv_record.get("evaluation", {}).get("ppv_max_mm_s") if max_ppv_record else None,
             "axis": max_ppv_record.get("evaluation", {}).get("ppv_max_axis") if max_ppv_record else None,
             "point_name": max_ppv_record.get("point_name") if max_ppv_record else None,
+            "qualifier": max_ppv_qualifier,
         },
         "max_pvs": {
             "value_mm_s": max_pvs_record.get("pvs_mm_s") if max_pvs_record else None,
             "point_name": max_pvs_record.get("point_name") if max_pvs_record else None,
+            "qualifier": (max_pvs_record.get("numeric_qualifiers", {}) or {}).get("pvs_mm_s") if max_pvs_record else None,
         },
     }

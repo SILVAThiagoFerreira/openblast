@@ -15,6 +15,10 @@ Processar uma campanha sismográfica a partir de CSVs de sismógrafo, avaliar co
 - O site permite alterar o target executivo de vibração por execução, com valor inicial de `0,8 mm/s`.
 - O site permite ocultar a linha “Índices de vibração” do relatório sem remover a avaliação dos dados.
 - O texto de WhatsApp deve usar apenas formatação compatível com WhatsApp.
+- Qualificadores instrumentais `<` e `>` devem ser preservados nos registros e
+  exibidos nas saídas, sem serem convertidos silenciosamente em igualdade.
+- Os pontos são apresentados por distância GPS crescente quando
+  `processing.record_order` está em `gps_distance_ascending`.
 
 ## Validações Obrigatórias
 
@@ -25,6 +29,9 @@ Processar uma campanha sismográfica a partir de CSVs de sismógrafo, avaliar co
 - Um lote com múltiplas datas de evento é rejeitado por padrão.
 - O resumo processado precisa ser coerente com a quantidade de registros.
 - Os artefatos finais precisam existir e ter tamanho maior que zero.
+- O PDF precisa ser legível, abrir corretamente e conter os títulos dos dois
+  gráficos normativos na primeira página.
+- O PNG precisa ser um raster A4 válido e legível.
 
 ## Tratamento De Erros
 
@@ -43,14 +50,18 @@ Processar uma campanha sismográfica a partir de CSVs de sismógrafo, avaliar co
 - O nome da pasta de execução é derivado de data e hora para rastreabilidade.
 - O gráfico de vibração usa eixo Y quebrado quando a faixa dos pontos é muito pequena em relação à curva normativa.
 - O PNG do relatório é gerado por rasterização direta da primeira página do PDF, preservando a proporção original.
-- Os gráficos normativos ficam em uma segunda página do PDF, cada um em largura total, para garantir legibilidade em impressão e na visualização do documento.
+- Para até três pontos, os dois gráficos normativos ficam lado a lado na mesma
+  página A4 do resumo. Campanhas maiores usam páginas de continuação apenas
+  para os pontos excedentes.
 - A composição da primeira página reserva folga fixa para o rodapé, impedindo que cartões e tabelas finais avancem sobre a assinatura visual.
 - O resumo executivo usa escopo textual, cabeçalhos verdes e cartões horizontais de pontos monitorados com status à direita.
 - O canto superior direito do cabeçalho usa um marcador circular geométrico simples com o número de pontos monitorados dentro.
 
 ## Identidade Visual do Relatório
 
-Definida em `src/report.py`. Serve como referência para novas edições visuais — mudanças pontuais são permitidas desde que preservem a linguagem abaixo.
+Definida em `config.json` e consumida por `src/report.py` e `pages/js/`.
+Serve como referência para novas edições visuais — mudanças pontuais são
+permitidas desde que preservem a linguagem abaixo.
 
 **Paleta.** Verde institucional `#67C70A` para headers de seção, réguas de destaque e status conforme. Vermelho `#E30613` reservado ao logotipo e ao título principal. Cinza escuro `#3C4656` (dark) nos cabeçalhos dos cards de pontos; navy `#151B36` no badge do rodapé. Verde-claro `#EAF6D9` como fundo de rótulos em tabelas. Cinza `#E8EAEE` na faixa superior do card de cabeçalho e `#D9DEE7` nas linhas separadoras.
 
@@ -62,7 +73,10 @@ Definida em `src/report.py`. Serve como referência para novas edições visuais
 - **Selo de status** ("CONFORME ABNT" / "VERIFICAR" / "DADO AUSENTE") em pill (raio 9), fundo colorido conforme o estado.
 - **Tabelas internas** sem bordas nas células: apenas a faixa de rótulo em verde-claro e linhas horizontais finas (`#D9DEE7`, 0.35–0.4pt) entre linhas.
 
-**Espaçamentos-chave.** `POINT_CARD_GAP=14`, `POINTS_TITLE_GAP=22`, `CHART_TO_POINTS_GAP=40`, `CHARTS_TOP_LIMIT=480`. Card do escopo com altura 72 para acomodar as 4 linhas do bloco. Card de conclusão em y=488, escopo em y=566.
+**Espaçamentos-chave.** `POINT_CARD_GAP=14`, `POINTS_TITLE_GAP=22`,
+`CHART_TO_POINTS_GAP=28`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
+72 para acomodar as quatro linhas do bloco. Card de conclusão em y=488,
+escopo em y=566.
 
 **Rodapé.** Texto normativo em cinza `#667085` alinhado verticalmente ao centro do badge navy "DNA • ENAEX". Fio vermelho de 6pt na base da página como assinatura visual.
 
@@ -79,3 +93,11 @@ Definida em `src/report.py`. Serve como referência para novas edições visuais
 - a execução deixa rastro em log e manifesto
 - a validação ocorre antes do processamento
 - o sistema permanece modular e extensível
+
+## Contrato da versão online
+
+- A aplicação é estática e roda no navegador; não há upload para servidor.
+- A entrada é um ou mais `.IDFW.CSV` da mesma campanha.
+- A validação ocorre antes da avaliação de conformidade e rejeita campos
+  essenciais ausentes, números inválidos e datas de evento misturadas.
+- Os downloads mantêm o prefixo `ENAEX_NSR` e a data consolidada do evento.

@@ -22,7 +22,9 @@ def setup_logging(config: Dict, run_context: Dict[str, str] | None = None) -> tu
     log_path = logs_root / file_template.format(**run_context)
 
     logger = logging.getLogger("sismo_report")
-    logger.handlers.clear()
+    for handler in list(logger.handlers):
+        logger.removeHandler(handler)
+        handler.close()
     logger.setLevel(getattr(logging, str(logging_cfg.get("level", "INFO")).upper(), logging.INFO))
     logger.propagate = False
 
@@ -38,3 +40,10 @@ def setup_logging(config: Dict, run_context: Dict[str, str] | None = None) -> tu
     logger.addHandler(stream_handler)
     logger.info("Logging initialized at %s", log_path)
     return logger, log_path
+
+
+def close_logging(logger: logging.Logger) -> None:
+    """Release file handles so repeated Windows runs and cleanup can proceed."""
+    for handler in list(logger.handlers):
+        logger.removeHandler(handler)
+        handler.close()

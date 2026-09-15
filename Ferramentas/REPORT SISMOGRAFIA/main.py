@@ -8,7 +8,7 @@ from src.config_loader import load_config
 from src.data_reader import read_input_records
 from src.exceptions import ProjectError
 from src.io_utils import make_output_dir
-from src.logger_setup import setup_logging
+from src.logger_setup import close_logging, setup_logging
 from src.output_writer import write_campaign_outputs
 from src.processor import process_campaign
 from src.validator import validate_config, validate_input_records, validate_processed_results
@@ -19,7 +19,8 @@ def run_pipeline(input_path: str, config: dict, out_root: str | None = None, log
         config.setdefault("paths", {})["output_root"] = out_root
     validate_config(config)
 
-    if logger is None or log_path is None:
+    owns_logger = logger is None or log_path is None
+    if owns_logger:
         logger, log_path = setup_logging(config)
     try:
         logger.info("Starting execution with input=%s", input_path)
@@ -45,6 +46,9 @@ def run_pipeline(input_path: str, config: dict, out_root: str | None = None, log
     except Exception:
         logger.exception("Pipeline execution failed")
         raise
+    finally:
+        if owns_logger:
+            close_logging(logger)
 
 
 def main() -> int:

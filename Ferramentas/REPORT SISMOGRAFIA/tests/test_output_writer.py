@@ -3,6 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from pathlib import Path
 
+import fitz
+
 from src.artifacts import build_artifact_context, resolve_artifact_name
 from src.config_loader import load_config
 from src.data_reader import read_input_records
@@ -36,3 +38,11 @@ def test_output_writer_creates_artifacts(tmp_path):
         assert path.exists()
         assert path.stat().st_size > 0
     assert manifest["output_dir"] == str(out_dir)
+
+    pdf_path = out_dir / resolve_artifact_name(config, "report_pdf", context)
+    pdf = fitz.open(pdf_path)
+    assert len(pdf) == 1
+    text = pdf[0].get_text()
+    assert "Pressão Sonora x Distância" in text
+    assert "PPV x Limite ABNT" in text
+    pdf.close()

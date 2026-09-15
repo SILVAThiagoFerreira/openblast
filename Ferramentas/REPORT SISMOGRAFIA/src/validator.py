@@ -7,10 +7,11 @@ from typing import Any, Dict, Iterable, List
 from .exceptions import ConfigurationError, ValidationError
 
 
-REQUIRED_CONFIG_SECTIONS = ("project", "paths", "output", "logging", "limits", "charts", "artifacts", "processing")
+REQUIRED_CONFIG_SECTIONS = ("project", "paths", "output", "logging", "limits", "charts", "report_layout", "report_text", "artifacts", "processing")
 REQUIRED_RECORD_FIELDS = ("source_file", "event_date", "point_name", "pspl_db", "pvs_mm_s", "tran_ppv_mm_s", "vert_ppv_mm_s", "long_ppv_mm_s")
 OPTIONAL_NUMERIC_FIELDS = ("gps_distance_m", "scaled_distance", "charge_kg", "mic_freq_hz", "tran_freq_hz", "vert_freq_hz", "long_freq_hz")
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+HEX_COLOR_PATTERN = re.compile(r"^#[0-9A-Fa-f]{6}$")
 
 
 def _ensure_non_empty_string(value: Any, label: str) -> None:
@@ -64,14 +65,60 @@ def validate_config(config: Dict) -> Dict:
         _ensure_numeric(point[1], f"limits.nbr9653_curve[{idx}][1]")
 
     charts = config["charts"]
-    for key in ("vibration_x_min", "vibration_y_min", "vibration_y_tick_step", "vibration_y_focus_max", "vibration_x_max_minimum", "vibration_y_max_minimum", "pressure_x_min", "pressure_y_min", "pressure_y_max"):
+    for key in (
+        "figure_width", "figure_height", "figure_dpi", "title_font_size", "axis_label_font_size",
+        "tick_font_size", "legend_font_size", "annotation_font_size", "marker_size",
+        "vibration_x_min", "vibration_y_min", "vibration_y_tick_step", "vibration_y_focus_max",
+        "vibration_x_max_minimum", "vibration_y_max_minimum", "pressure_x_min", "pressure_y_min",
+        "pressure_y_max",
+    ):
         _ensure_numeric(charts.get(key), f"charts.{key}")
+        if float(charts[key]) <= 0 and key not in ("vibration_x_min", "vibration_y_min", "pressure_x_min", "pressure_y_min"):
+            raise ConfigurationError(f"Configuration value must be positive: charts.{key}")
+
+    report_layout = config["report_layout"]
+    for key in (
+        "page_margin", "chart_column_gap", "chart_inner_padding", "chart_header_height",
+        "chart_to_points_gap", "charts_top_limit", "footer_height", "footer_accent_height",
+        "footer_side_padding", "header_points_arrow_offset", "header_points_arrow_width",
+        "header_points_arrow_gap", "header_points_arrow_line_width", "status_badge_width",
+        "status_badge_height", "status_badge_radius",
+    ):
+        _ensure_numeric(report_layout.get(key), f"report_layout.{key}")
+        if float(report_layout[key]) <= 0:
+            raise ConfigurationError(f"Configuration value must be positive: report_layout.{key}")
+
+    report_text = config["report_text"]
+    for key in (
+        "executive_title", "scope_title", "conclusion_title", "points_title",
+        "continued_points_title", "pressure_chart_title", "vibration_chart_title",
+    ):
+        _ensure_non_empty_string(report_text.get(key), f"report_text.{key}")
 
     processing = config["processing"]
     if not isinstance(processing.get("require_single_event_date"), bool):
         raise ConfigurationError("processing.require_single_event_date must be boolean.")
     if not isinstance(processing.get("allow_missing_optional_fields"), bool):
         raise ConfigurationError("processing.allow_missing_optional_fields must be boolean.")
+    if processing.get("record_order", "source_order") not in {"source_order", "gps_distance_ascending"}:
+        raise ConfigurationError("processing.record_order must be source_order or gps_distance_ascending.")
+
+    branding = config.get("branding")
+    if not isinstance(branding, dict):
+        raise ConfigurationError("Missing configuration section: branding")
+    _ensure_non_empty_string(branding.get("logo_path"), "branding.logo_path")
+    palette = branding.get("palette")
+    required_palette_keys = (
+        "enaex_gray", "enaex_red", "white", "gray_50", "gray_100", "gray_200",
+        "gray_300", "text", "muted", "series_transversal", "series_longitudinal",
+        "series_vertical", "status_conforme", "status_ausente",
+    )
+    if not isinstance(palette, dict):
+        raise ConfigurationError("branding.palette must be an object.")
+    for key in required_palette_keys:
+        value = palette.get(key)
+        if not isinstance(value, str) or not HEX_COLOR_PATTERN.fullmatch(value):
+            raise ConfigurationError(f"branding.palette.{key} must be a #RRGGBB color.")
 
     return config
 
@@ -106,6 +153,9 @@ def validate_input_records(records: List[Dict], config: Dict) -> List[Dict]:
             _ensure_record_numeric(record, field)
         for field in OPTIONAL_NUMERIC_FIELDS:
             _ensure_record_numeric(record, field, allow_none=True)
+        qualifiers = record.get("numeric_qualifiers", {}) or {}
+        if not isinstance(qualifiers, dict) or any(value not in ("<", ">") for value in qualifiers.values()):
+            raise ValidationError(f"Record {index} has invalid numeric measurement qualifiers.")
 
     if config.get("processing", {}).get("require_single_event_date", True) and len(event_dates) > 1:
         raise ValidationError(f"Multiple event dates found in a single run: {sorted(event_dates)}")

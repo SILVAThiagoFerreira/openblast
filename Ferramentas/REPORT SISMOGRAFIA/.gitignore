@@ -1,5 +1,11 @@
 .venv/
 outputs/
+input/
+output/
+logs/
+VISUAL/
+webapp/runs/
+.playwright-cli/
 __pycache__/
 *.pyc
 .DS_Store

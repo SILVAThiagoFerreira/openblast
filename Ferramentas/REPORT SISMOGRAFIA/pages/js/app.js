@@ -210,7 +210,9 @@
       rawRecords.push(window.SismoParser.parseSismoCsv(file.name, text));
     }
     // 2) Compliance.
-    const records = window.SismoCompliance.evaluateRecords(rawRecords, cfg);
+    window.SismoValidation.validateRecords(rawRecords, cfg);
+    const orderedRecords = window.SismoValidation.orderRecords(rawRecords, cfg);
+    const records = window.SismoCompliance.evaluateRecords(orderedRecords, cfg);
     const summary = window.SismoCompliance.campaignSummary(records, cfg);
 
     // 3) Charts em canvas.
@@ -278,24 +280,24 @@
         key: "whatsapp",
         number: "01",
         title: "Nota para WhatsApp",
-        description: "Texto formatado com PVS, PSPL e status de conformidade por ponto.",
-        category: "txt · WhatsApp",
+        description: "Resumo pronto para encaminhar.",
+        category: "TXT · WhatsApp",
         previewLabel: "Ver texto",
       },
       {
         key: "pdf",
         number: "02",
         title: "Relatório onepage",
-        description: "PDF com gráficos NBR 9653, tabela de resultados e cabeçalho ENAEX.",
-        category: "pdf · Relatório",
+        description: "Uma página com resumo, gráficos e pontos.",
+        category: "PDF · Relatório",
         previewLabel: "Abrir PDF",
       },
       {
         key: "png",
         number: "03",
         title: "Imagem do relatório",
-        description: "Versão em imagem do relatório onepage, pronta para anexo.",
-        category: "png · Imagem",
+        description: "Imagem A4 completa, pronta para anexo.",
+        category: "PNG · Imagem",
         previewLabel: "Ver imagem",
       },
     ];

@@ -34,6 +34,7 @@ Fonte: CSV exportado do sismógrafo.
 | `tran_test_result` | string | não | resultado do teste transversal | texto | `Passed` | vazio | informativo |
 | `vert_test_result` | string | não | resultado do teste vertical | texto | `Passed` | vazio | informativo |
 | `long_test_result` | string | não | resultado do teste longitudinal | texto | `Passed` | vazio | informativo |
+| `numeric_qualifiers` | object | não | qualificadores do instrumento preservados para métricas numéricas | mapa campo → `<` ou `>` | `{"pspl_db":"<"}` | `{"pspl_db":"="}` | não altera o valor numérico; evita perder a indicação de limite da fonte |
 | `metadata` | object | sim | cabeçalho bruto do CSV | objeto JSON | `{...}` | `null` | rastreabilidade |
 
 ## 2. Resumo Processado
@@ -45,9 +46,9 @@ Fonte: CSV exportado do sismógrafo.
 | `client` | string | cliente exibido no relatório |
 | `all_conforme_abnt` | boolean/null | conformidade geral com a norma |
 | `all_below_configured_vibration_limit` | boolean/null | conformidade executiva com o limite configurado |
-| `max_pspl` | object | maior pressão sonora da campanha |
-| `max_ppv` | object | maior PPV da campanha |
-| `max_pvs` | object | maior PVS da campanha |
+| `max_pspl` | object | maior pressão sonora da campanha; inclui `value_db`, `point_name` e `qualifier` |
+| `max_ppv` | object | maior PPV da campanha; inclui `value_mm_s`, `axis`, `point_name` e `qualifier` |
+| `max_pvs` | object | maior PVS da campanha; inclui `value_mm_s`, `point_name` e `qualifier` |
 
 ## 3. Manifesto De Execução
 
@@ -66,6 +67,15 @@ Fonte: CSV exportado do sismógrafo.
 
 - campos obrigatórios não podem ser nulos ou vazios
 - números precisam ser finitos e não negativos quando a métrica exigir
+- qualificadores, quando presentes, só podem ser `<` ou `>`
 - datas devem seguir `YYYY-MM-DD`
 - uma execução deve trabalhar com uma única data de evento
 - saídas devem ser verificadas após a escrita
+
+## 4. Contrato de nomes e versão web
+
+O relatório e a imagem usam `ENAEX_NSR-YYYYMMDD` com a data consolidada do
+evento. A aplicação online acrescenta a nota TXT e reúne os três arquivos em
+ZIP, mantendo o mesmo prefixo. A pasta publicada é `docs/` no repositório
+`SILVAThiagoFerreira/report-sismografia`; os CSVs selecionados são processados
+somente em memória no navegador.

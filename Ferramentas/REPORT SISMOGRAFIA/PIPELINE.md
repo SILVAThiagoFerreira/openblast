@@ -16,7 +16,8 @@
 
 - Entrada: pasta ou arquivo CSV definido em `paths.input_dir` ou `--input`
 - Saída: lista de registros estruturados
-- Validação: os CSVs precisam existir e ser parseáveis
+- Validação: os CSVs precisam existir, ser parseáveis e manter os
+  qualificadores instrumentais quando presentes
 
 ## 4. Validação Das Entradas
 
@@ -39,8 +40,13 @@
 ## 7. Geração Das Saídas
 
 - Entrada: resultados processados e configuração
-- Saída: PDF (resumo na primeira página e gráficos normativos em página dedicada), PNG da primeira página, nota WhatsApp, JSON consolidado, manifesto e gráficos
-- Validação: todos os arquivos devem existir, ter tamanho maior que zero e manter a composição visual em escopo textual, cartões horizontais por ponto e marcador circular do cabeçalho, sem sobreposição entre conteúdo técnico e rodapé
+- Saída: PDF, PNG, nota WhatsApp, JSON consolidado, manifesto e gráficos.
+  Para até três pontos, PDF e PNG são uma página A4 com resumo, os dois
+  gráficos e os cartões; acima disso, o PDF recebe páginas de continuação.
+- Validação: todos os arquivos devem existir, ter tamanho maior que zero,
+  abrir corretamente e manter a composição visual em escopo textual, cartões
+  horizontais por ponto, marcador circular do cabeçalho e rodapé sem
+  sobreposição.
 
 ## 8. Geração De Logs
 
@@ -54,10 +60,21 @@
 - Saída: retorno de sucesso ou erro explícito
 - Validação: código de saída zero em sucesso, diferente de zero em falha
 
-## 10. Publicação do gerador web
+## 10. Pipeline web no navegador
 
-- O workflow de Pages copia `pages/` para a raiz publicada.
-- `pages/js/report.js` mantém paridade de coordenadas com `src/report.py`.
-- A publicação não deve apontar para `docs/`, pois esse diretório contém o
-  dashboard analítico legado e gera uma interface diferente do relatório
-  executivo solicitado.
+- A página aceita um ou mais `.IDFW.CSV` por seleção ou arraste.
+- `pages/js/parser.js` lê os arquivos localmente e `validation.js` rejeita
+  registros incompletos antes da conformidade.
+- `pages/js/report.js` e `pages/js/charts.js` geram o mesmo contrato visual e
+  de nomes da versão Python.
+- Os downloads do navegador são PDF, PNG, TXT e ZIP; nenhum CSV sai do
+  dispositivo.
+
+## 11. Publicação do GitHub Pages
+
+- `pages/` é a fonte de trabalho do checkout Python.
+- O repositório dedicado `SILVAThiagoFerreira/report-sismografia` publica
+  `main:/docs` em
+  `https://silvathiagoferreira.github.io/report-sismografia/`.
+- Antes do push, a cópia de `pages/` deve ser sincronizada com `docs/` e a
+  publicação deve ser verificada no navegador.

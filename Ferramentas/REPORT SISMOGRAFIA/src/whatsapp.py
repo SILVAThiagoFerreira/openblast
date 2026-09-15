@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Dict, List
 
+from .measurements import format_record_value
+
 
 def fmt_num(value, digits=3):
     if value is None:
@@ -40,17 +42,20 @@ def build_whatsapp_note(records: List[Dict], summary: Dict, config: Dict) -> str
     if below_limit is False:
         vibration_status = f"⚠️ Índices de vibração: acima de {_fmt_limit(vib_limit)} mm/s. Pontos: {', '.join(over_limit_points) if over_limit_points else 'N/D'}."
         status_final = f"⚠️ *STATUS:* Verificar pontos acima do limite da *{base_normativa}*."
-    else:
+    elif below_limit is True:
         vibration_status = f"✅ Índices de vibração: abaixo de {_fmt_limit(vib_limit)} mm/s."
         status_final = f"✅ *STATUS:* Todos os parâmetros estão em conformidade com a *{base_normativa}*."
+    else:
+        vibration_status = "⚠️ Índices de vibração: dados insuficientes para avaliação."
+        status_final = f"⚠️ *STATUS:* Verificar dados ausentes para a *{base_normativa}*."
 
     point_lines: List[str] = []
     for record in records:
         point_lines.extend(
             [
                 f" *{record.get('point_name') or 'N/D'}*",
-                f"   • PVS: {fmt_num(record.get('pvs_mm_s'), 3)} mm/s",
-                f"   • PSPL: {fmt_num(record.get('pspl_db'), 1)} dB(L)",
+                f"   • PVS: {format_record_value(record, 'pvs_mm_s', 3)} mm/s",
+                f"   • PSPL: {format_record_value(record, 'pspl_db', 1)} dB(L)",
                 "",
             ]
         )
@@ -58,23 +63,15 @@ def build_whatsapp_note(records: List[Dict], summary: Dict, config: Dict) -> str
         point_lines.pop()
 
     lines = [
-        "*MONITORAMENTO SISMOGRÁFICO - ENAEX*",
-        "---",
-        f" *Cliente:* {client}",
-        f" *Data:* {event_date}",
+        "*MONITORAMENTO SISMOGRÁFICO — ENAEX*",
         "",
-        "Prezados,",
-        "Seguem os níveis de vibração e pressão acústica registrados no evento. Os detalhes técnicos completos podem ser consultados no relatório (imagem) em anexo.",
+        f"*Cliente:* {client}",
+        f"*Data:* {event_date}",
+        "",
         vibration_status,
         "",
         *point_lines,
         "",
-        "---",
         status_final,
-        "",
-        "_Consulte a imagem anexa para mais detalhes._",
-        "",
-        "Atenciosamente,",
-        "*Enaex*",
     ]
     return "\n".join(lines)

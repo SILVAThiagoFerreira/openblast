@@ -4,6 +4,9 @@ import shutil
 from pathlib import Path
 from typing import Dict
 
+import fitz
+from PIL import Image
+
 from .artifacts import build_artifact_context, resolve_artifact_name
 from .charts import make_all_charts
 from .exceptions import OutputError
@@ -17,20 +20,67 @@ def _ensure_non_empty_file(path: Path, label: str) -> None:
         raise OutputError(f"Failed to create {label}: {path}")
 
 
-def _copy_input_files(input_path: str | Path, out_dir: Path) -> None:
+def _validate_report_artifacts(pdf_path: Path, png_path: Path, records: list[Dict], config: Dict) -> None:
+    """Validate that the binary report artifacts are readable and structurally useful."""
+    try:
+        pdf = fitz.open(str(pdf_path))
+        try:
+            page_count = len(pdf)
+            if page_count < 1 or (len(records) <= 3 and page_count != 1):
+                raise OutputError(
+                    f"Unexpected report page count: {page_count} for {len(records)} point(s)."
+                )
+            first_page_text = pdf[0].get_text()
+        finally:
+            pdf.close()
+    except OutputError:
+        raise
+    except Exception as exc:
+        raise OutputError(f"Generated PDF cannot be opened: {pdf_path}") from exc
+
+    report_text = config.get("report_text", {})
+    required_labels = (
+        report_text.get("pressure_chart_title", "Pressão Sonora x Distância"),
+        report_text.get("vibration_chart_title", "PPV x Limite ABNT"),
+    )
+    missing_labels = [label for label in required_labels if str(label) not in first_page_text]
+    if missing_labels:
+        raise OutputError(f"Generated PDF is missing required labels: {missing_labels}")
+
+    try:
+        with Image.open(png_path) as image:
+            width, height = image.size
+            if image.format != "PNG" or image.mode not in {"RGB", "RGBA"}:
+                raise OutputError(f"Generated PNG has an unsupported format: {png_path}")
+            if width < 1000 or height < 1400:
+                raise OutputError(f"Generated PNG resolution is too small: {width}x{height}")
+            if abs((width / height) - (595.28 / 841.89)) > 0.01:
+                raise OutputError(f"Generated PNG is not A4-proportioned: {width}x{height}")
+            image.verify()
+    except OutputError:
+        raise
+    except Exception as exc:
+        raise OutputError(f"Generated PNG cannot be opened: {png_path}") from exc
+
+
+def _copy_input_files(input_path: str | Path, out_dir: Path) -> list[Path]:
     raw_dir = out_dir / "entrada_csv"
     raw_dir.mkdir(parents=True, exist_ok=True)
     source = Path(input_path)
     files = [source] if source.is_file() else list(source.rglob("*.csv"))
+    copied: list[Path] = []
     for src in files:
         if src.exists():
-            shutil.copy2(src, raw_dir / src.name)
+            destination = raw_dir / src.name
+            shutil.copy2(src, destination)
+            copied.append(destination)
+    return copied
 
 
 def write_campaign_outputs(records: list[Dict], summary: Dict, config: Dict, input_path: str | Path, out_dir: str | Path, logger=None, log_file: str | Path | None = None) -> Dict:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    _copy_input_files(input_path, out_dir)
+    copied_inputs = _copy_input_files(input_path, out_dir)
 
     context = build_artifact_context(config, event_date=summary.get("event_date"))
     charts = make_all_charts(records, config, out_dir / "graficos", context)
@@ -64,18 +114,23 @@ def write_campaign_outputs(records: list[Dict], summary: Dict, config: Dict, inp
     }
     if log_file is not None:
         manifest["log_file"] = str(log_file)
-    save_json(manifest, manifest_path)
 
     for label, path in {
         "json": json_path,
         "whatsapp_note": note_path,
         "pdf": pdf_path,
         "png": png_path,
-        "manifest": manifest_path,
         "pressure_chart": Path(charts["pressure_chart"]),
         "vibration_chart": Path(charts["vibration_chart"]),
     }.items():
         _ensure_non_empty_file(Path(path), label)
+    for path in copied_inputs:
+        _ensure_non_empty_file(path, "copied input CSV")
+    if log_file is not None:
+        _ensure_non_empty_file(Path(log_file), "execution log")
+    _validate_report_artifacts(pdf_path, png_path, records, config)
+    save_json(manifest, manifest_path)
+    _ensure_non_empty_file(manifest_path, "manifest")
 
     if logger:
         logger.info("Output artifacts written to %s", out_dir)

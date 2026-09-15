@@ -66,6 +66,7 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     "processing": {
         "require_single_event_date": True,
         "allow_missing_optional_fields": True,
+        "record_order": "source_order",
     },
 }
 

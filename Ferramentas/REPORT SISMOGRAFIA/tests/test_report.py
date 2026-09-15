@@ -11,7 +11,10 @@ def test_first_page_layout_reserves_footer_clearance():
     )
 
     assert last_card_y >= report.FIRST_PAGE_LAST_CARD_Y
-    assert layout["points_title_y"] > 360
+    assert layout["points_title_y"] > 260
+    assert layout["chart_y"] > layout["points_title_y"]
+    assert layout["chart_h"] > 0
+    assert layout["charts_top_limit"] < 488
 
 
 def test_restored_point_card_dimensions_match_original_pattern():
@@ -19,12 +22,11 @@ def test_restored_point_card_dimensions_match_original_pattern():
     assert report.POINT_CARD_GAP == 14
 
 
-def test_chart_page_is_large_enough_for_readable_graphs():
-    card_h = 300
-    gap = 24
-    top_y = report.PAGE_H - 86 - card_h
-    bottom_y = top_y - gap - card_h
-    assert top_y > bottom_y > 80
+def test_first_page_layout_integrates_both_chart_cards():
+    layout = report._first_page_layout()
+    chart_width = (report.PAGE_W - 2 * 28 - 14) / 2
+    assert chart_width > 240
+    assert layout["chart_h"] >= 140
 
 
 def test_point_status_text_uses_original_badge_labels():

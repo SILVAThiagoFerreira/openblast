@@ -3,9 +3,11 @@ from __future__ import annotations
 import csv
 import re
 import unicodedata
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+from .measurements import extract_qualifier
 
 
 def _strip_accents(value: str) -> str:
@@ -92,6 +94,7 @@ class SismoRecord:
     vert_test_result: Optional[str]
     long_test_result: Optional[str]
     metadata: Dict[str, str]
+    numeric_qualifiers: Dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -139,6 +142,27 @@ def parse_sismo_csv(path: str | Path) -> SismoRecord:
 
     scaled = parse_scaled_distance(meta.get('ScaledDistance', ''))
     gps_distance = parse_float(meta.get('GpsDistance')) or scaled.get('distance_m')
+    numeric_source_fields = {
+        'gps_distance_m': 'GpsDistance',
+        'pspl_db': 'MicPSPL',
+        'mic_freq_hz': 'MicZCFreq',
+        'pvs_mm_s': 'PeakVectorSum',
+        'tran_ppv_mm_s': 'TranPPV',
+        'vert_ppv_mm_s': 'VertPPV',
+        'long_ppv_mm_s': 'LongPPV',
+        'tran_freq_hz': 'TranZCFreq',
+        'vert_freq_hz': 'VertZCFreq',
+        'long_freq_hz': 'LongZCFreq',
+        'tran_time_peak_s': 'TranTimeofPeak',
+        'vert_time_peak_s': 'VertTimeofPeak',
+        'long_time_peak_s': 'LongTimeofPeak',
+        'mic_time_peak_s': 'MicTimeofPeak',
+    }
+    numeric_qualifiers = {
+        field_name: qualifier
+        for field_name, source_key in numeric_source_fields.items()
+        if (qualifier := extract_qualifier(meta.get(source_key))) is not None
+    }
 
     return SismoRecord(
         source_file=path.name,
@@ -170,6 +194,7 @@ def parse_sismo_csv(path: str | Path) -> SismoRecord:
         vert_test_result=meta.get('VertTestResults'),
         long_test_result=meta.get('LongTestResults'),
         metadata=meta,
+        numeric_qualifiers=numeric_qualifiers,
     )
 
 

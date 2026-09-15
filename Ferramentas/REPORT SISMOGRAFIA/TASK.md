@@ -2,11 +2,16 @@
 
 ## Contexto
 
-O projeto já gera relatório sismográfico a partir de CSVs, mas precisava ser reorganizado como sistema formal: configurável, auditável, validado e documentado.
+O projeto já gera relatório sismográfico a partir de CSVs, mas precisava ser
+reorganizado como sistema formal e disponibilizado online: configurável,
+auditável, validado, compacto e documentado.
 
 ## Objetivo
 
-Transformar o repositório em uma base estruturada para produção e evolução, com separação clara de responsabilidades, rastreabilidade de execução e artefatos nomeados de forma padronizada.
+Transformar o repositório em uma base estruturada para produção e evolução,
+com separação clara de responsabilidades, rastreabilidade de execução,
+artefatos nomeados de forma padronizada e uma versão web funcional no GitHub
+Pages.
 
 ## Escopo
 
@@ -16,18 +21,23 @@ Transformar o repositório em uma base estruturada para produção e evolução,
 - registrar logs de execução
 - garantir nomes rastreáveis para os artefatos
 - adicionar testes mínimos de validação
+- publicar o gerador web no repositório Pages dedicado
+- reduzir textos e consolidar o PDF/PNG em uma página A4 para até três pontos
 
 ## Fora De Escopo
 
 - mudar a lógica técnica de conformidade da campanha
 - alterar a interpretação dos CSVs de origem
-- criar interface gráfica
 - adicionar novas fontes de dados
 
-## Ajuste Visual Incorporado
+## Ajustes Incorporados
 
-- Os gráficos normativos deixaram de ser comprimidos em dois cartões lado a lado na primeira página.
-- O PDF agora apresenta uma página dedicada, com um gráfico por cartão de largura total; a geração Python e a versão do GitHub Pages mantêm o mesmo layout e configuração.
+- O PDF/PNG para até três pontos agora concentra resumo, gráficos e pontos em
+  uma única página A4, mantendo a legibilidade dos gráficos.
+- O gerador web tem interface compacta, validação explícita, preservação de
+  qualificadores `<` e `>` e downloads com o padrão `ENAEX_NSR-YYYYMMDD`.
+- A publicação usa `https://silvathiagoferreira.github.io/report-sismografia/`
+  e a pasta `docs/` do repositório dedicado.
 
 ## Entregáveis
 
@@ -36,6 +46,7 @@ Transformar o repositório em uma base estruturada para produção e evolução,
 - módulos em `src/` com responsabilidades separadas
 - testes executáveis com `pytest`
 - diretórios operacionais `input/`, `output/`, `logs/`, `tests/`
+- versão web em `pages/` e cópia publicada em `docs/`
 
 ## Critérios De Aceite
 
@@ -45,3 +56,5 @@ Transformar o repositório em uma base estruturada para produção e evolução,
 - os artefatos finais são nomeados de forma identificável
 - os logs são gerados por execução
 - há testes mínimos cobrindo carregamento, validação, processamento e saída
+- o fluxo online gera PDF, PNG, TXT e ZIP sem enviar CSVs para servidor
+- os arquivos de entrada e as saídas operacionais permanecem fora do commit

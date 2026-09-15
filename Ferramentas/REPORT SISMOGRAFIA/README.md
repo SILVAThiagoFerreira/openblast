@@ -46,6 +46,11 @@ O `main.py` apenas orquestra a sequência.
 - Um arquivo de configuração JSON em `config.json`
 - Opcionalmente, outro diretório/arquivo informado em `--input`
 
+Exemplo de campanha real: a pasta `04.09.2026 - REG` contém um CSV por
+ponto (`BARRAGEM DE REJEITOS`, `COMUNIDADE DE TORROES` e `COMUNIDADE DE
+ITAPICURU`). A mesma pasta pode ser informada diretamente em `--input`; o
+pipeline percorre os CSVs sem alterar os arquivos de origem.
+
 ## Saídas geradas
 
 Cada execução cria uma pasta com data e hora em `output/`, por exemplo:
@@ -62,7 +67,10 @@ Dentro dela são gerados:
 - pasta `graficos/` com os PNGs dos gráficos
 - pasta `entrada_csv/` com cópia dos CSVs processados
 
-O relatório usa a primeira página para resumo executivo e pontos monitorados. Os gráficos normativos são apresentados em uma segunda página, em cartões de largura total, para preservar a leitura de eixos, legenda, curva ABNT e anotações.
+Para até três pontos, PDF e PNG são uma única página A4 completa: resumo
+executivo, gráficos normativos e cartões dos pontos na mesma composição. Se a
+campanha tiver mais de três pontos, o PDF acrescenta páginas de continuação;
+o PNG continua representando a primeira página.
 
 O escopo é apresentado em linhas textuais, e os pontos monitorados usam cartões horizontais com botão de status à direita.
 
@@ -79,6 +87,8 @@ O arquivo `config.json` centraliza:
 - limites técnicos
 - parâmetros de gráficos
 - target executivo de vibração e visibilidade da linha “Índices de vibração”
+- ordenação dos pontos (`gps_distance_ascending` por padrão)
+- geometria, textos e paleta do relatório
 - regras de execução
 
 Se um valor precisar mudar, a decisão deve ser feita na configuração, não no código.
@@ -115,15 +125,22 @@ python main.py --input examples/input --config config.json --out output
 2. Abra o `manifest` e verifique os caminhos dos artefatos.
 3. Confirme que o log foi criado em `logs/`.
 4. Verifique se o PDF, PNG, nota e JSON existem e têm tamanho maior que zero.
-5. Rode os testes automatizados com `pytest`.
+5. Abra o PDF e confirme que, para até três pontos, há uma única página A4
+   com os títulos `Pressão Sonora x Distância` e `PPV x Limite ABNT`.
+6. Rode os testes automatizados com `pytest`.
 
 ## Publicação web
 
-O GitHub Pages publica exclusivamente a pasta `pages/`. Ela contém o
-gerador onepage no navegador e usa o mesmo layout A4 do relatório Python:
-identidade ENAEX, resumo executivo, gráficos NBR 9653:2018, cartões de pontos
-monitorados e rodapé institucional. A pasta `docs/` é uma aplicação analítica
-legada e não é o destino do gerador de relatórios.
+O gerador online está publicado em
+`https://silvathiagoferreira.github.io/report-sismografia/`. O repositório
+dedicado usa GitHub Pages em `main:/docs`; por isso, `pages/` é a fonte de
+trabalho local e `docs/` é a cópia publicada que deve ser atualizada antes do
+push. O navegador lê e valida os CSVs localmente, monta PDF, PNG, TXT e ZIP,
+e nunca envia os dados de barragens ou comunidades para um backend.
+
+As versões Python e web compartilham o contrato de nomes:
+`ENAEX_NSR-YYYYMMDD.pdf`, `ENAEX_NSR-YYYYMMDD.png` e
+`ENAEX_NSR-YYYYMMDD_nota_whatsapp.txt`.
 
 ## Como evoluir o projeto
 

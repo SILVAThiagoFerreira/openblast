@@ -8,17 +8,60 @@ from matplotlib.ticker import MultipleLocator
 
 from .artifacts import resolve_artifact_name
 from .compliance import interpolate_limit
+from .measurements import format_record_value
 
 
 COLORS = {
-    "dark": "#2F3440",
-    "red": "#E30613",
-    "green": "#67C70A",
-    "blue": "#2D7DBF",
-    "gray": "#6B7280",
+    "dark": "#38424B",
+    "red": "#E20613",
+    "green": "#16A34A",
+    "longitudinal": "#38424B",
+    "vertical": "#16A34A",
+    "gray": "#667085",
+    "grid": "#B7BDC7",
+    "grid_minor": "#D7DCE5",
+    "box_edge": "#CBD5E1",
+    "arrow": "#94A3B8",
+    "white": "#FFFFFF",
 }
 
-FIGSIZE = (6.5, 4.55)
+FIGSIZE = (9.0, 4.0)
+
+
+def _chart_style(config: Dict) -> Dict[str, float | tuple[float, float]]:
+    """Return sizing tuned for both the standalone PNG and the embedded PDF chart."""
+    chart_cfg = config.get("charts", {})
+    return {
+        "figsize": (
+            float(chart_cfg.get("figure_width", FIGSIZE[0])),
+            float(chart_cfg.get("figure_height", FIGSIZE[1])),
+        ),
+        "dpi": float(chart_cfg.get("figure_dpi", 220)),
+        "title": float(chart_cfg.get("title_font_size", 11.0)),
+        "axis": float(chart_cfg.get("axis_label_font_size", 9.0)),
+        "tick": float(chart_cfg.get("tick_font_size", 8.0)),
+        "legend": float(chart_cfg.get("legend_font_size", 8.0)),
+        "annotation": float(chart_cfg.get("annotation_font_size", 8.0)),
+        "marker": float(chart_cfg.get("marker_size", 48.0)),
+    }
+
+
+def _palette(config: Dict) -> Dict[str, str]:
+    """Resolve chart colors from the shared branding palette.
+
+    The longitudinal series intentionally uses Cinza Enaex instead of blue;
+    the vertical series keeps its green distinction for chart readability.
+    """
+    palette = config.get("branding", {}).get("palette", {})
+    return {
+        **COLORS,
+        "dark": palette.get("enaex_gray", COLORS["dark"]),
+        "red": palette.get("series_transversal", palette.get("enaex_red", COLORS["red"])),
+        "longitudinal": palette.get("series_longitudinal", palette.get("enaex_gray", COLORS["longitudinal"])),
+        "vertical": palette.get("series_vertical", COLORS["vertical"]),
+        "gray": palette.get("muted", COLORS["gray"]),
+        "green": palette.get("series_vertical", COLORS["green"]),
+    }
 
 
 def _safe_name(name: str) -> str:
@@ -109,6 +152,8 @@ def _pick_annotation(
     y: float,
     text: str,
     used_boxes: List[tuple[float, float, float, float]],
+    point_boxes: List[tuple[float, float, float, float]],
+    current_index: int,
     fontsize: float,
     renderer,
 ) -> tuple[float, float, str, str]:
@@ -122,6 +167,13 @@ def _pick_annotation(
     for dx_pt, dy_pt, ha, va in candidates:
         bbox = _build_bbox(point_disp, text, fontsize, ax.figure.dpi, dx_pt, dy_pt, ha, va)
         overlap = sum(_rect_overlap_area(bbox, used) for used in used_boxes)
+        # Um rótulo não pode esconder outro marcador. O próprio marcador
+        # permanece permitido, pois a seta precisa sair dele.
+        overlap += sum(
+            _rect_overlap_area(bbox, point_box)
+            for idx, point_box in enumerate(point_boxes)
+            if idx != current_index
+        )
         outside_penalty = 0.0
         if bbox[0] < axes_box.x0 - 4:
             outside_penalty += (axes_box.x0 - 4 - bbox[0]) * 4.0
@@ -141,19 +193,33 @@ def _pick_annotation(
     return best if best is not None else candidates[0]
 
 
-def _annotate_points(ax, items: List[Dict], fontsize: float = 6.2) -> None:
+def _annotate_points(ax, items: List[Dict], fontsize: float = 6.2, colors: Dict[str, str] = COLORS) -> None:
     fig = ax.figure
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     used_boxes: List[tuple[float, float, float, float]] = []
-
+    point_boxes = []
+    marker_radius = 7.0
     for item in items:
+        point_disp = ax.transData.transform((item.get("x"), item.get("y")))
+        point_boxes.append(
+            (
+                point_disp[0] - marker_radius,
+                point_disp[1] - marker_radius,
+                point_disp[0] + marker_radius,
+                point_disp[1] + marker_radius,
+            )
+        )
+
+    for current_index, item in enumerate(items):
         x = item.get("x")
         y = item.get("y")
         text = item.get("text")
         if x is None or y is None or not text:
             continue
-        dx_pt, dy_pt, ha, va = _pick_annotation(ax, x, y, text, used_boxes, fontsize, renderer)
+        dx_pt, dy_pt, ha, va = _pick_annotation(
+            ax, x, y, text, used_boxes, point_boxes, current_index, fontsize, renderer
+        )
         point_disp = ax.transData.transform((x, y))
         bbox = _build_bbox(point_disp, text, fontsize, fig.dpi, dx_pt, dy_pt, ha, va)
         used_boxes.append(bbox)
@@ -165,9 +231,9 @@ def _annotate_points(ax, items: List[Dict], fontsize: float = 6.2) -> None:
             ha=ha,
             va=va,
             fontsize=fontsize,
-            color=COLORS["gray"],
-            bbox=dict(boxstyle="round,pad=0.16", fc="white", ec="#CBD5E1", lw=0.55),
-            arrowprops=dict(arrowstyle="-", color="#94A3B8", lw=0.45, shrinkA=0, shrinkB=4),
+            color=colors["gray"],
+            bbox=dict(boxstyle="round,pad=0.16", fc=colors["white"], ec=colors["box_edge"], lw=0.55),
+            arrowprops=dict(arrowstyle="-", color=colors["arrow"], lw=0.45, shrinkA=0, shrinkB=4),
             zorder=5,
         )
 
@@ -175,8 +241,10 @@ def _annotate_points(ax, items: List[Dict], fontsize: float = 6.2) -> None:
 def make_pressure_chart(records: List[Dict], config: Dict, out_path: str | Path) -> Path:
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    colors = _palette(config)
     limit = float(config.get("limits", {}).get("sound_pressure_db", 134.0))
     chart_cfg = config.get("charts", {})
+    style = _chart_style(config)
 
     xs = [r.get("gps_distance_m") for r in records if r.get("gps_distance_m") is not None and r.get("pspl_db") is not None]
     ys = [r.get("pspl_db") for r in records if r.get("gps_distance_m") is not None and r.get("pspl_db") is not None]
@@ -184,10 +252,10 @@ def make_pressure_chart(records: List[Dict], config: Dict, out_path: str | Path)
     x_max = max(max_x * 1.25, 2000)
     y_max = float(chart_cfg.get("pressure_y_max", 160.0))
 
-    fig, ax = plt.subplots(figsize=FIGSIZE, dpi=220)
-    ax.set_title("Pressão Sonora em Eventos Sismográficos - ABNT NBR 9653:2018", fontsize=8, pad=12)
-    ax.axhline(limit, color=COLORS["dark"], linewidth=1.8, label=f"Limite de {limit:g} dB")
-    ax.scatter(xs, ys, s=28, color=COLORS["red"], label="Pressão Sonora (dB)", zorder=3)
+    fig, ax = plt.subplots(figsize=style["figsize"], dpi=style["dpi"])
+    ax.set_title("Pressão Sonora em Eventos Sismográficos - ABNT NBR 9653:2018", fontsize=style["title"], pad=12)
+    ax.axhline(limit, color=colors["dark"], linewidth=1.8, label=f"Limite de {limit:g} dB")
+    ax.scatter(xs, ys, s=style["marker"], color=colors["red"], label="Pressão Sonora (dB)", zorder=3)
 
     label_items = []
     for idx, r in enumerate(sorted(records, key=lambda rec: (rec.get("gps_distance_m") is None, rec.get("gps_distance_m") or 0.0))):
@@ -198,20 +266,22 @@ def make_pressure_chart(records: List[Dict], config: Dict, out_path: str | Path)
         label_items.append({
             "x": x,
             "y": y,
-            "text": f"{_safe_name(r.get('point_name', 'Ponto'))}\n{y:.1f}",
+            "text": f"{_safe_name(r.get('point_name', 'Ponto'))}\n{format_record_value(r, 'pspl_db', 1)}",
             "index": idx,
         })
 
     ax.set_xlim(float(chart_cfg.get("pressure_x_min", 0.0)), x_max)
     ax.set_ylim(float(chart_cfg.get("pressure_y_min", 0.0)), y_max)
-    ax.set_xlabel("Distância (m)", fontsize=7, labelpad=8)
-    ax.set_ylabel("Pressão Acústica (dB)", fontsize=7)
-    ax.grid(True, linewidth=0.35, color="#B7BDC7", alpha=0.9)
-    ax.tick_params(axis="both", labelsize=6)
-    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=6)
-    _annotate_points(ax, label_items, fontsize=6.0)
+    ax.set_xlabel("Distância (m)", fontsize=style["axis"], labelpad=8)
+    ax.set_ylabel("Pressão Acústica (dB)", fontsize=style["axis"])
+    ax.grid(True, linewidth=0.35, color=colors["grid"], alpha=0.9)
+    ax.tick_params(axis="both", labelsize=style["tick"])
+    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=style["legend"])
+    # O posicionamento precisa ocorrer depois do layout final: tight_layout altera
+    # a caixa do eixo e pode invalidar a detecção de colisões entre rótulos.
     fig.tight_layout(pad=1.2)
-    fig.savefig(out_path, bbox_inches="tight")
+    _annotate_points(ax, label_items, fontsize=style["annotation"], colors=colors)
+    fig.savefig(out_path, bbox_inches="tight", pad_inches=0.06, facecolor="white")
     plt.close(fig)
     return out_path
 
@@ -230,16 +300,18 @@ def _curve_points_for_xmax(curve, xmax):
 def make_vibration_chart(records: List[Dict], config: Dict, out_path: str | Path) -> Path:
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    colors = _palette(config)
     curve = config.get("limits", {}).get("nbr9653_curve", [[0, 15], [4, 15], [15, 20], [40, 50], [1000, 50]])
     chart_cfg = config.get("charts", {})
+    style = _chart_style(config)
     y_tick_step = float(chart_cfg.get("vibration_y_tick_step", 0.1))
     use_broken_y = bool(chart_cfg.get("vibration_use_broken_y", True))
     focus_y_max = float(chart_cfg.get("vibration_y_focus_max", 1.0))
 
     axes = [
-        ("Transversal", "tran_ppv_mm_s", "tran_freq_hz", "s", COLORS["red"]),
-        ("Longitudinal", "long_ppv_mm_s", "long_freq_hz", "D", "#1D4ED8"),
-        ("Vertical", "vert_ppv_mm_s", "vert_freq_hz", "^", "#16A34A"),
+        ("Transversal", "tran_ppv_mm_s", "tran_freq_hz", "s", colors["red"]),
+        ("Longitudinal", "long_ppv_mm_s", "long_freq_hz", "D", colors["longitudinal"]),
+        ("Vertical", "vert_ppv_mm_s", "vert_freq_hz", "^", colors["vertical"]),
     ]
     freqs = []
     ppvs = []
@@ -265,16 +337,16 @@ def make_vibration_chart(records: List[Dict], config: Dict, out_path: str | Path
             2,
             1,
             sharex=True,
-            figsize=FIGSIZE,
-            dpi=220,
+            figsize=style["figsize"],
+            dpi=style["dpi"],
             gridspec_kw={"height_ratios": [1.0, 1.25], "hspace": 0.08},
         )
-        ax_top.set_title("Vibração em Eventos Sismográficos - ABNT NBR 9653:2018", fontsize=8, pad=12)
-        ax_top.plot([p[0] for p in curve_pts], [p[1] for p in curve_pts], color=COLORS["dark"], linewidth=1.8, label="Limite ABNT")
+        ax_top.set_title("Vibração em Eventos Sismográficos - ABNT NBR 9653:2018", fontsize=style["title"], pad=12)
+        ax_top.plot([p[0] for p in curve_pts], [p[1] for p in curve_pts], color=colors["dark"], linewidth=1.8, label="Limite ABNT")
         ax_top.set_ylim(max(0.0, curve_y_min - 2.0), curve_y_max + 5.0)
         ax_top.set_xlim(float(chart_cfg.get("vibration_x_min", 0.0)), x_max)
-        ax_top.grid(True, linewidth=0.35, color="#B7BDC7", alpha=0.9)
-        ax_top.tick_params(axis="both", labelsize=6)
+        ax_top.grid(True, linewidth=0.35, color=colors["grid"], alpha=0.9)
+        ax_top.tick_params(axis="both", labelsize=style["tick"])
         ax_top.spines["bottom"].set_visible(False)
         ax_top.tick_params(labelbottom=False)
 
@@ -282,30 +354,30 @@ def make_vibration_chart(records: List[Dict], config: Dict, out_path: str | Path
         top_y_min, top_y_max = ax_top.get_ylim()
         for x, y in curve_pts[1:-1]:
             if x <= x_max and top_y_min <= y <= top_y_max:
-                ax.axvline(x, color=COLORS["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
-                ax_top.axvline(x, ymin=0, ymax=(y - top_y_min) / (top_y_max - top_y_min), color=COLORS["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
-                ax_top.axhline(y, xmin=0, xmax=x / x_max, color=COLORS["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
+                ax.axvline(x, color=colors["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
+                ax_top.axvline(x, ymin=0, ymax=(y - top_y_min) / (top_y_max - top_y_min), color=colors["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
+                ax_top.axhline(y, xmin=0, xmax=x / x_max, color=colors["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
 
         ax.set_ylim(float(chart_cfg.get("vibration_y_min", 0.0)), y_focus_max)
         ax.spines["top"].set_visible(False)
 
         d = 0.012
-        kwargs = dict(transform=ax_top.transAxes, color=COLORS["dark"], clip_on=False, linewidth=0.8)
+        kwargs = dict(transform=ax_top.transAxes, color=colors["dark"], clip_on=False, linewidth=0.8)
         ax_top.plot((-d, +d), (-d, +d), **kwargs)
         ax_top.plot((1 - d, 1 + d), (-d, +d), **kwargs)
         kwargs.update(transform=ax.transAxes)
         ax.plot((-d, +d), (1 - d, 1 + d), **kwargs)
         ax.plot((1 - d, 1 + d), (1 - d, 1 + d), **kwargs)
     else:
-        fig, ax = plt.subplots(figsize=FIGSIZE, dpi=220)
-        ax.set_title("Vibração em Eventos Sismográficos - ABNT NBR 9653:2018", fontsize=8, pad=12)
-        ax.plot([p[0] for p in curve_pts], [p[1] for p in curve_pts], color=COLORS["dark"], linewidth=1.8, label="Limite ABNT")
+        fig, ax = plt.subplots(figsize=style["figsize"], dpi=style["dpi"])
+        ax.set_title("Vibração em Eventos Sismográficos - ABNT NBR 9653:2018", fontsize=style["title"], pad=12)
+        ax.plot([p[0] for p in curve_pts], [p[1] for p in curve_pts], color=colors["dark"], linewidth=1.8, label="Limite ABNT")
 
         # Guias visuais nos pontos principais da curva.
         for x, y in curve_pts[1:-1]:
             if x <= x_max and y <= y_max:
-                ax.axvline(x, ymin=0, ymax=y / y_max, color=COLORS["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
-                ax.axhline(y, xmin=0, xmax=x / x_max, color=COLORS["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
+                ax.axvline(x, ymin=0, ymax=y / y_max, color=colors["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
+                ax.axhline(y, xmin=0, xmax=x / x_max, color=colors["red"], linewidth=0.8, linestyle=(0, (5, 4)), alpha=0.85)
         ax.set_ylim(float(chart_cfg.get("vibration_y_min", 0.0)), y_max)
 
     for label, ppv_key, freq_key, marker, color in axes:
@@ -314,7 +386,7 @@ def make_vibration_chart(records: List[Dict], config: Dict, out_path: str | Path
             if r.get(freq_key) is not None and r.get(ppv_key) is not None:
                 xs.append(r.get(freq_key))
                 ys.append(r.get(ppv_key))
-        ax.scatter(xs, ys, s=32, marker=marker, color=color, label=f"{label} (mm/s)", zorder=4)
+        ax.scatter(xs, ys, s=style["marker"], marker=marker, color=color, label=f"{label} (mm/s)", zorder=4)
 
     # Anota apenas o maior eixo de cada ponto para manter o gráfico limpo.
     label_items = []
@@ -327,7 +399,10 @@ def make_vibration_chart(records: List[Dict], config: Dict, out_path: str | Path
         label_items.append({
             "x": freq,
             "y": ppv,
-            "text": _safe_name(r.get("point_name", "Ponto")),
+            "text": (
+                f"{_safe_name(r.get('point_name', 'Ponto'))}\n"
+                f"{format_record_value(r, {'Tran': 'tran_ppv_mm_s', 'Vert': 'vert_ppv_mm_s', 'Long': 'long_ppv_mm_s'}.get(ev.get('ppv_max_axis'), 'tran_ppv_mm_s'), 3)}"
+            ),
             "index": idx,
         })
 
@@ -339,23 +414,25 @@ def make_vibration_chart(records: List[Dict], config: Dict, out_path: str | Path
             ax.yaxis.set_minor_locator(MultipleLocator(y_tick_step))
         if not should_break_y and y_max <= 5:
             ax.yaxis.set_major_locator(MultipleLocator(y_tick_step))
-    ax.set_xlabel("Frequência (Hz)", fontsize=7, labelpad=8)
-    ax.set_ylabel("PPV (mm/s)", fontsize=7)
-    ax.grid(True, linewidth=0.35, color="#B7BDC7", alpha=0.9)
-    ax.grid(True, which="minor", axis="y", linewidth=0.2, color="#D7DCE5", alpha=0.35)
-    ax.tick_params(axis="both", labelsize=6)
+    ax.set_xlabel("Frequência (Hz)", fontsize=style["axis"], labelpad=8)
+    ax.set_ylabel("PPV (mm/s)", fontsize=style["axis"])
+    ax.grid(True, linewidth=0.35, color=colors["grid"], alpha=0.9)
+    ax.grid(True, which="minor", axis="y", linewidth=0.2, color=colors["grid_minor"], alpha=0.35)
+    ax.tick_params(axis="both", labelsize=style["tick"])
     if should_break_y:
         handles_top, labels_top = ax_top.get_legend_handles_labels()
         handles_bottom, labels_bottom = ax.get_legend_handles_labels()
-        ax_top.legend(handles_top + handles_bottom, labels_top + labels_bottom, loc="center left", bbox_to_anchor=(1.02, -0.15), frameon=False, fontsize=6)
+        ax_top.legend(handles_top + handles_bottom, labels_top + labels_bottom, loc="center left", bbox_to_anchor=(1.02, -0.15), frameon=False, fontsize=style["legend"])
     else:
-        ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=6)
-    _annotate_points(ax, label_items, fontsize=5.9)
+        ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=False, fontsize=style["legend"])
     if should_break_y:
         fig.subplots_adjust(left=0.10, right=0.78, top=0.88, bottom=0.14, hspace=0.08)
     else:
         fig.tight_layout(pad=1.2)
-    fig.savefig(out_path, bbox_inches="tight")
+    # Mantém a mesma ordem: primeiro fixa a geometria final, depois calcula
+    # caixas de rótulos e escolhe posições sem sobreposição.
+    _annotate_points(ax, label_items, fontsize=style["annotation"], colors=colors)
+    fig.savefig(out_path, bbox_inches="tight", pad_inches=0.06, facecolor="white")
     plt.close(fig)
     return out_path
 
