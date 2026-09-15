@@ -34,6 +34,9 @@ Pages.
 
 - O PDF/PNG para até três pontos agora concentra resumo, gráficos e pontos em
   uma única página A4, mantendo a legibilidade dos gráficos.
+- A altura útil dos dois gráficos lado a lado foi ampliada de forma controlada:
+  o card passou a 174 pt e o Canvas web acompanha a nova proporção do PNG
+  Python, sem mover a conclusão ou o rodapé.
 - O gerador web tem interface compacta, validação explícita, preservação de
   qualificadores `<` e `>` e downloads com o padrão `ENAEX_NSR-YYYYMMDD`.
 - A publicação usa `https://silvathiagoferreira.github.io/report-sismografia/`

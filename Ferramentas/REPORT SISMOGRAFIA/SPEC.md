@@ -74,9 +74,15 @@ permitidas desde que preservem a linguagem abaixo.
 - **Tabelas internas** sem bordas nas células: apenas a faixa de rótulo em verde-claro e linhas horizontais finas (`#D9DEE7`, 0.35–0.4pt) entre linhas.
 
 **Espaçamentos-chave.** `POINT_CARD_GAP=14`, `POINTS_TITLE_GAP=22`,
-`CHART_TO_POINTS_GAP=28`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
+`CHART_TO_POINTS_GAP=16`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
 72 para acomodar as quatro linhas do bloco. Card de conclusão em y=488,
 escopo em y=566.
+
+**Proporção dos gráficos.** `charts.figure_height=5.0` amplia a altura útil do
+PNG Python sem alterar a largura do card. `charts.web_figure_width=6.5` mantém
+a densidade do Canvas online; sua altura é derivada da mesma razão
+`figure_width:figure_height`, resultando em 1430×794 px. O topo dos cards fica
+fixo em y=484 para manter a separação da conclusão técnica.
 
 **Rodapé.** Texto normativo em cinza `#667085` alinhado verticalmente ao centro do badge navy "DNA • ENAEX". Fio vermelho de 6pt na base da página como assinatura visual.
 

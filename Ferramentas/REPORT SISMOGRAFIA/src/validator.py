@@ -66,7 +66,7 @@ def validate_config(config: Dict) -> Dict:
 
     charts = config["charts"]
     for key in (
-        "figure_width", "figure_height", "figure_dpi", "title_font_size", "axis_label_font_size",
+        "figure_width", "figure_height", "web_figure_width", "figure_dpi", "title_font_size", "axis_label_font_size",
         "tick_font_size", "legend_font_size", "annotation_font_size", "marker_size",
         "vibration_x_min", "vibration_y_min", "vibration_y_tick_step", "vibration_y_focus_max",
         "vibration_x_max_minimum", "vibration_y_max_minimum", "pressure_x_min", "pressure_y_min",

@@ -25,7 +25,7 @@ COLORS = {
     "white": "#FFFFFF",
 }
 
-FIGSIZE = (9.0, 4.0)
+FIGSIZE = (9.0, 5.0)
 
 
 def _chart_style(config: Dict) -> Dict[str, float | tuple[float, float]]:

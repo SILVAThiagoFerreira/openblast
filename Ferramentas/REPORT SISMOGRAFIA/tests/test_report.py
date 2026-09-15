@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from pathlib import Path
+
+from src.config_loader import load_config
 from src import report
 
 
@@ -27,6 +30,17 @@ def test_first_page_layout_integrates_both_chart_cards():
     chart_width = (report.PAGE_W - 2 * 28 - 14) / 2
     assert chart_width > 240
     assert layout["chart_h"] >= 140
+
+
+def test_chart_height_contract_is_shared_by_python_and_web_layout():
+    config = load_config(Path("config.json"))
+    layout = report._first_page_layout(config)
+
+    assert config["charts"]["figure_height"] == 5.0
+    assert config["charts"]["web_figure_width"] == 6.5
+    assert config["report_layout"]["chart_to_points_gap"] == 16
+    assert layout["chart_h"] == 174
+    assert layout["chart_y"] + layout["chart_h"] == layout["charts_top_limit"]
 
 
 def test_point_status_text_uses_original_badge_labels():

@@ -98,9 +98,10 @@ Testado com os três CSVs de referência do projeto:
 - **Layout do PDF**: a primeira página concentra resumo, gráficos e pontos
   monitorados para campanhas de até três pontos. O pdf-lib usa a mesma origem
   A4 do reportlab (canto inferior esquerdo, 1 pt = 1/72").
-- **Gráficos**: canvas 1430×635, mesma paleta e curva NBR com quebra de eixo Y
-  quando aplicável. A área dos eixos usa margens compactas para preservar a
-  leitura dentro dos cartões A4.
+- **Gráficos**: canvas 1430×794, mesma paleta e curva NBR com quebra de eixo Y
+  quando aplicável. A proporção é derivada de `figure_width`/`figure_height`
+  em `js/config.js`; a área dos eixos usa margens compactas para preservar a
+  leitura dentro dos cartões A4 mais altos.
 
 Para editar limites, textos institucionais ou paleta, edite
 `js/config.js` — os módulos leem `window.SISMO_CONFIG` no momento do run.

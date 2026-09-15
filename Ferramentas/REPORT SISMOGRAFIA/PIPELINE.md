@@ -42,7 +42,8 @@
 - Entrada: resultados processados e configuração
 - Saída: PDF, PNG, nota WhatsApp, JSON consolidado, manifesto e gráficos.
   Para até três pontos, PDF e PNG são uma página A4 com resumo, os dois
-  gráficos e os cartões; acima disso, o PDF recebe páginas de continuação.
+  gráficos lado a lado em cards de 174 pt, os cartões; acima disso, o PDF
+  recebe páginas de continuação.
 - Validação: todos os arquivos devem existir, ter tamanho maior que zero,
   abrir corretamente e manter a composição visual em escopo textual, cartões
   horizontais por ponto, marcador circular do cabeçalho e rodapé sem
@@ -66,7 +67,8 @@
 - `pages/js/parser.js` lê os arquivos localmente e `validation.js` rejeita
   registros incompletos antes da conformidade.
 - `pages/js/report.js` e `pages/js/charts.js` geram o mesmo contrato visual e
-  de nomes da versão Python.
+  de nomes da versão Python; a proporção do Canvas é derivada de
+  `charts.figure_width`/`figure_height`.
 - Os downloads do navegador são PDF, PNG, TXT e ZIP; nenhum CSV sai do
   dispositivo.
 

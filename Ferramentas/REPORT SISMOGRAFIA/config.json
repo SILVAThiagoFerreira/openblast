@@ -58,7 +58,8 @@
   },
   "charts": {
     "figure_width": 9,
-    "figure_height": 4.4,
+    "figure_height": 5.0,
+    "web_figure_width": 6.5,
     "figure_dpi": 220,
     "title_font_size": 11,
     "axis_label_font_size": 9,
@@ -82,7 +83,7 @@
     "chart_column_gap": 14,
     "chart_inner_padding": 6,
     "chart_header_height": 22,
-    "chart_to_points_gap": 28,
+    "chart_to_points_gap": 16,
     "charts_top_limit": 484,
     "footer_height": 30,
     "footer_accent_height": 2,

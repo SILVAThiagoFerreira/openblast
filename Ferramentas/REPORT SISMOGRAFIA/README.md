@@ -85,13 +85,19 @@ O arquivo `config.json` centraliza:
 - caminhos de entrada, saída e logs
 - nomes e templates dos artefatos
 - limites técnicos
-- parâmetros de gráficos
+- parâmetros de gráficos, incluindo a altura vertical compartilhada entre PNG
+  Python e Canvas web
 - target executivo de vibração e visibilidade da linha “Índices de vibração”
 - ordenação dos pontos (`gps_distance_ascending` por padrão)
 - geometria, textos e paleta do relatório
 - regras de execução
 
 Se um valor precisar mudar, a decisão deve ser feita na configuração, não no código.
+
+Na composição A4 de até três pontos, os gráficos permanecem lado a lado, com
+card de 174 pt de altura e raster web de proporção 1430×794. A distância até o
+título “Pontos Monitorados” é de 16 pt; o limite superior continua fixo para
+preservar a folga da conclusão técnica.
 
 ## Como executar
 
