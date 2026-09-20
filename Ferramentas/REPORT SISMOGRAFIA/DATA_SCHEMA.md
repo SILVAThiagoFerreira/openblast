@@ -37,6 +37,15 @@ Fonte: CSV exportado do sismógrafo.
 | `numeric_qualifiers` | object | não | qualificadores do instrumento preservados para métricas numéricas | mapa campo → `<` ou `>` | `{"pspl_db":"<"}` | `{"pspl_db":"="}` | não altera o valor numérico; evita perder a indicação de limite da fonte |
 | `metadata` | object | sim | cabeçalho bruto do CSV | objeto JSON | `{...}` | `null` | rastreabilidade |
 
+### 1.1 Fixtures demonstrativos da versão web
+
+O botão **Carregar exemplo** da aplicação em `pages/` usa três arquivos pequenos
+em `pages/assets/examples/`. Eles seguem o mesmo cabeçalho IDFW mínimo aceito
+pelo parser (`EventDate`, `TitleNote`/`TitleString`, distâncias, métricas de
+pressão/vibração e a linha `Tran,Vert,Long,MicL`), mas são dados demonstrativos
+sanitizados. Não substituem os CSVs operacionais fornecidos pelo usuário e não
+devem ser usados como evidência de uma campanha real.
+
 ## 2. Resumo Processado
 
 | Campo | Tipo | Significado |

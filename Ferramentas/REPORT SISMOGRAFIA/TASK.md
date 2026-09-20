@@ -38,8 +38,8 @@ Pages.
   “Resumo da Campanha Realizada”, escopo com a frase completa de fontes
   processadas, conclusão antes dos gráficos, cards sem régua vertical e
   status em pill com ícone.
-- A proporção compartilhada dos dois gráficos usa `figure_height=4.4`, card
-  de 162 pt e `CHART_TO_POINTS_GAP=28`; o Canvas web gera raster A4 de
+- A proporção compartilhada dos dois gráficos usa `figure_height=4.8`, card
+  de 174 pt e `CHART_TO_POINTS_GAP=16`; o Canvas web gera raster A4 de
   2481×3508 px.
 - A ordem padrão dos pontos passou a ser a ordem estável dos arquivos de
   origem, mantendo a distância GPS como opção configurável.
@@ -47,6 +47,8 @@ Pages.
   instrumentais e as quebras de linha Windows.
 - O gerador web tem interface compacta, validação explícita, preservação de
   qualificadores `<` e `>` e downloads com o padrão `ENAEX_NSR-YYYYMMDD`.
+- O gerador web oferece **Carregar exemplo**, usando três CSVs demonstrativos
+  sanitizados configurados em `config.json`, sem publicar CSVs operacionais.
 - A publicação usa `https://silvathiagoferreira.github.io/report-sismografia/`
   e a pasta `docs/` do repositório dedicado.
 

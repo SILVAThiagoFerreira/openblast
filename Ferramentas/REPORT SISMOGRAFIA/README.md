@@ -98,10 +98,10 @@ O arquivo `config.json` centraliza:
 Se um valor precisar mudar, a decisão deve ser feita na configuração, não no código.
 
 Na composição A4 de até três pontos, os gráficos permanecem lado a lado, com
-card de 162 pt de altura, distância de 28 pt até o título “Pontos Monitorados”
-e raster web de 1430×699 px. O limite superior continua fixo para preservar a
+card de 174 pt de altura, distância de 16 pt até o título “Pontos Monitorados”
+e raster web de 1430×763 px. O limite superior continua fixo para preservar a
 folga da conclusão técnica. A proporção é controlada por
-`charts.figure_height=4.4` e compartilhada entre Python e Canvas.
+`charts.figure_height=4.8` e compartilhada entre Python e Canvas.
 
 ## Como executar
 
@@ -147,6 +147,8 @@ dedicado usa GitHub Pages em `main:/docs`; por isso, `pages/` é a fonte de
 trabalho local e `docs/` é a cópia publicada que deve ser atualizada antes do
 push. O navegador lê e valida os CSVs localmente, monta PDF, PNG, TXT e ZIP,
 e nunca envia os dados de barragens ou comunidades para um backend.
+O botão **Carregar exemplo** usa três CSVs demonstrativos pequenos, publicados
+em `pages/assets/examples/`, para testar o fluxo sem utilizar dados operacionais.
 
 As versões Python e web compartilham o contrato de nomes:
 `ENAEX_NSR-YYYYMMDD.pdf`, `ENAEX_NSR-YYYYMMDD.png` e

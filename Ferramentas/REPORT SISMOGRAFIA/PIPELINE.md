@@ -42,7 +42,7 @@
 - Entrada: resultados processados e configuração
 - Saída: PDF, PNG, nota WhatsApp, JSON consolidado, manifesto e gráficos.
   Para até três pontos, PDF e PNG são uma página A4 com resumo, os dois
-  gráficos lado a lado em cards de 162 pt, os cartões dos pontos e o rodapé;
+  gráficos lado a lado em cards de 174 pt, os cartões dos pontos e o rodapé;
   acima disso, o PDF recebe páginas de continuação.
 - Validação: todos os arquivos devem existir, ter tamanho maior que zero,
   abrir corretamente e manter a composição visual em escopo textual, cartões
@@ -68,8 +68,11 @@
   registros incompletos antes da conformidade.
 - `pages/js/report.js` e `pages/js/charts.js` geram o mesmo contrato visual e
   de nomes da versão Python; a proporção do Canvas é derivada de
-  `charts.figure_width`/`figure_height` e resulta em 1430×699 px para a
+  `charts.figure_width`/`figure_height` e resulta em 1430×763 px para a
   configuração de referência.
+- A opção **Carregar exemplo** busca os três fixtures estáticos de
+  `pages/assets/examples/`, coloca-os na mesma lista de arquivos escolhidos e
+  só então usa o pipeline normal de leitura, validação e geração.
 - A ordenação online usa `processing.record_order=source_order`, compatível
   com o pipeline Python e com os nomes estáveis dos arquivos.
 - Os downloads do navegador são PDF, PNG, TXT e ZIP; nenhum CSV sai do

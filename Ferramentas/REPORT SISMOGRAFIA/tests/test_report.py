@@ -36,11 +36,11 @@ def test_chart_height_contract_is_shared_by_python_and_web_layout():
     config = load_config(Path("config.json"))
     layout = report._first_page_layout(config)
 
-    assert config["charts"]["figure_height"] == 4.4
+    assert config["charts"]["figure_height"] == 4.8
     assert config["charts"]["web_figure_width"] == 6.5
-    assert config["report_layout"]["chart_to_points_gap"] == 28
+    assert config["report_layout"]["chart_to_points_gap"] == 16
     assert config["processing"]["record_order"] == "source_order"
-    assert layout["chart_h"] == 162
+    assert layout["chart_h"] == 174
     assert layout["chart_y"] + layout["chart_h"] == layout["charts_top_limit"]
 
 

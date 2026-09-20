@@ -86,13 +86,13 @@ no acento do rodapé. Branco nos textos sobre fundos escuros, cinza-claro
 - **Tabelas internas** sem bordas nas células: apenas a faixa de rótulo em verde-claro e linhas horizontais finas (`#D9DEE7`, 0.35–0.4pt) entre linhas.
 
 **Espaçamentos-chave.** `POINT_CARD_GAP=14`, `POINTS_TITLE_GAP=22`,
-`CHART_TO_POINTS_GAP=28`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
+`CHART_TO_POINTS_GAP=16`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
 72 para acomodar as quatro linhas do bloco. Card de conclusão em y=488,
 escopo em y=566.
 
-**Proporção dos gráficos.** `charts.figure_height=4.4` define a altura útil
+**Proporção dos gráficos.** `charts.figure_height=4.8` define a altura útil
 compartilhada entre o PNG Python e o Canvas online sem alterar a largura do
-card. `charts.web_figure_width=6.5` e `figure_dpi=220` resultam em 1430×699 px
+card. `charts.web_figure_width=6.5` e `figure_dpi=220` resultam em 1430×763 px
 no Canvas; o PDF e a imagem A4 preservam o mesmo enquadramento. O topo dos
 cards fica fixo em y=484 para manter a separação da conclusão técnica.
 
@@ -118,6 +118,9 @@ branca “DNA • ENAEX” à direita.
 
 - A aplicação é estática e roda no navegador; não há upload para servidor.
 - A entrada é um ou mais `.IDFW.CSV` da mesma campanha.
+- O botão **Carregar exemplo** busca somente os três fixtures demonstrativos
+  configurados em `config.json`/`pages/js/config.js`; eles têm o mesmo schema do
+  cabeçalho IDFW, mas não representam uma fonte operacional.
 - A validação ocorre antes da avaliação de conformidade e rejeita campos
   essenciais ausentes, números inválidos e datas de evento misturadas.
 - Os downloads mantêm o prefixo `ENAEX_NSR` e a data consolidada do evento.
