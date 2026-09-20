@@ -34,9 +34,17 @@ Pages.
 
 - O PDF/PNG para até três pontos agora concentra resumo, gráficos e pontos em
   uma única página A4, mantendo a legibilidade dos gráficos.
-- A altura útil dos dois gráficos lado a lado foi ampliada de forma controlada:
-  o card passou a 174 pt e o Canvas web acompanha a nova proporção do PNG
-  Python, sem mover a conclusão ou o rodapé.
+- O layout de referência da campanha de 17/09/2026 foi incorporado: título
+  “Resumo da Campanha Realizada”, escopo com a frase completa de fontes
+  processadas, conclusão antes dos gráficos, cards sem régua vertical e
+  status em pill com ícone.
+- A proporção compartilhada dos dois gráficos usa `figure_height=4.4`, card
+  de 162 pt e `CHART_TO_POINTS_GAP=28`; o Canvas web gera raster A4 de
+  2481×3508 px.
+- A ordem padrão dos pontos passou a ser a ordem estável dos arquivos de
+  origem, mantendo a distância GPS como opção configurável.
+- A nota WhatsApp preserva o texto operacional de referência, os qualificadores
+  instrumentais e as quebras de linha Windows.
 - O gerador web tem interface compacta, validação explícita, preservação de
   qualificadores `<` e `>` e downloads com o padrão `ENAEX_NSR-YYYYMMDD`.
 - A publicação usa `https://silvathiagoferreira.github.io/report-sismografia/`

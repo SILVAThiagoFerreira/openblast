@@ -56,6 +56,12 @@ def build_whatsapp_note(records: List[Dict], summary: Dict, config: Dict) -> str
                 f" *{record.get('point_name') or 'N/D'}*",
                 f"   • PVS: {format_record_value(record, 'pvs_mm_s', 3)} mm/s",
                 f"   • PSPL: {format_record_value(record, 'pspl_db', 1)} dB(L)",
+                (
+                    "   • PPV: "
+                    f"Tran {format_record_value(record, 'tran_ppv_mm_s', 3)} | "
+                    f"Vert {format_record_value(record, 'vert_ppv_mm_s', 3)} | "
+                    f"Long {format_record_value(record, 'long_ppv_mm_s', 3)} mm/s"
+                ),
                 "",
             ]
         )
@@ -63,15 +69,23 @@ def build_whatsapp_note(records: List[Dict], summary: Dict, config: Dict) -> str
         point_lines.pop()
 
     lines = [
-        "*MONITORAMENTO SISMOGRÁFICO — ENAEX*",
+        "*MONITORAMENTO SISMOGRÁFICO - ENAEX*",
+        "---",
+        f" *Cliente:* {client}",
+        f" *Data:* {event_date}",
         "",
-        f"*Cliente:* {client}",
-        f"*Data:* {event_date}",
-        "",
+        "Prezados,",
+        "Seguem os níveis de vibração e pressão acústica registrados no evento. Os detalhes técnicos completos podem ser consultados no relatório (imagem) em anexo.",
         vibration_status,
         "",
         *point_lines,
         "",
+        "---",
         status_final,
+        "",
+        "_Consulte a imagem anexa para mais detalhes._",
+        "",
+        "Atenciosamente,",
+        "*Enaex*",
     ]
     return "\n".join(lines)

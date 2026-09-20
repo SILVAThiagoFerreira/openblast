@@ -18,7 +18,7 @@ FIRST_PAGE_LAST_CARD_Y = 70
 POINT_CARD_HEIGHT = 58
 POINT_CARD_GAP = 14
 POINTS_TITLE_GAP = 22
-CHART_TO_POINTS_GAP = 16
+CHART_TO_POINTS_GAP = 28
 CHARTS_TOP_LIMIT = 484
 COLORS = {
     "red": "#E20613",
@@ -205,12 +205,12 @@ def _draw_scope(c: canvas.Canvas, x: float, y: float, w: float, h: float, config
     client = summary.get("client") or config.get("project", {}).get("client_default", "N/D")
     _draw_text(c, f"Data do evento: {event_date}", x + 12, y0, 8)
     _draw_text(c, f"Cliente: {client}", x + 12, y0 - 11, 8)
-    _draw_text(c, f"Pontos monitorados: {len(records)}.", x + 12, y0 - 22, 8)
+    _draw_text(c, f"Pontos monitorados: {len(records)} fonte(s) de dados de sismógrafos processadas com sucesso.", x + 12, y0 - 22, 8)
     if config.get("report", {}).get("show_vibration_index", True):
         vib_limit = config.get("limits", {}).get("vibration_status_mm_s", 0.8)
         status = "abaixo" if summary.get("all_below_configured_vibration_limit") else "acima"
         status_color = colors["green"] if summary.get("all_below_configured_vibration_limit") else colors["red"]
-        _draw_text(c, f"Índice de vibração: {status} de {str(vib_limit).replace('.', ',')} mm/s.", x + 12, y0 - 33, 8, status_color, bold=True)
+        _draw_text(c, f"■ Índices de vibração: {status} de {str(vib_limit).replace('.', ',')} mm/s.", x + 12, y0 - 33, 8, status_color, bold=True)
 
 
 def _draw_conclusion(c: canvas.Canvas, x: float, y: float, w: float, h: float, records: List[Dict], summary: Dict, config: Dict, colors: Dict[str, str]):
@@ -219,7 +219,7 @@ def _draw_conclusion(c: canvas.Canvas, x: float, y: float, w: float, h: float, r
     _section_header(c, x, y + h - 20, w, 20, labels["conclusion_title"], colors=colors)
 
     rows = [
-        ("Conformidade", "Todos os pontos conformes na ABNT NBR 9653:2018." if summary.get("all_conforme_abnt") else "Há ponto(s) acima do limite ou sem dado para avaliação."),
+        ("Conformidade", "Todos os pontos abaixo dos limites da ABNT NBR 9653:2018." if summary.get("all_conforme_abnt") else "Há ponto(s) acima de limite ou com dado ausente para avaliação."),
         ("Maior PSPL", f"{fmt_num(summary.get('max_pspl', {}).get('value_db'), 1, qualifier=summary.get('max_pspl', {}).get('qualifier'))} dB(L) | {summary.get('max_pspl', {}).get('point_name') or 'N/D'}"),
         ("Maior PPV", f"{fmt_num(summary.get('max_ppv', {}).get('value_mm_s'), 3, qualifier=summary.get('max_ppv', {}).get('qualifier'))} mm/s | {summary.get('max_ppv', {}).get('point_name') or 'N/D'}"),
         ("Maior PVS", f"{fmt_num(summary.get('max_pvs', {}).get('value_mm_s'), 3, qualifier=summary.get('max_pvs', {}).get('qualifier'))} mm/s | {summary.get('max_pvs', {}).get('point_name') or 'N/D'}"),
@@ -292,8 +292,6 @@ def _draw_point_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, r
     _draw_round_rect(c, x, y, w, h, radius=5, fill=colors["white"], shadow=True, colors=colors)
     c.setFillColor(colors["dark"])
     c.roundRect(x, y + h - 17, w, 17, 4, stroke=0, fill=1)
-    c.setFillColor(colors["green"])
-    c.rect(x, y + h - 17, 3.5, 17, stroke=0, fill=1)
     _draw_text(c, str(record.get("point_name", "PONTO MONITORADO")).upper(), x + 12, y + h - 12, 9, "white", bold=True)
 
     table_x = x + 12
@@ -341,19 +339,19 @@ def _draw_footer(c: canvas.Canvas, config: Dict, colors: Dict[str, str]):
     footer_h = layout["footer_height"]
     accent_h = min(layout["footer_accent_height"], footer_h / 2)
     side = layout["footer_side_padding"]
-    base = config.get("project", {}).get("base_normativa", "ABNT NBR 9653:2018")
-    badge_w = 112.0
-    badge_h = 22.0
-    badge_x = PAGE_W - side - badge_w
-    badge_y = max(12.0, (footer_h - badge_h) / 2)
-    _draw_text(c, f"Base normativa: {base}.", side, badge_y + 8, 7.5, colors["muted"])
     c.setFillColor(colors["navy"])
-    c.roundRect(badge_x, badge_y, badge_w, badge_h, 3, stroke=0, fill=1)
-    c.setFillColor(colors["white"])
-    c.setFont("Helvetica-Bold", 8)
-    c.drawCentredString(badge_x + badge_w / 2, badge_y + 8, str(config.get("project", {}).get("footer_badge", "DNA  •  ENAEX")))
+    c.rect(0, 0, PAGE_W, footer_h, stroke=0, fill=1)
     c.setFillColor(colors["red"])
-    c.rect(0, 0, PAGE_W, accent_h + 4, fill=1, stroke=0)
+    c.rect(0, footer_h - accent_h, PAGE_W, accent_h, stroke=0, fill=1)
+
+    base = config.get("project", {}).get("base_normativa", "ABNT NBR 9653:2018")
+    _draw_text(c, f"Base normativa: {base}", side, 10.5, 7.5, colors["white"])
+    c.setStrokeColor(colors["header_gray"])
+    c.setLineWidth(0.6)
+    c.line(PAGE_W - 148, 8, PAGE_W - 148, footer_h - 8)
+    c.setFillColor(colors["white"])
+    c.setFont("Helvetica-Bold", 8.5)
+    c.drawRightString(PAGE_W - side, 10.5, str(config.get("project", {}).get("footer_badge", "DNA  •  ENAEX")))
 
 
 def _first_page_layout(config: Dict | None = None) -> Dict[str, float]:

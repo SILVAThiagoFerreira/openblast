@@ -67,14 +67,16 @@ Dentro dela são gerados:
 - pasta `graficos/` com os PNGs dos gráficos
 - pasta `entrada_csv/` com cópia dos CSVs processados
 
-Para até três pontos, PDF e PNG são uma única página A4 completa: resumo
-executivo, gráficos normativos e cartões dos pontos na mesma composição. Se a
-campanha tiver mais de três pontos, o PDF acrescenta páginas de continuação;
-o PNG continua representando a primeira página.
+Para até três pontos, PDF e PNG são uma única página A4 completa: resumo da
+campanha realizada, gráficos normativos e cartões dos pontos na mesma
+composição. O escopo informa a quantidade de fontes processadas, a linha de
+índice de vibração usa o quadrado verde da referência e a conclusão aparece
+antes dos gráficos. Se a campanha tiver mais de três pontos, o PDF acrescenta
+páginas de continuação; o PNG continua representando a primeira página.
 
-O escopo é apresentado em linhas textuais, e os pontos monitorados usam cartões horizontais com botão de status à direita.
-
-O cabeçalho usa um marcador circular geométrico simples no canto superior direito.
+Os pontos monitorados usam cartões horizontais com status em pill verde e
+ícone de conformidade à direita, sem régua vertical adicional. O cabeçalho
+usa um marcador circular geométrico simples no canto superior direito.
 
 Os logs ficam em `logs/`.
 
@@ -88,16 +90,18 @@ O arquivo `config.json` centraliza:
 - parâmetros de gráficos, incluindo a altura vertical compartilhada entre PNG
   Python e Canvas web
 - target executivo de vibração e visibilidade da linha “Índices de vibração”
-- ordenação dos pontos (`gps_distance_ascending` por padrão)
+- ordenação dos pontos (`source_order` por padrão, com opção explícita de
+  `gps_distance_ascending`)
 - geometria, textos e paleta do relatório
 - regras de execução
 
 Se um valor precisar mudar, a decisão deve ser feita na configuração, não no código.
 
 Na composição A4 de até três pontos, os gráficos permanecem lado a lado, com
-card de 174 pt de altura e raster web de proporção 1430×794. A distância até o
-título “Pontos Monitorados” é de 16 pt; o limite superior continua fixo para
-preservar a folga da conclusão técnica.
+card de 162 pt de altura, distância de 28 pt até o título “Pontos Monitorados”
+e raster web de 1430×699 px. O limite superior continua fixo para preservar a
+folga da conclusão técnica. A proporção é controlada por
+`charts.figure_height=4.4` e compartilhada entre Python e Canvas.
 
 ## Como executar
 

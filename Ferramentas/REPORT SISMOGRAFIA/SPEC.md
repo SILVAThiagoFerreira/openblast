@@ -17,8 +17,10 @@ Processar uma campanha sismográfica a partir de CSVs de sismógrafo, avaliar co
 - O texto de WhatsApp deve usar apenas formatação compatível com WhatsApp.
 - Qualificadores instrumentais `<` e `>` devem ser preservados nos registros e
   exibidos nas saídas, sem serem convertidos silenciosamente em igualdade.
-- Os pontos são apresentados por distância GPS crescente quando
-  `processing.record_order` está em `gps_distance_ascending`.
+- Os pontos são apresentados na ordem estável dos arquivos de origem quando
+  `processing.record_order` está em `source_order` (padrão). A ordenação por
+  distância GPS continua disponível quando configurada explicitamente como
+  `gps_distance_ascending`.
 
 ## Validações Obrigatórias
 
@@ -54,7 +56,9 @@ Processar uma campanha sismográfica a partir de CSVs de sismógrafo, avaliar co
   página A4 do resumo. Campanhas maiores usam páginas de continuação apenas
   para os pontos excedentes.
 - A composição da primeira página reserva folga fixa para o rodapé, impedindo que cartões e tabelas finais avancem sobre a assinatura visual.
-- O resumo executivo usa escopo textual, cabeçalhos verdes e cartões horizontais de pontos monitorados com status à direita.
+- O resumo executivo usa o título “Resumo da Campanha Realizada”, escopo
+  textual com indicador verde de vibração, conclusão técnica antes dos
+  gráficos e cartões horizontais de pontos monitorados com status à direita.
 - O canto superior direito do cabeçalho usa um marcador circular geométrico simples com o número de pontos monitorados dentro.
 
 ## Identidade Visual do Relatório
@@ -63,28 +67,38 @@ Definida em `config.json` e consumida por `src/report.py` e `pages/js/`.
 Serve como referência para novas edições visuais — mudanças pontuais são
 permitidas desde que preservem a linguagem abaixo.
 
-**Paleta.** Verde institucional `#67C70A` para headers de seção, réguas de destaque e status conforme. Vermelho `#E30613` reservado ao logotipo e ao título principal. Cinza escuro `#3C4656` (dark) nos cabeçalhos dos cards de pontos; navy `#151B36` no badge do rodapé. Verde-claro `#EAF6D9` como fundo de rótulos em tabelas. Cinza `#E8EAEE` na faixa superior do card de cabeçalho e `#D9DEE7` nas linhas separadoras.
+**Paleta.** Cinza Enaex `#38424B` nos cabeçalhos, tabelas e rodapé. Verde
+institucional `#67C70A` reservado ao status conforme e ao indicador de
+vibração. Vermelho `#E20613` no logotipo, no título principal, nas réguas e
+no acento do rodapé. Branco nos textos sobre fundos escuros, cinza-claro
+`#E8EAEE` na faixa superior e `#D9DEE7` nas linhas separadoras.
 
 **Componentes.**
 - **Cards** com cantos arredondados (raio 5) e sombra sutil (`#E1E5EA`).
-- **Section headers** em barra verde (altura 20) com título branco em Helvetica-Bold.
-- **Réguas verdes** curtas (42×2) abaixo dos H1 "Resumo Executivo" e "Pontos Monitorados", unificando a linguagem com os headers das seções.
-- **Cards de pontos** com faixa dark no topo e régua verde vertical de 3.5px à esquerda do nome do ponto.
-- **Selo de status** ("CONFORME ABNT" / "VERIFICAR" / "DADO AUSENTE") em pill (raio 9), fundo colorido conforme o estado.
+- **Section headers** em barra cinza Enaex (altura 20) com título branco em
+  Helvetica-Bold.
+- **Réguas vermelhas** curtas abaixo dos H1 “Resumo da Campanha Realizada” e
+  “Pontos Monitorados”.
+- **Cards de pontos** com faixa cinza Enaex no topo, tabelas internas claras e
+  status à direita; não há régua vertical que altere a largura útil dos dados.
+- **Selo de status** ("CONFORME ABNT" / "VERIFICAR" / "DADO AUSENTE") em pill
+  verde/cinza, com círculo branco e ícone de check quando conforme.
 - **Tabelas internas** sem bordas nas células: apenas a faixa de rótulo em verde-claro e linhas horizontais finas (`#D9DEE7`, 0.35–0.4pt) entre linhas.
 
 **Espaçamentos-chave.** `POINT_CARD_GAP=14`, `POINTS_TITLE_GAP=22`,
-`CHART_TO_POINTS_GAP=16`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
+`CHART_TO_POINTS_GAP=28`, `CHARTS_TOP_LIMIT=484`. Card do escopo com altura
 72 para acomodar as quatro linhas do bloco. Card de conclusão em y=488,
 escopo em y=566.
 
-**Proporção dos gráficos.** `charts.figure_height=5.0` amplia a altura útil do
-PNG Python sem alterar a largura do card. `charts.web_figure_width=6.5` mantém
-a densidade do Canvas online; sua altura é derivada da mesma razão
-`figure_width:figure_height`, resultando em 1430×794 px. O topo dos cards fica
-fixo em y=484 para manter a separação da conclusão técnica.
+**Proporção dos gráficos.** `charts.figure_height=4.4` define a altura útil
+compartilhada entre o PNG Python e o Canvas online sem alterar a largura do
+card. `charts.web_figure_width=6.5` e `figure_dpi=220` resultam em 1430×699 px
+no Canvas; o PDF e a imagem A4 preservam o mesmo enquadramento. O topo dos
+cards fica fixo em y=484 para manter a separação da conclusão técnica.
 
-**Rodapé.** Texto normativo em cinza `#667085` alinhado verticalmente ao centro do badge navy "DNA • ENAEX". Fio vermelho de 6pt na base da página como assinatura visual.
+**Rodapé.** Faixa cinza Enaex em toda a largura, com fio vermelho de 2 pt no
+topo, texto normativo branco à esquerda, divisor vertical e a assinatura
+branca “DNA • ENAEX” à direita.
 
 ## Limitações Conhecidas
 
