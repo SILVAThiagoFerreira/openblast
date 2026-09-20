@@ -44,6 +44,22 @@ def test_chart_height_contract_is_shared_by_python_and_web_layout():
     assert layout["chart_y"] + layout["chart_h"] == layout["charts_top_limit"]
 
 
+def test_clean_corporate_visual_tokens_are_configured():
+    config = load_config(Path("config.json"))
+    report_layout = config["report_layout"]
+    palette = config["branding"]["palette"]
+
+    assert report_layout["card_radius"] == 3
+    assert report_layout["card_border_width"] == 0.55
+    assert report_layout["section_header_height"] == 20
+    assert report_layout["point_header_height"] == 17
+    assert report_layout["status_badge_height"] == 16
+    assert palette["white"] == "#FFFFFF"
+    assert palette["status_conforme_bg"] == "#EAF7D5"
+    assert palette["status_verificar_bg"] == "#FDE8E7"
+    assert palette["status_ausente_bg"] == "#F2F3F5"
+
+
 def test_point_status_text_uses_original_badge_labels():
     assert report._point_status_text({"evaluation": {"overall_conforme_abnt": True}}) == (
         "CONFORME ABNT",

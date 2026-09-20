@@ -74,9 +74,11 @@ composição. O escopo informa a quantidade de fontes processadas, a linha de
 antes dos gráficos. Se a campanha tiver mais de três pontos, o PDF acrescenta
 páginas de continuação; o PNG continua representando a primeira página.
 
-Os pontos monitorados usam cartões horizontais com status em pill verde e
-ícone de conformidade à direita, sem régua vertical adicional. O cabeçalho
-usa um marcador circular geométrico simples no canto superior direito.
+Os pontos monitorados usam cartões horizontais de fundo branco, contorno fino,
+hierarquia tipográfica e status semântico em badge claro no canto superior
+direito. O cabeçalho foi reduzido a logo, metadados e uma régua discreta, sem
+selo circular ou faixa escura. O relatório mantém fundo branco como superfície
+principal e reserva o vermelho Enaex aos acentos e à sinalização normativa.
 
 Os logs ficam em `logs/`.
 
@@ -102,6 +104,10 @@ card de 174 pt de altura, distância de 16 pt até o título “Pontos Monitorad
 e raster web de 1430×763 px. O limite superior continua fixo para preservar a
 folga da conclusão técnica. A proporção é controlada por
 `charts.figure_height=4.8` e compartilhada entre Python e Canvas.
+
+O tratamento visual usa cartões quase planos, cabeçalhos editoriais em regra
+fina, badges de status claros e rodapé branco com fio vermelho. A mesma
+hierarquia é mantida no PDF/PNG e no gerador web.
 
 ## Como executar
 

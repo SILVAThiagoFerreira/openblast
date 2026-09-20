@@ -46,8 +46,8 @@
   acima disso, o PDF recebe páginas de continuação.
 - Validação: todos os arquivos devem existir, ter tamanho maior que zero,
   abrir corretamente e manter a composição visual em escopo textual, cartões
-  horizontais por ponto, marcador circular do cabeçalho, status em pill e
-  rodapé sem sobreposição.
+  horizontais por ponto, cabeçalho leve, badges semânticos claros, gráficos
+  lado a lado e rodapé sem sobreposição.
 
 ## 8. Geração De Logs
 

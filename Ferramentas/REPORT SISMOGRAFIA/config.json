@@ -90,19 +90,25 @@
     "page_margin": 28,
     "chart_column_gap": 14,
     "chart_inner_padding": 6,
-    "chart_header_height": 22,
+    "card_radius": 3,
+    "card_border_width": 0.55,
+    "section_header_height": 20,
+    "section_rule_width": 0.85,
+    "section_accent_width": 26,
+    "chart_header_height": 20,
+    "point_header_height": 17,
     "chart_to_points_gap": 16,
     "charts_top_limit": 484,
     "footer_height": 30,
-    "footer_accent_height": 2,
+    "footer_accent_height": 1.5,
     "footer_side_padding": 28,
     "header_points_arrow_offset": 12,
     "header_points_arrow_width": 14,
     "header_points_arrow_gap": 8,
     "header_points_arrow_line_width": 1.5,
-    "status_badge_width": 112,
-    "status_badge_height": 20,
-    "status_badge_radius": 6
+    "status_badge_width": 100,
+    "status_badge_height": 16,
+    "status_badge_radius": 3
   },
   "report_text": {
     "executive_title": "Resumo da Campanha Realizada",
@@ -134,7 +140,13 @@
       "series_longitudinal": "#38424B",
       "series_vertical": "#16A34A",
       "status_conforme": "#67C70A",
-      "status_ausente": "#9AA1AC"
+      "status_ausente": "#9AA1AC",
+      "status_conforme_bg": "#EAF7D5",
+      "status_conforme_text": "#3F7600",
+      "status_verificar_bg": "#FDE8E7",
+      "status_verificar_text": "#A4232B",
+      "status_ausente_bg": "#F2F3F5",
+      "status_ausente_text": "#667085"
     }
   },
   "report": {

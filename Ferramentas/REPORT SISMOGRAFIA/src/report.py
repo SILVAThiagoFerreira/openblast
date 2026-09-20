@@ -56,6 +56,12 @@ def _palette(config: Dict) -> Dict[str, str]:
         "series_transversal": palette.get("series_transversal", COLORS["red"]),
         "series_longitudinal": palette.get("series_longitudinal", COLORS["dark"]),
         "series_vertical": palette.get("series_vertical", COLORS["series_vertical"]),
+        "status_conforme_bg": palette.get("status_conforme_bg", "#EAF7D5"),
+        "status_conforme_text": palette.get("status_conforme_text", "#3F7600"),
+        "status_verificar_bg": palette.get("status_verificar_bg", "#FDE8E7"),
+        "status_verificar_text": palette.get("status_verificar_text", "#A4232B"),
+        "status_ausente_bg": palette.get("status_ausente_bg", "#F2F3F5"),
+        "status_ausente_text": palette.get("status_ausente_text", "#667085"),
     }
 
 
@@ -66,7 +72,13 @@ def _report_layout(config: Dict | None = None) -> Dict[str, float]:
         "page_margin": float(layout.get("page_margin", 28.0)),
         "chart_column_gap": float(layout.get("chart_column_gap", 14.0)),
         "chart_inner_padding": float(layout.get("chart_inner_padding", 6.0)),
-        "chart_header_height": float(layout.get("chart_header_height", 22.0)),
+        "card_radius": float(layout.get("card_radius", 3.0)),
+        "card_border_width": float(layout.get("card_border_width", 0.55)),
+        "section_header_height": float(layout.get("section_header_height", 20.0)),
+        "section_rule_width": float(layout.get("section_rule_width", 0.85)),
+        "section_accent_width": float(layout.get("section_accent_width", 26.0)),
+        "chart_header_height": float(layout.get("chart_header_height", 20.0)),
+        "point_header_height": float(layout.get("point_header_height", 17.0)),
         "chart_to_points_gap": float(layout.get("chart_to_points_gap", CHART_TO_POINTS_GAP)),
         "charts_top_limit": float(layout.get("charts_top_limit", CHARTS_TOP_LIMIT)),
         "footer_height": float(layout.get("footer_height", 30.0)),
@@ -115,21 +127,26 @@ def _hex(c: canvas.Canvas, value: str):
     c.setStrokeColor(value)
 
 
-def _draw_round_rect(c: canvas.Canvas, x: float, y: float, w: float, h: float, radius: float = 5, fill: str = "#FFFFFF", stroke: str | None = None, shadow: bool = True, colors: Dict[str, str] = COLORS):
+def _draw_round_rect(c: canvas.Canvas, x: float, y: float, w: float, h: float, radius: float = 3, fill: str = "#FFFFFF", stroke: str | None = None, shadow: bool = False, line_width: float = 0.55, colors: Dict[str, str] = COLORS):
     if shadow:
         c.setFillColor(colors["shadow"])
         c.roundRect(x + 2, y - 2, w, h, radius, stroke=0, fill=1)
     c.setFillColor(fill)
     c.setStrokeColor(stroke or fill)
+    c.setLineWidth(line_width)
     c.roundRect(x, y, w, h, radius, stroke=1 if stroke else 0, fill=1)
 
 
-def _section_header(c: canvas.Canvas, x: float, y: float, w: float, h: float, title: str, color: str | None = None, colors: Dict[str, str] = COLORS, align: str = "left"):
+def _section_header(c: canvas.Canvas, x: float, y: float, w: float, h: float, title: str, color: str | None = None, colors: Dict[str, str] = COLORS, align: str = "left", rule_width: float = 0.85, accent_width: float = 26.0):
     color = color or colors["dark"]
+    c.setStrokeColor(colors["line"])
+    c.setLineWidth(rule_width)
+    c.line(x, y + h - 1, x + w, y + h - 1)
+    c.setFillColor(colors["red"])
+    accent_x = x if align != "center" else x + (w - accent_width) / 2
+    c.rect(accent_x, y + h - 2, accent_width, 2, stroke=0, fill=1)
     c.setFillColor(color)
-    c.roundRect(x, y, w, h, 5, stroke=0, fill=1)
-    c.setFillColor("white")
-    c.setFont("Helvetica-Bold", 10)
+    c.setFont("Helvetica-Bold", 9)
     baseline = y + h - 13
     if align == "center":
         c.drawCentredString(x + w / 2, baseline, title)
@@ -161,45 +178,33 @@ def _draw_header(c: canvas.Canvas, config: Dict, records: List[Dict], summary: D
     if not logo.is_absolute():
         logo = Path(__file__).resolve().parents[1] / logo
     _fit_image(c, logo, margin, PAGE_H - 62, 112, 30)
-
-    # Selo geométrico discreto: círculo com o número de pontos.
-    c.setStrokeColor(colors["dark"])
-    c.setLineWidth(1)
-    c.circle(PAGE_W - 52, PAGE_H - 46, 14, stroke=1, fill=0)
-    _draw_text(c, str(len(records)), PAGE_W - 55, PAGE_H - 50, 12, colors["dark"], bold=True)
-
-    x, y, w, h = margin, PAGE_H - 144, PAGE_W - 2 * margin, 78
-    _draw_round_rect(c, x, y, w, h, radius=5, fill=colors["white"], shadow=True, colors=colors)
-    # Faixa superior discreta em cinza claro (troca do cinza médio anterior, menos pesado).
-    c.setFillColor(colors["header_gray"])
-    c.roundRect(x, y + h - 10, w, 10, 5, stroke=0, fill=1)
-
-    _draw_text(c, config.get("project", {}).get("title", "MONITORAMENTO SISMOGRÁFICO"), x + 22, y + 46, 15, colors["red"], bold=True)
+    project = config.get("project", {})
+    title = project.get("title", "MONITORAMENTO SISMOGRÁFICO")
     client = summary.get("client") or config.get("project", {}).get("client_default", "US MINERAÇÃO VALE-VERDE")
-    _draw_text(c, str(client).upper(), x + 22, y + 26, 11, "#697386", bold=True)
-    point_count = f"{len(records)} ponto(s)"
-    point_count_text_x = x + layout["header_points_arrow_offset"] + layout["header_points_arrow_width"] + layout["header_points_arrow_gap"]
-    arrow_start_x = x + layout["header_points_arrow_offset"]
-    arrow_tip_x = arrow_start_x + layout["header_points_arrow_width"]
-    arrow_y = y + 14
-    arrow_head = min(3.5, layout["header_points_arrow_width"] * 0.3)
-    c.setStrokeColor(colors["red"])
+    event_date = fmt_date_iso(summary.get("event_date"))
+    _draw_text(c, str(title), margin, PAGE_H - 105, 15, colors["dark"], bold=True)
     c.setFillColor(colors["red"])
-    c.setLineWidth(layout["header_points_arrow_line_width"])
-    c.line(arrow_start_x, arrow_y, arrow_tip_x - arrow_head, arrow_y)
-    arrow = c.beginPath()
-    arrow.moveTo(arrow_tip_x, arrow_y)
-    arrow.lineTo(arrow_tip_x - arrow_head, arrow_y + arrow_head * 0.7)
-    arrow.lineTo(arrow_tip_x - arrow_head, arrow_y - arrow_head * 0.7)
-    arrow.close()
-    c.drawPath(arrow, stroke=0, fill=1)
-    _draw_text(c, point_count, point_count_text_x, y + 12, 8, colors["text"], bold=True)
+    c.rect(margin, PAGE_H - 112, 30, 1.5, stroke=0, fill=1)
+    _draw_text(c, str(client).upper(), margin, PAGE_H - 127, 10.5, colors["muted"], bold=True)
+    _draw_text(c, f"{event_date}  |  {len(records)} pontos monitorados", margin, PAGE_H - 143, 7.5, colors["muted"])
+    c.setStrokeColor(colors["line"])
+    c.setLineWidth(0.65)
+    c.line(margin, PAGE_H - 151, PAGE_W - margin, PAGE_H - 151)
+    meta = f"RELATÓRIO TÉCNICO  |  {len(records)} PONTOS"
+    c.setFillColor(colors["muted"])
+    c.setFont("Helvetica", 7)
+    c.drawRightString(PAGE_W - margin, PAGE_H - 46, meta)
 
 
 def _draw_scope(c: canvas.Canvas, x: float, y: float, w: float, h: float, config: Dict, records: List[Dict], summary: Dict, colors: Dict[str, str]):
+    layout = _report_layout(config)
     labels = _report_text(config)
-    _draw_round_rect(c, x, y, w, h, radius=5, fill=colors["white"], shadow=True, colors=colors)
-    _section_header(c, x, y + h - 20, w, 20, labels["scope_title"], colors=colors)
+    _draw_round_rect(c, x, y, w, h, radius=layout["card_radius"], fill=colors["white"], stroke=colors["line"], line_width=layout["card_border_width"], colors=colors)
+    _section_header(
+        c, x + 12, y + h - layout["section_header_height"], w - 24, layout["section_header_height"],
+        labels["scope_title"], color=colors["dark"], colors=colors,
+        rule_width=layout["section_rule_width"], accent_width=layout["section_accent_width"],
+    )
     y0 = y + h - 32
     event_date = fmt_date_iso(summary.get("event_date"))
     client = summary.get("client") or config.get("project", {}).get("client_default", "N/D")
@@ -214,9 +219,14 @@ def _draw_scope(c: canvas.Canvas, x: float, y: float, w: float, h: float, config
 
 
 def _draw_conclusion(c: canvas.Canvas, x: float, y: float, w: float, h: float, records: List[Dict], summary: Dict, config: Dict, colors: Dict[str, str]):
+    layout = _report_layout(config)
     labels = _report_text(config)
-    _draw_round_rect(c, x, y, w, h, radius=5, fill=colors["white"], shadow=True, colors=colors)
-    _section_header(c, x, y + h - 20, w, 20, labels["conclusion_title"], colors=colors)
+    _draw_round_rect(c, x, y, w, h, radius=layout["card_radius"], fill=colors["white"], stroke=colors["line"], line_width=layout["card_border_width"], colors=colors)
+    _section_header(
+        c, x + 12, y + h - layout["section_header_height"], w - 24, layout["section_header_height"],
+        labels["conclusion_title"], color=colors["dark"], colors=colors,
+        rule_width=layout["section_rule_width"], accent_width=layout["section_accent_width"],
+    )
 
     rows = [
         ("Conformidade", "Todos os pontos abaixo dos limites da ABNT NBR 9653:2018." if summary.get("all_conforme_abnt") else "Há ponto(s) acima de limite ou com dado ausente para avaliação."),
@@ -230,22 +240,23 @@ def _draw_conclusion(c: canvas.Canvas, x: float, y: float, w: float, h: float, r
     total_w = w - 24
     for i, (label, value) in enumerate(rows):
         yy = table_y + (len(rows) - 1 - i) * row_h
-        # Faixa de rótulo em verde-claro (sem bordas); linha separadora sutil abaixo.
-        c.setFillColor(colors["light_green"])
-        c.rect(table_x, yy, col1, row_h, fill=1, stroke=0)
         if i < len(rows) - 1:
             c.setStrokeColor(colors["line"])
             c.setLineWidth(0.4)
-            c.line(table_x + col1, yy, table_x + total_w, yy)
-        _draw_text(c, label, table_x + 6, yy + 3, 7, colors["text"], bold=True)
-        _draw_text(c, value, table_x + col1 + 6, yy + 3, 7, colors["text"])
+            c.line(table_x, yy, table_x + total_w, yy)
+        _draw_text(c, label, table_x, yy + 3, 7, colors["muted"], bold=True)
+        _draw_text(c, value, table_x + col1, yy + 3, 7, colors["text"])
 
 
 def _draw_chart_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, title: str, image_path: str, colors: Dict[str, str], layout: Dict[str, float]):
-    _draw_round_rect(c, x, y, w, h, radius=5, fill=colors["white"], shadow=True, colors=colors)
+    _draw_round_rect(c, x, y, w, h, radius=layout["card_radius"], fill=colors["white"], stroke=colors["line"], line_width=layout["card_border_width"], colors=colors)
     header_h = layout["chart_header_height"]
     padding = layout["chart_inner_padding"]
-    _section_header(c, x, y + h - header_h, w, header_h, title, colors=colors, align="center")
+    _section_header(
+        c, x + padding, y + h - header_h, w - 2 * padding, header_h, title,
+        color=colors["dark"], colors=colors, align="center",
+        rule_width=layout["section_rule_width"], accent_width=layout["section_accent_width"],
+    )
     _fit_image(c, image_path, x + padding, y + padding, w - 2 * padding, h - header_h - 2 * padding)
 
 
@@ -264,35 +275,54 @@ def _point_accent_color(record: Dict, colors: Dict[str, str] = COLORS) -> str:
 
 
 def _draw_status_badge(c: canvas.Canvas, x: float, y: float, w: float, h: float, label: str, color: str, colors: Dict[str, str], radius: float = 6.0):
-    """Draw a compact status lock-up with an icon instead of a generic flat pill."""
+    """Draw a restrained semantic status badge with a compact icon."""
     radius = min(radius, h / 2)
-    c.setFillColor(color)
-    c.roundRect(x, y, w, h, radius, stroke=0, fill=1)
-
-    icon_x = x + 13
-    icon_y = y + h / 2
-    c.setFillColor(colors["white"])
-    c.circle(icon_x, icon_y, 5.2, stroke=0, fill=1)
-    c.setStrokeColor(color)
-    c.setLineWidth(1.1)
     if label == "CONFORME ABNT":
-        c.line(icon_x - 2.7, icon_y, icon_x - 0.7, icon_y - 2.0)
-        c.line(icon_x - 0.7, icon_y - 2.0, icon_x + 3.0, icon_y + 2.4)
+        background, foreground = colors["status_conforme_bg"], colors["status_conforme_text"]
     elif label == "VERIFICAR":
-        c.line(icon_x, icon_y - 2.4, icon_x, icon_y + 2.0)
-        c.circle(icon_x, icon_y - 3.4, 0.55, stroke=1, fill=0)
+        background, foreground = colors["status_verificar_bg"], colors["status_verificar_text"]
     else:
-        c.line(icon_x - 2.5, icon_y, icon_x + 2.5, icon_y)
+        background, foreground = colors["status_ausente_bg"], colors["status_ausente_text"]
 
-    _draw_text(c, label, x + 23, y + (h - 7.5) / 2 + 2.0, 7.5, colors["white"], bold=True)
+    c.setFillColor(background)
+    c.setStrokeColor(foreground)
+    c.setLineWidth(0.45)
+    c.roundRect(x, y, w, h, radius, stroke=1, fill=1)
+
+    icon_x = x + 9
+    icon_y = y + h / 2
+    c.setFillColor(foreground)
+    c.circle(icon_x, icon_y, 3.3, stroke=0, fill=1)
+    c.setStrokeColor(colors["white"])
+    c.setLineWidth(0.8)
+    if label == "CONFORME ABNT":
+        c.line(icon_x - 1.8, icon_y, icon_x - 0.5, icon_y - 1.2)
+        c.line(icon_x - 0.5, icon_y - 1.2, icon_x + 1.9, icon_y + 1.5)
+    elif label == "VERIFICAR":
+        c.line(icon_x, icon_y - 1.5, icon_x, icon_y + 1.1)
+        c.circle(icon_x, icon_y - 2.1, 0.35, stroke=1, fill=1)
+    else:
+        c.line(icon_x - 1.7, icon_y, icon_x + 1.7, icon_y)
+
+    _draw_text(c, label, x + 17, y + (h - 6.6) / 2 + 1.8, 6.6, foreground, bold=True)
 
 
 def _draw_point_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, record: Dict, colors: Dict[str, str], layout: Dict[str, float] | None = None):
     layout = layout or _report_layout({})
-    _draw_round_rect(c, x, y, w, h, radius=5, fill=colors["white"], shadow=True, colors=colors)
-    c.setFillColor(colors["dark"])
-    c.roundRect(x, y + h - 17, w, 17, 4, stroke=0, fill=1)
-    _draw_text(c, str(record.get("point_name", "PONTO MONITORADO")).upper(), x + 12, y + h - 12, 9, "white", bold=True)
+    _draw_round_rect(
+        c, x, y, w, h,
+        radius=layout["card_radius"],
+        fill=colors["white"],
+        stroke=colors["line"],
+        line_width=layout["card_border_width"],
+        colors=colors,
+    )
+    point_header_h = layout["point_header_height"]
+    divider_y = y + h - point_header_h
+    c.setStrokeColor(colors["line"])
+    c.setLineWidth(0.55)
+    c.line(x + 12, divider_y, x + w - 12, divider_y)
+    _draw_text(c, str(record.get("point_name", "PONTO MONITORADO")).upper(), x + 12, y + h - 12, 8.3, colors["dark"], bold=True)
 
     table_x = x + 12
     table_y = y + 7
@@ -324,7 +354,7 @@ def _draw_point_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, r
     _draw_status_badge(
         c,
         x + w - btn_w - 12,
-        y + 12,
+        y + h - btn_h - 1,
         btn_w,
         btn_h,
         label,
@@ -339,17 +369,17 @@ def _draw_footer(c: canvas.Canvas, config: Dict, colors: Dict[str, str]):
     footer_h = layout["footer_height"]
     accent_h = min(layout["footer_accent_height"], footer_h / 2)
     side = layout["footer_side_padding"]
-    c.setFillColor(colors["navy"])
+    c.setFillColor(colors["white"])
     c.rect(0, 0, PAGE_W, footer_h, stroke=0, fill=1)
     c.setFillColor(colors["red"])
     c.rect(0, footer_h - accent_h, PAGE_W, accent_h, stroke=0, fill=1)
 
     base = config.get("project", {}).get("base_normativa", "ABNT NBR 9653:2018")
-    _draw_text(c, f"Base normativa: {base}", side, 10.5, 7.5, colors["white"])
-    c.setStrokeColor(colors["header_gray"])
+    _draw_text(c, f"Base normativa: {base}", side, 10.5, 7.5, colors["muted"])
+    c.setStrokeColor(colors["line"])
     c.setLineWidth(0.6)
     c.line(PAGE_W - 148, 8, PAGE_W - 148, footer_h - 8)
-    c.setFillColor(colors["white"])
+    c.setFillColor(colors["dark"])
     c.setFont("Helvetica-Bold", 8.5)
     c.drawRightString(PAGE_W - side, 10.5, str(config.get("project", {}).get("footer_badge", "DNA  •  ENAEX")))
 
@@ -385,9 +415,9 @@ def build_pdf_report(records: List[Dict], summary: Dict, config: Dict, charts: D
     margin = report_layout["page_margin"]
     layout = _first_page_layout(config)
     _draw_header(c, config, records, summary, colors)
-    _draw_text(c, labels["executive_title"], margin, 652, 17, colors["text"])
+    _draw_text(c, labels["executive_title"], margin, 652, 16, colors["text"])
     c.setFillColor(colors["red"])
-    c.rect(margin, 645, 42, 2, stroke=0, fill=1)
+    c.rect(margin, 645, report_layout["section_accent_width"], 1.5, stroke=0, fill=1)
     _draw_scope(c, margin, 566, PAGE_W - 2 * margin, 72, config, records, summary, colors)
     _draw_conclusion(c, margin, 488, PAGE_W - 2 * margin, 72, records, summary, config, colors)
 
@@ -396,9 +426,9 @@ def build_pdf_report(records: List[Dict], summary: Dict, config: Dict, charts: D
     _draw_chart_card(c, margin, layout["chart_y"], chart_w, layout["chart_h"], labels["pressure_chart_title"], charts["pressure_chart"], colors, report_layout)
     _draw_chart_card(c, margin + chart_w + chart_gap, layout["chart_y"], chart_w, layout["chart_h"], labels["vibration_chart_title"], charts["vibration_chart"], colors, report_layout)
 
-    _draw_text(c, labels["points_title"], margin, layout["points_title_y"], 17, colors["text"])
+    _draw_text(c, labels["points_title"], margin, layout["points_title_y"], 16, colors["text"])
     c.setFillColor(colors["red"])
-    c.rect(margin, layout["points_title_y"] - 7, 42, 2, stroke=0, fill=1)
+    c.rect(margin, layout["points_title_y"] - 7, report_layout["section_accent_width"], 1.5, stroke=0, fill=1)
     y = layout["first_card_y"]
     card_h = layout["card_height"]
     for record in records[:FIRST_PAGE_CARD_SLOTS]:
@@ -415,7 +445,9 @@ def build_pdf_report(records: List[Dict], summary: Dict, config: Dict, charts: D
         remaining = records[FIRST_PAGE_CARD_SLOTS:]
         for idx in range(0, len(remaining), 8):
             batch = remaining[idx:idx + 8]
-            _draw_text(c, labels["continued_points_title"], margin, PAGE_H - 55, 17, colors["text"])
+            _draw_text(c, labels["continued_points_title"], margin, PAGE_H - 55, 16, colors["text"])
+            c.setFillColor(colors["red"])
+            c.rect(margin, PAGE_H - 62, report_layout["section_accent_width"], 1.5, stroke=0, fill=1)
             yy = PAGE_H - 120
             for record in batch:
                 _draw_point_card(c, margin, yy, PAGE_W - 2 * margin, card_h, record, colors, report_layout)

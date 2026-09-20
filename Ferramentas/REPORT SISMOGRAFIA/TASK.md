@@ -37,7 +37,11 @@ Pages.
 - O layout de referência da campanha de 17/09/2026 foi incorporado: título
   “Resumo da Campanha Realizada”, escopo com a frase completa de fontes
   processadas, conclusão antes dos gráficos, cards sem régua vertical e
-  status em pill com ícone.
+  status com ícone.
+- O visual corporativo foi refinado para fundo branco: barras escuras
+  repetitivas, sombras e selo circular foram removidos; cards agora usam
+  contorno fino, regras editoriais, tipografia escura e badges semânticos
+  claros, com a mesma composição no PDF, PNG e web.
 - A proporção compartilhada dos dois gráficos usa `figure_height=4.8`, card
   de 174 pt e `CHART_TO_POINTS_GAP=16`; o Canvas web gera raster A4 de
   2481×3508 px.

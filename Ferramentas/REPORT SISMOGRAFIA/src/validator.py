@@ -78,7 +78,9 @@ def validate_config(config: Dict) -> Dict:
 
     report_layout = config["report_layout"]
     for key in (
-        "page_margin", "chart_column_gap", "chart_inner_padding", "chart_header_height",
+        "page_margin", "chart_column_gap", "chart_inner_padding", "card_radius", "card_border_width",
+        "section_header_height", "section_rule_width", "section_accent_width", "chart_header_height",
+        "point_header_height",
         "chart_to_points_gap", "charts_top_limit", "footer_height", "footer_accent_height",
         "footer_side_padding", "header_points_arrow_offset", "header_points_arrow_width",
         "header_points_arrow_gap", "header_points_arrow_line_width", "status_badge_width",
@@ -111,7 +113,9 @@ def validate_config(config: Dict) -> Dict:
     required_palette_keys = (
         "enaex_gray", "enaex_red", "white", "gray_50", "gray_100", "gray_200",
         "gray_300", "text", "muted", "series_transversal", "series_longitudinal",
-        "series_vertical", "status_conforme", "status_ausente",
+        "series_vertical", "status_conforme", "status_ausente", "status_conforme_bg",
+        "status_conforme_text", "status_verificar_bg", "status_verificar_text",
+        "status_ausente_bg", "status_ausente_text",
     )
     if not isinstance(palette, dict):
         raise ConfigurationError("branding.palette must be an object.")
