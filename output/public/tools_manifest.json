@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "purpose": "Transformar a planilha de repositórios em um manifesto validado para o hub OpenBlast US MVV"
   },
-  "generated_at": "2026-09-11T19:13:05Z",
-  "run_id": "20260911_191305",
+  "generated_at": "2026-09-22T12:36:18Z",
+  "run_id": "20260922_123618",
   "source": {
     "workbook": "input/repositorios_github_pages.xlsx",
     "sheet": "Repositorios",
@@ -16,12 +16,12 @@
       "GitHub",
       "Pages"
     ],
-    "sha256": "08dda3b3c71fc07f959c5667e26dbfbaf245eb28b42aa7c6fc11b0c3f9ef1d5b",
-    "row_count": 14
+    "sha256": "0b642e3cd5f198c42566accfedc2a0163316908b84d8d5d0bf9c98c4ca33ab8a",
+    "row_count": 13
   },
   "counts": {
-    "total_rows": 7,
-    "valid_rows": 7,
+    "total_rows": 6,
+    "valid_rows": 6,
     "invalid_rows": 0,
     "hub_count": 1
   },
@@ -36,9 +36,9 @@
       "ferramentas-gerais"
     ],
     "source_hub_count": 2,
-    "source_tool_count": 14,
+    "source_tool_count": 13,
     "published_hub_count": 1,
-    "published_tool_count": 7,
+    "published_tool_count": 6,
     "excluded_hub_slugs": [
       "ferramentas-locais"
     ]
@@ -145,24 +145,6 @@
         },
         {
           "row_number": 10,
-          "repository_id": "openblast-nbr9653",
-          "formal_title": "ABNT NBR 9653*",
-          "github_url": "https://github.com/SILVAThiagoFerreira/openblast-nbr9653",
-          "pages_url": "https://silvathiagoferreira.github.io/openblast-nbr9653/",
-          "description": "Leitor local de CSVs de sismogramas com gráficos de pressão e vibração, exportação em SVG/PNG/CSV/PDF e foco em conformidade com a ABNT NBR 9653:2018.",
-          "kind": "wave",
-          "accent": "#e20313",
-          "accent2": "#2bb3a3",
-          "status": "Online",
-          "status_indicator": true,
-          "github_owner": "SILVAThiagoFerreira",
-          "github_repo_name": "openblast-nbr9653",
-          "pages_owner": "silvathiagoferreira",
-          "pages_repo_name": "openblast-nbr9653",
-          "order": 9
-        },
-        {
-          "row_number": 11,
           "repository_id": "analise-de-desvios-de-inclinacao-e-azimute",
           "formal_title": "Análise de Desvios de Inclinação e Azimute",
           "github_url": "https://github.com/SILVAThiagoFerreira/analise-de-desvios-de-inclinacao-e-azimute",
@@ -177,7 +159,7 @@
           "github_repo_name": "analise-de-desvios-de-inclinacao-e-azimute",
           "pages_owner": "silvathiagoferreira",
           "pages_repo_name": "analise-de-desvios-de-inclinacao-e-azimute",
-          "order": 10
+          "order": 9
         }
       ]
     }
@@ -275,24 +257,6 @@
     },
     {
       "row_number": 10,
-      "repository_id": "openblast-nbr9653",
-      "formal_title": "ABNT NBR 9653*",
-      "github_url": "https://github.com/SILVAThiagoFerreira/openblast-nbr9653",
-      "pages_url": "https://silvathiagoferreira.github.io/openblast-nbr9653/",
-      "description": "Leitor local de CSVs de sismogramas com gráficos de pressão e vibração, exportação em SVG/PNG/CSV/PDF e foco em conformidade com a ABNT NBR 9653:2018.",
-      "kind": "wave",
-      "accent": "#e20313",
-      "accent2": "#2bb3a3",
-      "status": "Online",
-      "status_indicator": true,
-      "github_owner": "SILVAThiagoFerreira",
-      "github_repo_name": "openblast-nbr9653",
-      "pages_owner": "silvathiagoferreira",
-      "pages_repo_name": "openblast-nbr9653",
-      "order": 9
-    },
-    {
-      "row_number": 11,
       "repository_id": "analise-de-desvios-de-inclinacao-e-azimute",
       "formal_title": "Análise de Desvios de Inclinação e Azimute",
       "github_url": "https://github.com/SILVAThiagoFerreira/analise-de-desvios-de-inclinacao-e-azimute",
@@ -307,7 +271,7 @@
       "github_repo_name": "analise-de-desvios-de-inclinacao-e-azimute",
       "pages_owner": "silvathiagoferreira",
       "pages_repo_name": "analise-de-desvios-de-inclinacao-e-azimute",
-      "order": 10
+      "order": 9
     }
   ]
 }

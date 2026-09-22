@@ -28,7 +28,8 @@ def test_pipeline_end_to_end(temp_workspace):
 
     assert manifest_payload["project"]["name"] == "openblast"
     assert public_manifest_payload["project"]["name"] == "openblast"
-    assert len(manifest_payload["tools"]) == 14
+    assert len(manifest_payload["tools"]) == 13
+    assert not any(tool["repository_id"] == "openblast-nbr9653" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "pfr-openblast" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "plano-de-fogo-previsto" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "analizador-de-pre-corte-opitdev" for tool in manifest_payload["tools"])
@@ -42,7 +43,8 @@ def test_pipeline_end_to_end(temp_workspace):
     assert "tool_count" not in manifest_payload["hubs"][1]
     assert manifest_payload["publication"]["slug"] == "usvaleverde"
     assert public_manifest_payload["publication"]["slug"] == "public"
-    assert len(public_manifest_payload["tools"]) == 7
+    assert len(public_manifest_payload["tools"]) == 6
+    assert not any(tool["repository_id"] == "openblast-nbr9653" for tool in public_manifest_payload["tools"])
     assert not any(tool["repository_id"] == "analizador-de-pre-corte-opitdev" for tool in public_manifest_payload["tools"])
     assert not any(tool["repository_id"] == "aviso-desmonte" for tool in public_manifest_payload["tools"])
     assert len(public_manifest_payload["hubs"]) == 1

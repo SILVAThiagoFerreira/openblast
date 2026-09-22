@@ -27,8 +27,8 @@ def test_processor_builds_manifest(temp_workspace):
         publication_target=config["resolved_primary_publication_target"],
     )
 
-    assert len(records) == 14
-    assert manifest["counts"]["valid_rows"] == 14
+    assert len(records) == 13
+    assert manifest["counts"]["valid_rows"] == 13
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -38,14 +38,13 @@ def test_processor_builds_manifest(temp_workspace):
         "Ferramentas Locais",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
-            "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-            "Análise de Cargas - OpitAPP",
-            "Criador de Perfil de Furo de Desmonte",
-            "Report de Monitoramento Sismografico",
-            "Analisador de Sismograma - Waveform",
-            "ABNT NBR 9653*",
-            "Análise de Desvios de Inclinação e Azimute",
-        ]
+        "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
+        "Análise de Cargas - OpitAPP",
+        "Criador de Perfil de Furo de Desmonte",
+        "Report de Monitoramento Sismografico",
+        "Analisador de Sismograma - Waveform",
+        "Análise de Desvios de Inclinação e Azimute",
+    ]
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
         "Tempos e Movimentos | Carregamento de Explosivo",
@@ -56,15 +55,14 @@ def test_processor_builds_manifest(temp_workspace):
         "Criador de Report de Planejamento de Sismografia",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
-            "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-                "Consolidação Plan./Exec. | US Vale Verde",
-                    "Tempos e Movimentos | Carregamento de Explosivo",
-                        "Criador de Perfil de Furo de Desmonte",
-                "Plano de Fogo Realizado",
-                "Report de Monitoramento Sismografico",
-            "Analisador de Sismograma - Waveform",
+        "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
+        "Consolidação Plan./Exec. | US Vale Verde",
+        "Tempos e Movimentos | Carregamento de Explosivo",
+        "Criador de Perfil de Furo de Desmonte",
+        "Plano de Fogo Realizado",
+        "Report de Monitoramento Sismografico",
+        "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
-        "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
         "Plano de Fogo Previsto",
         "ANALIZADOR DE FUROS - OPITDEV",
@@ -84,13 +82,13 @@ def test_processor_builds_manifest(temp_workspace):
     assert manifest["tools"][7]["description"] == (
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
     )
-    assert manifest["tools"][9]["description"] == (
+    assert manifest["tools"][8]["description"] == (
         "Ferramenta web para importar DXF de execução de furos, analisar desvios de inclinação, azimute e profundidade e exportar relatórios em PDF e Excel."
     )
-    assert manifest["tools"][11]["description"] == (
+    assert manifest["tools"][10]["description"] == (
         "Analisador local de furos a partir de DXF do O-PitDev, com seleção entre pré-corte e face, tratativas por furo e exportação de lâmina operacional em PNG/PDF."
     )
-    assert manifest["tools"][12]["description"] == (
+    assert manifest["tools"][11]["description"] == (
         "Criação de avisos de desmonte com áreas de influência, estruturas próximas, croqui operacional e exportação em PDF."
     )
 
@@ -115,16 +113,15 @@ def test_processor_builds_public_manifest(temp_workspace):
     )
 
     assert manifest["publication"]["slug"] == "public"
-    assert manifest["counts"]["valid_rows"] == 7
+    assert manifest["counts"]["valid_rows"] == 6
     assert manifest["counts"]["hub_count"] == 1
     assert "tool_count" not in manifest["hubs"][0]
     assert [hub["title"] for hub in manifest["hubs"]] == ["Ferramentas Gerais"]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-            "Criador de Perfil de Furo de Desmonte",
-                "Report de Monitoramento Sismografico",
+        "Criador de Perfil de Furo de Desmonte",
+        "Report de Monitoramento Sismografico",
         "Analisador de Sismograma - Waveform",
         "Análise de Cargas - OpitAPP",
-        "ABNT NBR 9653*",
         "Análise de Desvios de Inclinação e Azimute",
     ]
