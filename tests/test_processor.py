@@ -28,7 +28,9 @@ def test_processor_builds_manifest(temp_workspace):
     )
 
     assert len(records) == 13
-    assert manifest["counts"]["valid_rows"] == 13
+    assert manifest["source"]["row_count"] == 13
+    assert manifest["counts"]["valid_rows"] == 12
+    assert manifest["publication"]["published_tool_count"] == 12
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -39,7 +41,6 @@ def test_processor_builds_manifest(temp_workspace):
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
         "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
-        "Análise de Cargas - OpitAPP",
         "Criador de Perfil de Furo de Desmonte",
         "Report de Monitoramento Sismografico",
         "Analisador de Sismograma - Waveform",
@@ -62,13 +63,13 @@ def test_processor_builds_manifest(temp_workspace):
         "Plano de Fogo Realizado",
         "Report de Monitoramento Sismografico",
         "Analisador de Sismograma - Waveform",
-        "Análise de Cargas - OpitAPP",
         "Análise de Desvios de Inclinação e Azimute",
         "Plano de Fogo Previsto",
         "ANALIZADOR DE FUROS - OPITDEV",
         "Criador de Aviso de Desmonte",
         "Criador de Report de Planejamento de Sismografia",
     ]
+    assert all(tool["repository_id"] != "correcao-de-cargas" for tool in manifest["tools"])
     assert manifest["tools"][1]["description"] == (
         "Algoritmo para consolidação operacional de dados de perfuração planejada e executada."
     )
@@ -80,15 +81,12 @@ def test_processor_builds_manifest(temp_workspace):
     assert manifest["tools"][1]["status"] == "Online"
     assert manifest["tools"][1]["status_indicator"] is True
     assert manifest["tools"][7]["description"] == (
-        "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
-    )
-    assert manifest["tools"][8]["description"] == (
         "Ferramenta web para importar DXF de execução de furos, analisar desvios de inclinação, azimute e profundidade e exportar relatórios em PDF e Excel."
     )
-    assert manifest["tools"][10]["description"] == (
+    assert manifest["tools"][9]["description"] == (
         "Analisador local de furos a partir de DXF do O-PitDev, com seleção entre pré-corte e face, tratativas por furo e exportação de lâmina operacional em PNG/PDF."
     )
-    assert manifest["tools"][11]["description"] == (
+    assert manifest["tools"][10]["description"] == (
         "Criação de avisos de desmonte com áreas de influência, estruturas próximas, croqui operacional e exportação em PDF."
     )
 
@@ -113,7 +111,9 @@ def test_processor_builds_public_manifest(temp_workspace):
     )
 
     assert manifest["publication"]["slug"] == "public"
-    assert manifest["counts"]["valid_rows"] == 6
+    assert manifest["source"]["row_count"] == 13
+    assert manifest["counts"]["valid_rows"] == 5
+    assert manifest["publication"]["published_tool_count"] == 5
     assert manifest["counts"]["hub_count"] == 1
     assert "tool_count" not in manifest["hubs"][0]
     assert [hub["title"] for hub in manifest["hubs"]] == ["Ferramentas Gerais"]
@@ -122,6 +122,6 @@ def test_processor_builds_public_manifest(temp_workspace):
         "Criador de Perfil de Furo de Desmonte",
         "Report de Monitoramento Sismografico",
         "Analisador de Sismograma - Waveform",
-        "Análise de Cargas - OpitAPP",
         "Análise de Desvios de Inclinação e Azimute",
     ]
+    assert all(tool["repository_id"] != "correcao-de-cargas" for tool in manifest["tools"])

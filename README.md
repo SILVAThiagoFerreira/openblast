@@ -46,7 +46,8 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - `hubs`: agrupamento, ordenacao e copy dos hubs exibidos no front-end.
 - `publishing.targets`: define quais grupos entram no hub US Vale Verde e quais entram no hub público.
 - `publishing.targets[].excluded_repository_ids`: remove cards específicos de uma publicação sem alterar a planilha; use quando a ferramenta continua existindo na origem, mas nao deve aparecer em uma homepage publica.
-- As ferramentas `correcao-de-cargas` e `analisador-de-sismograma` pertencem ao hub `Ferramentas Gerais`.
+- `correcao-de-cargas` continua registrada na planilha e nos metadados para manter a rastreabilidade da origem, mas está excluída dos dois targets publicados (`public` e `usvaleverde`).
+- As ferramentas `correcao-de-cargas` e `analisador-de-sismograma` são classificadas no grupo `Ferramentas Gerais`; a primeira permanece fora dos dois targets publicados por exclusão configurada.
 - A ferramenta `analise-de-desvios-de-inclinacao-e-azimute` pertence ao hub `Ferramentas Gerais`, aparece nos dois hubs de ferramentas e deve ser descrita como ferramenta de importação DXF e exportação de relatórios, não como dashboard.
 - As ferramentas `usmvv_planned_and_executed_data_consolidation`, `temposemovimentos` e `pfr-openblast` pertencem ao hub `Ferramentas US Vale Verde`.
 - A ferramenta `plano-de-fogo-previsto` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/plano-de-fogo-previsto/`.
@@ -82,6 +83,7 @@ Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o
 - A ferramenta `openblast-nbr9653` foi retirada do cadastro da planilha e dos dois hubs; o card `ABNT NBR 9653*` nao faz mais parte das publicacoes.
 - As ferramentas `correcao-de-cargas`, `analisador-de-sismograma` e `analise-de-desvios-de-inclinacao-e-azimute` permanecem mapeadas para `Ferramentas Gerais`.
 - Se uma ferramenta precisar sair de apenas uma publicacao, prefira `publishing.targets[].excluded_repository_ids` em vez de remover a linha da planilha.
+- Para retirar uma ferramenta dos dois hubs publicados sem apagar sua origem, registre o ID em `excluded_repository_ids` nos dois targets e mantenha a validação da planilha intacta.
 - Títulos exibidos vêm da planilha; descrições e metadados visuais vêm de `config.json`.
 - A homepage oferece busca textual, filtro por grupo e contagem dinâmica sem alterar o contrato dos manifestos.
 - Nao altere o contrato do manifesto sem atualizar `script.js`, `DATA_SCHEMA.md` e os testes.

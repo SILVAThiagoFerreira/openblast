@@ -15,6 +15,7 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end com copy objetiva.
 - Criar publicacao do hub US Vale Verde e publicacao publica filtrada.
 - Permitir exclusoes pontuais por publicacao via configuracao, sem mexer na planilha de origem.
+- Retirar `correcao-de-cargas` dos dois hubs publicados por exclusao configurada, preservando a linha de origem e os metadados para auditoria.
 - Manter as ferramentas locais `plano-de-fogo-previsto` e `ANALIZADOR DE FUROS - OPITDEV` somente no hub US Vale Verde.
 - Manter a ferramenta local `Criador de Aviso de Desmonte` somente no hub US Vale Verde.
 - Manter a ferramenta local `Criador de Report de Planejamento de Sismografia` somente no hub US Vale Verde.
@@ -45,3 +46,4 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - A execucao gera log e resumo identificaveis.
 - Os testes passam.
 - Cards podem ser ocultados de uma homepage especifica por configuracao, sem remover a ferramenta da origem.
+- O card `Análise de Cargas - OpitAPP` nao aparece nos manifestos `public` e `usvaleverde`, embora a origem continue validada com 13 registros.

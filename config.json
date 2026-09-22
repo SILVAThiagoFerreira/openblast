@@ -50,6 +50,9 @@
         "html_path": "public/index.html",
         "hub_slugs": [
           "ferramentas-gerais"
+        ],
+        "excluded_repository_ids": [
+          "correcao-de-cargas"
         ]
       },
       {
@@ -59,6 +62,9 @@
         "hub_slugs": [
           "ferramentas-gerais",
           "ferramentas-locais"
+        ],
+        "excluded_repository_ids": [
+          "correcao-de-cargas"
         ]
       }
     ]

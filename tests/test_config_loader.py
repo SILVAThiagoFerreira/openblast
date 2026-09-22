@@ -14,7 +14,8 @@ def test_load_config_normalizes_paths(project_root):
     assert len(config["resolved_publication_targets"]) == 2
     assert [target["slug"] for target in config["resolved_publication_targets"]] == ["public", "usvaleverde"]
     assert config["resolved_publication_targets"][1]["html_file"].as_posix().endswith("/usvaleverde/index.html")
-    assert config["resolved_publication_targets"][1]["excluded_repository_ids"] == []
+    assert config["resolved_publication_targets"][0]["excluded_repository_ids"] == ["correcao-de-cargas"]
+    assert config["resolved_publication_targets"][1]["excluded_repository_ids"] == ["correcao-de-cargas"]
     assert config["tool_metadata"]["temposemovimentos"]["status"] == "Em desenvolvimento"
     assert config["tool_metadata"]["temposemovimentos"]["status_indicator"] is False
 
@@ -26,4 +27,5 @@ def test_build_runtime_paths_uses_run_id(project_root):
     assert runtime_paths["summary_file"].name == "run_summary_20260525_120000.json"
     assert runtime_paths["log_file"].name == "pipeline_20260525_120000.log"
     assert [target["slug"] for target in runtime_paths["publication_targets"]] == ["public", "usvaleverde"]
-    assert runtime_paths["publication_targets"][1]["excluded_repository_ids"] == []
+    assert runtime_paths["publication_targets"][0]["excluded_repository_ids"] == ["correcao-de-cargas"]
+    assert runtime_paths["publication_targets"][1]["excluded_repository_ids"] == ["correcao-de-cargas"]

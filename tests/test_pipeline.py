@@ -28,8 +28,9 @@ def test_pipeline_end_to_end(temp_workspace):
 
     assert manifest_payload["project"]["name"] == "openblast"
     assert public_manifest_payload["project"]["name"] == "openblast"
-    assert len(manifest_payload["tools"]) == 13
+    assert len(manifest_payload["tools"]) == 12
     assert not any(tool["repository_id"] == "openblast-nbr9653" for tool in manifest_payload["tools"])
+    assert not any(tool["repository_id"] == "correcao-de-cargas" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "pfr-openblast" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "plano-de-fogo-previsto" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "analizador-de-pre-corte-opitdev" for tool in manifest_payload["tools"])
@@ -43,12 +44,15 @@ def test_pipeline_end_to_end(temp_workspace):
     assert "tool_count" not in manifest_payload["hubs"][1]
     assert manifest_payload["publication"]["slug"] == "usvaleverde"
     assert public_manifest_payload["publication"]["slug"] == "public"
-    assert len(public_manifest_payload["tools"]) == 6
+    assert len(public_manifest_payload["tools"]) == 5
     assert not any(tool["repository_id"] == "openblast-nbr9653" for tool in public_manifest_payload["tools"])
+    assert not any(tool["repository_id"] == "correcao-de-cargas" for tool in public_manifest_payload["tools"])
     assert not any(tool["repository_id"] == "analizador-de-pre-corte-opitdev" for tool in public_manifest_payload["tools"])
     assert not any(tool["repository_id"] == "aviso-desmonte" for tool in public_manifest_payload["tools"])
     assert len(public_manifest_payload["hubs"]) == 1
     assert "tool_count" not in public_manifest_payload["hubs"][0]
+    assert "correcao-de-cargas" not in (temp_workspace["public_dir"] / "index.html").read_text(encoding="utf-8")
+    assert "Análise de Cargas - OpitAPP" not in (temp_workspace["us_dir"] / "index.html").read_text(encoding="utf-8")
     assert len(summary_payload["publish"]["targets"]) == 2
     assert [target["slug"] for target in summary_payload["publish"]["targets"]] == ["public", "usvaleverde"]
     assert summary_payload["paths"]["manifest"].replace("\\", "/").endswith("output/usvaleverde/tools_manifest.json")
