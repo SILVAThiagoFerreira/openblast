@@ -27,10 +27,10 @@ def test_processor_builds_manifest(temp_workspace):
         publication_target=config["resolved_primary_publication_target"],
     )
 
-    assert len(records) == 13
-    assert manifest["source"]["row_count"] == 13
-    assert manifest["counts"]["valid_rows"] == 12
-    assert manifest["publication"]["published_tool_count"] == 12
+    assert len(records) == 14
+    assert manifest["source"]["row_count"] == 14
+    assert manifest["counts"]["valid_rows"] == 13
+    assert manifest["publication"]["published_tool_count"] == 13
     assert manifest["counts"]["hub_count"] == 2
     assert manifest["publication"]["slug"] == "usvaleverde"
     assert "tool_count" not in manifest["hubs"][0]
@@ -54,6 +54,7 @@ def test_processor_builds_manifest(temp_workspace):
         "ANALIZADOR DE FUROS - OPITDEV",
         "Criador de Aviso de Desmonte",
         "Criador de Report de Planejamento de Sismografia",
+        "Relatório de Profundidades - OPITDEV",
     ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor: Boreholes/DXF para Limite DXF e e KMZ (Plano de Voo)",
@@ -68,6 +69,7 @@ def test_processor_builds_manifest(temp_workspace):
         "ANALIZADOR DE FUROS - OPITDEV",
         "Criador de Aviso de Desmonte",
         "Criador de Report de Planejamento de Sismografia",
+        "Relatório de Profundidades - OPITDEV",
     ]
     assert all(tool["repository_id"] != "correcao-de-cargas" for tool in manifest["tools"])
     assert manifest["tools"][1]["description"] == (
@@ -111,7 +113,7 @@ def test_processor_builds_public_manifest(temp_workspace):
     )
 
     assert manifest["publication"]["slug"] == "public"
-    assert manifest["source"]["row_count"] == 13
+    assert manifest["source"]["row_count"] == 14
     assert manifest["counts"]["valid_rows"] == 5
     assert manifest["publication"]["published_tool_count"] == 5
     assert manifest["counts"]["hub_count"] == 1

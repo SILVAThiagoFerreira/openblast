@@ -96,3 +96,4 @@ Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o
 - O front-end renderiza os grupos `Ferramentas Gerais` e `Ferramentas US Vale Verde` no hub US Vale Verde e somente `Ferramentas Gerais` no hub publico.
 - Erros de validacao interrompem a geracao do manifesto.
 - `validation.require_tool_metadata` e um guardrail e deve permanecer `true`.
+- A ferramenta `Relatório de Profundidades - OPITDEV` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/relatorio-profundidades-opitdev/`.

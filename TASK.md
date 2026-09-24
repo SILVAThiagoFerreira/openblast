@@ -46,4 +46,5 @@ Transformar a planilha de entrada em manifestos validados para dois hubs, com co
 - A execucao gera log e resumo identificaveis.
 - Os testes passam.
 - Cards podem ser ocultados de uma homepage especifica por configuracao, sem remover a ferramenta da origem.
-- O card `Análise de Cargas - OpitAPP` nao aparece nos manifestos `public` e `usvaleverde`, embora a origem continue validada com 13 registros.
+- O card `Análise de Cargas - OpitAPP` nao aparece nos manifestos `public` e `usvaleverde`, embora a origem continue validada com 14 registros.
+- Publicar `Relatório de Profundidades - OPITDEV` no hub US Vale Verde a partir da linha validada da planilha, mantendo o processamento DXF local no navegador.
