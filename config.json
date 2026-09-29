@@ -155,6 +155,12 @@
       "kind": "target",
       "accent": "#e20313",
       "accent2": "#ff5b35"
+    },
+    "chi-usvaleverde": {
+      "description": "Consulta de habilitações internas dos colaboradores e geração de crachás CHI em PDF ou PNG.",
+      "kind": "badge",
+      "accent": "#e20313",
+      "accent2": "#38414a"
     }
   },
   "hubs": {
@@ -184,7 +190,8 @@
           "analizador-de-pre-corte-opitdev",
           "aviso-desmonte",
           "planejador-campanha-sismografia",
-          "relatorio-profundidades-opitdev"
+          "relatorio-profundidades-opitdev",
+          "chi-usvaleverde"
         ]
       }
     ]

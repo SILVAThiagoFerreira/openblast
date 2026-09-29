@@ -13,6 +13,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 7. `publishing.targets[].excluded_repository_ids` pode remover ferramentas especificas de uma publicacao sem alterar a origem da planilha.
 8. O status visual de cada card pode ser configurado em `tool_metadata`; sem configuração, o card permanece `Online` com indicador.
 9. A homepage pode filtrar os cards por texto e grupo no cliente, preservando o manifesto como fonte única dos dados.
+10. `chi-usvaleverde` é uma ferramenta local de consulta de habilitações internas e geração de crachás CHI; deve aparecer apenas no hub US Vale Verde.
 
 ## Validacoes obrigatorias
 - A planilha deve conter a aba configurada em `config.json`.
@@ -29,6 +30,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - IDs duplicados sao erro fatal.
 - A publicacao US Vale Verde deve usar `output/usvaleverde/tools_manifest.json` e `usvaleverde/index.html`.
 - A publicacao publica deve usar `output/public/tools_manifest.json` e `public/index.html`.
+- `chi-usvaleverde` deve constar em `Ferramentas Locais` e ser excluída do hub público pelo recorte de grupos da publicação.
 
 ## Comportamento esperado
 - Linhas totalmente vazias sao ignoradas.
@@ -37,6 +39,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - O resumo de execucao deve registrar sucesso ou falha.
 - Cada execucao gera um log timestampado.
 - O manifesto US Vale Verde inclui os dois grupos de hub; o manifesto publico inclui apenas `Ferramentas Gerais`.
+- A ferramenta CHI aparece no manifesto US Vale Verde e não aparece no manifesto público.
 - Exclusions em `publishing.targets[].excluded_repository_ids` afetam apenas a publicacao alvo e nao alteram a origem da planilha.
 
 ## Tratamento de erros

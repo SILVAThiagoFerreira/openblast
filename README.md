@@ -97,3 +97,4 @@ Mudancas de interface devem seguir `VISUAL_STANDARD.md`. Esse arquivo descreve o
 - Erros de validacao interrompem a geracao do manifesto.
 - `validation.require_tool_metadata` e um guardrail e deve permanecer `true`.
 - A ferramenta `Relatório de Profundidades - OPITDEV` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/relatorio-profundidades-opitdev/`.
+- A ferramenta `Carteira de Habilitação Interna - CHI - Enaex Brasil` pertence ao grupo `Ferramentas Locais` e é publicada em `https://silvathiagoferreira.github.io/chi-usvaleverde/`; por conter dados de habilitação interna, não entra no hub público.

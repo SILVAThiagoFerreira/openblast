@@ -28,7 +28,7 @@ def test_pipeline_end_to_end(temp_workspace):
 
     assert manifest_payload["project"]["name"] == "openblast"
     assert public_manifest_payload["project"]["name"] == "openblast"
-    assert len(manifest_payload["tools"]) == 13
+    assert len(manifest_payload["tools"]) == 14
     assert not any(tool["repository_id"] == "openblast-nbr9653" for tool in manifest_payload["tools"])
     assert not any(tool["repository_id"] == "correcao-de-cargas" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "pfr-openblast" for tool in manifest_payload["tools"])
@@ -37,6 +37,7 @@ def test_pipeline_end_to_end(temp_workspace):
     assert any(tool["repository_id"] == "aviso-desmonte" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "planejador-campanha-sismografia" for tool in manifest_payload["tools"])
     assert any(tool["repository_id"] == "temposemovimentos" for tool in manifest_payload["tools"])
+    assert any(tool["repository_id"] == "chi-usvaleverde" for tool in manifest_payload["tools"])
     assert len(manifest_payload["hubs"]) == 2
     assert manifest_payload["hubs"][0]["title"] == "Ferramentas Gerais"
     assert manifest_payload["hubs"][1]["title"] == "Ferramentas Locais"
@@ -49,6 +50,7 @@ def test_pipeline_end_to_end(temp_workspace):
     assert not any(tool["repository_id"] == "correcao-de-cargas" for tool in public_manifest_payload["tools"])
     assert not any(tool["repository_id"] == "analizador-de-pre-corte-opitdev" for tool in public_manifest_payload["tools"])
     assert not any(tool["repository_id"] == "aviso-desmonte" for tool in public_manifest_payload["tools"])
+    assert not any(tool["repository_id"] == "chi-usvaleverde" for tool in public_manifest_payload["tools"])
     assert len(public_manifest_payload["hubs"]) == 1
     assert "tool_count" not in public_manifest_payload["hubs"][0]
     assert "correcao-de-cargas" not in (temp_workspace["public_dir"] / "index.html").read_text(encoding="utf-8")
