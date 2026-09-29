@@ -93,6 +93,14 @@ const icons = {
     <path d="M32 25v11l7 4" />
     <path d="M10 35h6M48 35h6" opacity="0.7" />
   `),
+  badge: () => iconSvg(`
+    <path d="M32 5 54 13v17c0 14-8 24-22 30C18 54 10 44 10 30V13z" stroke-width="2.8" />
+    <path d="M16 54c2-8 8-12 16-12s14 4 16 12" />
+    <path d="M20 34c0-9 5-15 12-15s12 6 12 15v5H20z" />
+    <path d="M17 33h30v5H17z" />
+    <path d="M28 19v-3a4 4 0 0 1 8 0v3" />
+    <circle cx="32" cy="28" r="2.2" fill="currentColor" stroke="none" />
+  `),
   default: () => iconSvg(`
     <path d="M15 20h34M15 32h34M15 44h34" />
     <circle cx="25" cy="20" r="4" fill="currentColor" stroke="none" />
