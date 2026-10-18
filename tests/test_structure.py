@@ -133,8 +133,8 @@ def test_frontend_copy_is_clean(project_root):
     assert "--gray-enaex: #38424B" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "--red-enaex: #E20613" in (project_root / "styles.css").read_text(encoding="utf-8")
     styles_text = (project_root / "styles.css").read_text(encoding="utf-8")
-    assert "width: 48px" in styles_text
-    assert "height: 42px" in styles_text
+    assert "width: 40px" in styles_text
+    assert "height: 35px" in styles_text
     assert "[hidden] { display: none !important; }" in styles_text
     assert ".tool-card:hover" in styles_text
     assert "border-color: var(--pink-soft)" in styles_text

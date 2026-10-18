@@ -59,16 +59,16 @@ a { color: inherit; }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   color: var(--graphite);
   text-decoration: none;
 }
 .brand__logo {
-  height: 40px;
+  height: 36px;
   width: auto;
 }
 .brand__wordmark {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
@@ -89,19 +89,19 @@ a { color: inherit; }
 
 /* Título e subtítulo */
 .page-title {
-  margin: 48px 0 0;
+  margin: 32px 0 0;
   color: var(--red);
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: 0.005em;
   text-transform: uppercase;
 }
 .page-subtitle {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   color: var(--gray-text);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.4;
 }
 
 /* Busca e filtro */
@@ -110,7 +110,7 @@ a { color: inherit; }
   grid-template-columns: minmax(0, 1fr) 210px auto;
   align-items: end;
   gap: 16px;
-  margin: 34px 0 0;
+  margin: 29px 0 0;
 }
 .directory-controls .sr-only { position: absolute; }
 .directory-label {
@@ -165,9 +165,9 @@ a { color: inherit; }
 /* Seções */
 .page { padding: 0 0 0; }
 .hub-grid { display: block; }
-.hub-section { margin-top: 44px; }
+.hub-section { margin-top: 34px; }
 .hub-section__header {
-  margin: 0 0 18px;
+  margin: 0 0 19px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--hairline);
 }
@@ -198,8 +198,8 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 150px;
-  padding: 24px 22px 22px;
+  min-height: 158px;
+  padding: 24px 20px 18px;
   color: var(--graphite);
   text-decoration: none;
   background: var(--white);
@@ -212,22 +212,22 @@ a { color: inherit; }
 
 .tool-card__hex {
   display: block;
-  width: 48px;
-  height: 42px;
+  width: 40px;
+  height: 35px;
   color: var(--red);
 }
 .tool-card--muted .tool-card__hex { color: var(--gray-mid); }
 .tool-card__hex svg {
   display: block;
-  width: 48px;
-  height: 42px;
+  width: 40px;
+  height: 35px;
   overflow: visible;
 }
 .tool-card__hex svg * { vector-effect: non-scaling-stroke; }
 
 .tool-card__title {
   display: block;
-  margin-top: 22px;
+  margin-top: 16px;
   color: var(--graphite);
   font-size: 16px;
   font-weight: 700;
@@ -235,7 +235,7 @@ a { color: inherit; }
 }
 .tool-card__status {
   display: block;
-  margin-top: 8px;
+  margin-top: 12px;
   color: var(--gray-mid);
   font-size: 12.5px;
   line-height: 1.3;
