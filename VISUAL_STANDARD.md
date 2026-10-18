@@ -11,24 +11,21 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - Destaques visuais pequenos, nunca espalhafatosos.
 - Identidade com cara de produto tecnico premium, nao de landing page promocional.
 
-## Referencia aplicada à home (revisão limpa)
-- Fundo branco. Cabeçalho sem faixa colorida: logo pequeno, título, subtítulo e um único filete cinza-claro `#e3e3e3` separando o cabeçalho do conteúdo.
-- Título em vermelho `#B5121B`, caixa alta, sans simples (Arial/Helvetica), grande. Subtítulo com uma frase curta em cinza `#4a4f55`.
-- Sem textos descritivos redundantes: apenas título, subtítulo e o que for indispensável (busca, filtro, contagem).
-- Rótulos de busca e filtro ficam apenas para leitores de tela; o placeholder e o próprio controle comunicam a função.
-- Busca e filtro são campos com linha inferior fina, sem caixas nem bordas completas.
-- Grupos aparecem como rótulos pequenos em cinza médio `#8a8f96`, caixa alta, sem filete próprio.
-- Cada ferramenta é um link simples: hexágono vermelho `#B5121B` em repouso (cor da marca) com ícone branco e somente o nome visível; ao passar o mouse ou focar, o hexágono passa a grafite `#3d4148`.
-- O hexágono mantém proporção de referência 82x66px no desktop e 76x62px no mobile.
-- A descrição completa aparece apenas em uma janela pequena, branca, com borda fina `#e3e3e3`, sem sombra, ao passar o mouse ou focar o card; textos longos podem rolar dentro da janela.
-- Rodapé: texto pequeno, caixa alta, cinza médio, sem filete.
-- O desenho do ícone deve reforçar a função da ferramenta, mas não substitui o nome nem o link acessível.
+## Referencia aplicada à home (layout "Dashboards", revisão 2026-10-18)
+- Container central de 1180px, fundo branco, Arial/Helvetica.
+- Barra superior: logo OpenBlast pequeno (altura 40px) + wordmark "Open" grafite / "Blast" vermelho à esquerda. No hub US Vale Verde, logo Enaex Brasil à direita (`usvaleverde/assets/enaex-brasil.png`, cópia redimensionada de `VISUAL/Enaex Brasil.png`); o hub público não usa logo Enaex.
+- Título "FERRAMENTAS" em vermelho `#B5121B`, caixa alta, peso regular, 36px. Subtítulo em uma linha, cinza `#4a4f55`.
+- Controles: rótulo pequeno cinza `#8a8f96` ("Buscar ferramenta", "Grupo") acima de campo com borda fina `#c4c7cb` (busca com 42px de altura, largura total); contagem "N de N ferramentas" à direita, pequena, cinza.
+- Títulos de seção: texto regular grafite 20px com filete `#e3e3e3` logo abaixo.
+- Cards em grade de 4 colunas (2 em tablet, 1 em mobile): borda fina `#e3e3e3`, fundo branco, sem sombra. Ícone no canto superior esquerdo, título em negrito grafite, status em cinza só quando o manifesto marca `status_indicator: false` (ex.: "Em desenvolvimento"). Hover: a borda passa para rosa suave `#e3b5b8`.
+- Ícones: pictogramas de traço fino (1.3px, `vector-effect: non-scaling-stroke`) dentro de um hexágono de contorno fino (48x42px). Vermelho `#B5121B` para ferramentas ativas; cinza `#8a8f96` para ferramentas em desenvolvimento.
+- Nao ha tooltip flutuante; a descricao completa fica disponivel apenas para leitores de tela (`sr-only`) e para a busca.
+- Rodapé: filete grafite fino, texto pequeno cinza, em caixa normal (esquerda: "Hub operacional OpenBlast"; direita: "US Vale Verde" ou "Hub público").
 - Paleta da home: vermelho `#B5121B`, grafite `#3d4148`, cinza médio `#8a8f96`, cinza claro `#c4c7cb`, rosa suave `#e3b5b8` (uso de apoio), linha `#e3e3e3`, texto secundário `#4a4f55`. O vermelho de acento `#E20613` fica restrito ao contorno de foco.
 - Nao usar Google Fonts na home: a fonte é o stack do sistema (Arial/Helvetica).
 
 ## Principios obrigatorios
-- Usar somente referencias OpenBlast.
-- Nao usar referencias textuais ou visuais da Enaex.
+- Usar referencias OpenBlast. Excecao documentada: o logo Enaex Brasil aparece somente no hub US Vale Verde (pedido explicito de 2026-10-18), nunca no hub publico.
 - Manter uma unica presenca principal do logo por tela.
 - O logo deve ser pequeno e secundario em relacao ao conteudo.
 - O conteudo funcional deve dominar a interface, nao a marca.

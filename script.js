@@ -1,111 +1,87 @@
 const embeddedManifestElement = document.getElementById("initial-manifest");
 const manifestUrl = resolveManifestUrl();
 
-const iconSvg = (content) => `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${content}</svg>`;
+/* Hexágono de contorno fino (pontas nas laterais) usado como moldura de todos os ícones. */
+const HEX_OUTLINE = "M12.5 1h23L47 21 35.5 41h-23L1 21z";
 
+const iconSvg = (content) => `<svg viewBox="0 0 48 42" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="${HEX_OUTLINE}" />${content}</svg>`;
+
+/* Pictogramas de traço fino (1.3px via non-scaling-stroke no CSS), um por função da ferramenta. */
 const icons = {
   flight: () => iconSvg(`
-    <path d="M12 46c7-10 15-16 24-18 6-1 11 0 16 3" />
-    <path d="M38 17l13 14-18 1 5-7z" fill="currentColor" stroke="none" />
-    <circle cx="17" cy="40" r="2" fill="currentColor" stroke="none" />
-    <circle cx="27" cy="34" r="2" fill="currentColor" stroke="none" />
-    <circle cx="39" cy="29" r="2" fill="currentColor" stroke="none" />
-    <path d="M15 51h34" opacity="0.45" />
+    <path d="M14 15l6 3 6-3 6 3v13l-6-3-6 3-6-3z" />
+    <path d="M20 18v13M26 15v13" />
   `),
   charge: () => iconSvg(`
-    <rect x="17" y="13" width="10" height="38" rx="5" />
-    <rect x="37" y="13" width="10" height="38" rx="5" />
-    <path d="M22 19v7M22 35v7M42 19v7M42 35v7" />
-    <path d="M31 21l-4 9h6l-4 12" stroke-width="3" />
+    <rect x="15" y="13" width="7" height="16" rx="3.5" />
+    <rect x="26" y="13" width="7" height="16" rx="3.5" />
+    <path d="M18.5 18v6M29.5 18v6" />
   `),
   blast: () => iconSvg(`
-    <path d="M16 15v30" />
-    <path d="M24 20v25M32 24v21M40 29v16" />
-    <path d="M12 46h40" />
-    <path d="M11 51h42M15 56h34" opacity="0.58" />
-    <path d="M13 15h8M21 20h8M29 24h8M37 29h8" />
-    <path d="M48 14l1.6 3.4L53 19l-3.4 1.6L48 24l-1.6-3.4L43 19l3.4-1.6z" fill="currentColor" stroke="none" />
+    <path d="M19 12v14a5 4 0 0 0 10 0V12" />
+    <path d="M19 12a5 2 0 0 1 10 0" />
+    <path d="M22 18h4M22 22h4" />
   `),
   monitor: () => iconSvg(`
-    <path d="M10 35h8l4-10 7 22 7-28 6 16h12" />
-    <path d="M16 18v6M48 18v6M12 49h40" opacity="0.52" />
-    <circle cx="29" cy="47" r="2.2" fill="currentColor" stroke="none" />
+    <rect x="13" y="12" width="22" height="15" rx="1.5" />
+    <path d="M16 22h3l2-3 2 5 2-4 1 2h3" />
+    <path d="M20 31h8" />
   `),
   waveform: () => iconSvg(`
-    <path d="M10 36h7l4-7 5 14 6-24 6 32 6-15 4 6h8" />
-    <path d="M12 18h40M12 52h40" opacity="0.38" />
-    <path d="M18 15v6M46 15v6" />
+    <path d="M12 21h5l2-6 3 12 3-16 3 10 2-3h4" />
+    <path d="M13 30h22" />
   `),
   standard: () => iconSvg(`
-    <path d="M19 11h20l8 8v34H19z" />
-    <path d="M39 11v10h8" />
-    <path d="M25 30h16M25 37h16M25 44h10" />
-    <path d="M43 44l3 3 6-7" />
+    <path d="M18 12h8l6 6v12H18z" />
+    <path d="M26 12v6h6" />
+    <path d="M21 24h8M21 28h5" />
   `),
   plan: () => iconSvg(`
-    <path d="M12 43c7-8 13-11 20-11s14 3 20-8" />
-    <circle cx="12" cy="43" r="3" />
-    <circle cx="32" cy="32" r="3" />
-    <circle cx="52" cy="24" r="3" />
-    <path d="M32 18v8M28 22h8M12 52h40" opacity="0.62" />
+    <rect x="13" y="13" width="22" height="18" rx="1.5" />
+    <path d="M13 19h22M19 13v4M29 13v4" />
+    <path d="M18 26h4M26 26h4" />
   `),
   compass: () => iconSvg(`
-    <circle cx="32" cy="34" r="17" />
-    <path d="M32 10v7M32 51v5M8 34h7M49 34h7" />
-    <path d="M37 29l9-9-12 4-9 9 12-4z" fill="currentColor" stroke="none" />
-    <circle cx="32" cy="34" r="3" />
+    <circle cx="24" cy="21" r="9" />
+    <path d="M24 14l3.5 7-3.5-1.5-3.5 1.5z" />
   `),
   bench: () => iconSvg(`
-    <path d="M12 47h40M12 39h38M18 31h32M24 23h24" />
-    <path d="M18 47V28M30 47V21M42 47V26" />
-    <path d="M14 53h20" opacity="0.55" />
-    <path d="M39 48l4 4 8-9" />
+    <path d="M13 30h22" />
+    <path d="M17 30v-7M23 30v-12M29 30v-8M35 30v-15" />
   `),
   planned: () => iconSvg(`
-    <path d="M12 47h40M12 39h38M18 31h32M24 23h24" />
-    <path d="M18 47V28M30 47V21M42 47V26" />
-    <path d="M14 53h36" opacity="0.55" />
-    <path d="M16 16h32" stroke-dasharray="3 4" />
-    <path d="M43 12l7 4-7 4" />
+    <rect x="13" y="13" width="22" height="16" />
+    <path d="M13 19.3h22M13 24.7h22M19.3 13v16M24.7 13v16" />
   `),
   borehole: () => iconSvg(`
-    <path d="M19 12h26" />
-    <path d="M22 12v39M42 12v39" />
-    <path d="M22 20h20M22 29h20M22 38h20M22 47h20" opacity="0.65" />
-    <path d="M15 16h7M15 25h7M15 34h7M15 43h7" />
-    <path d="M42 17l8 8-8 8" />
+    <path d="M16 12v18M32 12v18" />
+    <path d="M16 30h16" />
+    <path d="M20 16h4M20 21h4M20 26h4" />
   `),
   warning: () => iconSvg(`
-    <path d="M32 10l23 42H9z" />
-    <path d="M32 24v13" stroke-width="3" />
-    <circle cx="32" cy="44" r="1.8" fill="currentColor" stroke="none" />
-    <path d="M15 55h34" opacity="0.5" />
+    <path d="M24 11l11 20H13z" />
+    <path d="M24 18v6" />
+    <circle cx="24" cy="27.5" r="0.6" />
   `),
   console: () => iconSvg(`
-    <rect x="11" y="16" width="27" height="31" rx="3" />
-    <rect x="26" y="23" width="27" height="31" rx="3" />
-    <path d="M18 25h13M18 32h13M18 39h8M33 32h13M33 39h13M33 46h8" />
-    <path d="M38 12v7M34 15h8" />
+    <rect x="13" y="14" width="14" height="14" rx="1.5" />
+    <rect x="21" y="18" width="14" height="14" rx="1.5" />
+    <path d="M16 20h8M16 24h5M24 24h7M24 28h4" />
   `),
   timer: () => iconSvg(`
-    <circle cx="32" cy="35" r="18" />
-    <path d="M26 11h12M32 17v-6M24 16l-4-4M40 16l4-4" />
-    <path d="M32 25v11l7 4" />
-    <path d="M10 35h6M48 35h6" opacity="0.7" />
+    <circle cx="24" cy="22" r="8" />
+    <path d="M24 22v-4M21 12h6M24 22l3 2" />
   `),
   badge: () => iconSvg(`
-    <path d="M32 5 54 13v17c0 14-8 24-22 30C18 54 10 44 10 30V13z" stroke-width="2.8" />
-    <path d="M16 54c2-8 8-12 16-12s14 4 16 12" />
-    <path d="M20 34c0-9 5-15 12-15s12 6 12 15v5H20z" />
-    <path d="M17 33h30v5H17z" />
-    <path d="M28 19v-3a4 4 0 0 1 8 0v3" />
-    <circle cx="32" cy="28" r="2.2" fill="currentColor" stroke="none" />
+    <rect x="13" y="13" width="22" height="16" rx="2" />
+    <circle cx="19.5" cy="19" r="2.5" />
+    <path d="M25 17h6M25 21h6M17 26h14" />
   `),
   default: () => iconSvg(`
-    <path d="M15 20h34M15 32h34M15 44h34" />
-    <circle cx="25" cy="20" r="4" fill="currentColor" stroke="none" />
-    <circle cx="40" cy="32" r="4" fill="currentColor" stroke="none" />
-    <circle cx="29" cy="44" r="4" fill="currentColor" stroke="none" />
+    <path d="M15 16h18M15 21h18M15 26h18" />
+    <circle cx="20" cy="16" r="1.6" />
+    <circle cx="28" cy="21" r="1.6" />
+    <circle cx="22" cy="26" r="1.6" />
   `),
 };
 
@@ -130,8 +106,8 @@ function iconForTool(tool) {
 const grid = document.getElementById("hub-grid");
 let activeGroup = "all";
 let searchTerm = "";
-let toolTooltipIndex = 0;
-const normalizeSearch = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+let toolCardIndex = 0;
+const normalizeSearch = (value) => value.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
   "&": "&amp;",
@@ -146,7 +122,7 @@ function setupDirectory(manifest) {
   const toolbar = document.createElement("section");
   toolbar.className = "directory-controls";
   toolbar.setAttribute("aria-label", "Encontrar ferramentas");
-  toolbar.innerHTML = `<div class="directory-search"><label class="sr-only" for="tool-search">Buscar ferramenta</label><div class="directory-search__field"><input id="tool-search" type="search" placeholder="Buscar por nome, atividade ou arquivo" autocomplete="off" aria-controls="hub-grid"><button type="button" class="search-clear" hidden>Limpar</button></div></div><div class="directory-filter"><label class="sr-only" for="tool-group">Grupo</label><select id="tool-group" aria-controls="hub-grid"><option value="all">Todos os grupos</option></select></div><p id="directory-count" class="directory-count" role="status" aria-live="polite"></p>`;
+  toolbar.innerHTML = `<div class="directory-search"><label class="directory-label" for="tool-search">Buscar ferramenta</label><div class="directory-search__field"><input id="tool-search" type="search" placeholder="Nome, função ou assunto" autocomplete="off" aria-controls="hub-grid"><button type="button" class="search-clear" hidden>Limpar</button></div></div><div class="directory-filter"><label class="directory-label" for="tool-group">Grupo</label><select id="tool-group" aria-controls="hub-grid"><option value="all">Todos os grupos</option></select></div><p id="directory-count" class="directory-count" role="status" aria-live="polite"></p>`;
   const select = toolbar.querySelector("select");
   groups.forEach((group) => select.add(new Option(group.title, group.slug)));
   grid.before(toolbar);
@@ -202,17 +178,19 @@ function renderStatus(message, modifier = "") {
   grid.innerHTML = `<div class="tool-grid__message${modifier ? ` tool-grid__message--${modifier}` : ""}" role="status">${message}</div>`;
 }
 
+/* Ferramentas com status_indicator falso (ex.: em desenvolvimento) ficam em cinza e mostram o status do manifesto. */
 function renderToolCard(tool) {
   const title = escapeHtml(tool.formal_title);
   const description = String(tool.description ?? "").trim();
   const fullSearchText = escapeHtml(`${tool.formal_title} ${tool.description}`);
-  const tooltipId = `tool-tooltip-${++toolTooltipIndex}`;
-  const descriptionId = `${tooltipId}-description`;
+  const descriptionId = `tool-card-description-${++toolCardIndex}`;
+  const muted = tool.status_indicator === false;
+  const statusLine = muted && tool.status ? `<span class="tool-card__status">${escapeHtml(tool.status)}</span>` : "";
   return `
-    <a class="tool-card" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}" aria-describedby="${descriptionId}">
+    <a class="tool-card${muted ? " tool-card--muted" : ""}" data-kind="${escapeHtml(tool.kind || "default")}" data-search-text="${fullSearchText}" href="${escapeHtml(tool.pages_url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${title}" aria-describedby="${descriptionId}">
       <span class="tool-card__hex" aria-hidden="true">${iconForTool(tool)()}</span>
-      <h3>${title}</h3>
-      <span class="tool-card__tooltip" id="${tooltipId}" role="tooltip" aria-hidden="true">${escapeHtml(description)}</span>
+      <span class="tool-card__title">${title}</span>
+      ${statusLine}
       <span class="sr-only" id="${descriptionId}">${escapeHtml(description)}</span>
     </a>
   `;
@@ -233,7 +211,6 @@ function renderHubGroup(group) {
 
 function renderManifest(manifest) {
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
-  toolTooltipIndex = 0;
 
   if (!hubs.length) {
     const tools = Array.isArray(manifest.tools) ? manifest.tools : [];

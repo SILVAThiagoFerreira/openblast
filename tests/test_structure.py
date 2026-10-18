@@ -106,8 +106,10 @@ def test_frontend_copy_is_clean(project_root):
     assert "tool-card__hex" in script_text
     assert "function iconForTool" in script_text
     assert "stroke-linecap=\"round\"" in script_text
-    assert "tool-card__tooltip" in script_text
+    assert "tool-card__title" in script_text
+    assert "tool-card__tooltip" not in script_text
     assert "aria-describedby=\"${descriptionId}\"" in script_text
+    assert "status_indicator === false" in script_text
     assert "class=\"sr-only\"" in script_text
     assert "tool-card__link" not in script_text
     assert "Acesso rápido" not in public_index_text
@@ -131,13 +133,13 @@ def test_frontend_copy_is_clean(project_root):
     assert "--gray-enaex: #38424B" in (project_root / "styles.css").read_text(encoding="utf-8")
     assert "--red-enaex: #E20613" in (project_root / "styles.css").read_text(encoding="utf-8")
     styles_text = (project_root / "styles.css").read_text(encoding="utf-8")
-    assert "width: 82px" in styles_text
-    assert "height: 66px" in styles_text
-    assert ".tool-card:hover .tool-card__tooltip" in styles_text
-    assert ".tool-card:focus-visible .tool-card__tooltip" in styles_text
-    assert ".tool-card:focus-visible { position: relative; z-index: 20; }" in styles_text
-    assert "max-height: 220px" in styles_text
-    assert "overflow: auto" in styles_text
+    assert "width: 48px" in styles_text
+    assert "height: 42px" in styles_text
+    assert "[hidden] { display: none !important; }" in styles_text
+    assert ".tool-card:hover" in styles_text
+    assert "border-color: var(--pink-soft)" in styles_text
+    assert "tool-card__tooltip" not in styles_text
     assert ".sr-only" in styles_text
+    assert "vector-effect: non-scaling-stroke" in styles_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")
