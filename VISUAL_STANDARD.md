@@ -11,14 +11,20 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - Destaques visuais pequenos, nunca espalhafatosos.
 - Identidade com cara de produto tecnico premium, nao de landing page promocional.
 
-## Referencia aplicada à home
-- A página inicial usa somente uma faixa superior com o logo e o nome do hub.
-- O fundo da página permanece branco, sem hero, números ou blocos escuros adicionais.
-- A faixa usa Cinza Enaex `#38424B` e Vermelho Enaex `#E20613`.
-- Cada ferramenta aparece como um link simples: ícone personalizado em branco dentro de hexágono vermelho mais largo e somente o nome visível.
-- O hexágono deve ser visualmente horizontal, com proporção compacta de referência 82x66px no desktop e 76x62px no mobile.
-- A descrição completa deve ficar fora do fluxo principal e aparecer apenas em uma janela quadrada, pequena e de pontas arredondadas ao passar o mouse ou focar o card; textos longos podem rolar dentro da janela.
-- O desenho do ícone deve reforçar a função da ferramenta (carga, furo, sismografia, alvo, documento ou tempo), mas não substitui o nome nem o link acessível.
+## Referencia aplicada à home (revisão limpa)
+- Fundo branco. Cabeçalho sem faixa colorida: logo pequeno, título, subtítulo e um único filete cinza-claro `#e3e3e3` separando o cabeçalho do conteúdo.
+- Título em vermelho `#B5121B`, caixa alta, sans simples (Arial/Helvetica), grande. Subtítulo com uma frase curta em cinza `#4a4f55`.
+- Sem textos descritivos redundantes: apenas título, subtítulo e o que for indispensável (busca, filtro, contagem).
+- Rótulos de busca e filtro ficam apenas para leitores de tela; o placeholder e o próprio controle comunicam a função.
+- Busca e filtro são campos com linha inferior fina, sem caixas nem bordas completas.
+- Grupos aparecem como rótulos pequenos em cinza médio `#8a8f96`, caixa alta, sem filete próprio.
+- Cada ferramenta é um link simples: hexágono vermelho `#B5121B` em repouso (cor da marca) com ícone branco e somente o nome visível; ao passar o mouse ou focar, o hexágono passa a grafite `#3d4148`.
+- O hexágono mantém proporção de referência 82x66px no desktop e 76x62px no mobile.
+- A descrição completa aparece apenas em uma janela pequena, branca, com borda fina `#e3e3e3`, sem sombra, ao passar o mouse ou focar o card; textos longos podem rolar dentro da janela.
+- Rodapé: texto pequeno, caixa alta, cinza médio, sem filete.
+- O desenho do ícone deve reforçar a função da ferramenta, mas não substitui o nome nem o link acessível.
+- Paleta da home: vermelho `#B5121B`, grafite `#3d4148`, cinza médio `#8a8f96`, cinza claro `#c4c7cb`, rosa suave `#e3b5b8` (uso de apoio), linha `#e3e3e3`, texto secundário `#4a4f55`. O vermelho de acento `#E20613` fica restrito ao contorno de foco.
+- Nao usar Google Fonts na home: a fonte é o stack do sistema (Arial/Helvetica).
 
 ## Principios obrigatorios
 - Usar somente referencias OpenBlast.
@@ -45,7 +51,7 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 
 ## Logo e branding
 - O logo deve aparecer uma vez por pagina, normalmente no topo.
-- No hub de ferramentas, a faixa de topo deve ocupar toda a largura, usar Cinza Enaex, linha Vermelho Enaex de 3px na base e título branco centralizado; o logo fica discreto à esquerda.
+- No hub de ferramentas, o cabeçalho fica sobre fundo branco, com logo pequeno acima do título e um filete cinza-claro separando-o do conteúdo (ver "Referencia aplicada à home").
 - Nao duplicar logo no hero e no header ao mesmo tempo.
 - Tamanho alvo no desktop:
   - Hub: entre 24px e 32px de largura.

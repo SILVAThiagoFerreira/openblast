@@ -146,14 +146,14 @@ function setupDirectory(manifest) {
   const toolbar = document.createElement("section");
   toolbar.className = "directory-controls";
   toolbar.setAttribute("aria-label", "Encontrar ferramentas");
-  toolbar.innerHTML = `<div class="directory-search"><label for="tool-search">Buscar ferramenta</label><div class="directory-search__field"><input id="tool-search" type="search" placeholder="Nome, atividade ou formato de arquivo" autocomplete="off" aria-controls="hub-grid"><button type="button" class="search-clear" hidden>Limpar</button></div></div><div class="directory-filter"><label for="tool-group">Grupo</label><select id="tool-group" aria-controls="hub-grid"><option value="all">Todos os grupos</option></select></div><p id="directory-count" class="directory-count" role="status" aria-live="polite"></p>`;
+  toolbar.innerHTML = `<div class="directory-search"><label class="sr-only" for="tool-search">Buscar ferramenta</label><div class="directory-search__field"><input id="tool-search" type="search" placeholder="Buscar por nome, atividade ou arquivo" autocomplete="off" aria-controls="hub-grid"><button type="button" class="search-clear" hidden>Limpar</button></div></div><div class="directory-filter"><label class="sr-only" for="tool-group">Grupo</label><select id="tool-group" aria-controls="hub-grid"><option value="all">Todos os grupos</option></select></div><p id="directory-count" class="directory-count" role="status" aria-live="polite"></p>`;
   const select = toolbar.querySelector("select");
   groups.forEach((group) => select.add(new Option(group.title, group.slug)));
   grid.before(toolbar);
   const empty = document.createElement("div");
   empty.className = "directory-empty";
   empty.hidden = true;
-  empty.textContent = "Nenhuma ferramenta encontrada. Tente outro termo ou selecione todos os grupos.";
+  empty.textContent = "Nenhuma ferramenta encontrada.";
   grid.after(empty);
   const input = toolbar.querySelector("input");
   const clear = toolbar.querySelector("button");
