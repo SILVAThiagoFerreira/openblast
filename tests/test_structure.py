@@ -95,12 +95,18 @@ def test_frontend_copy_is_clean(project_root):
     assert "Ferramentas corporativas e operacionais de uso transversal." not in config_text
     assert "Ferramentas corporativas e operacionais de uso transversal." not in public_index_text
     assert "Ferramentas corporativas e operacionais de uso transversal." not in us_index_text
-    assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in public_index_text
-    assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in us_index_text
+    assert "brand__mark" in public_index_text
+    assert "brand__mark" in us_index_text
+    assert public_index_text.count('class="brand__mark"') == 1
+    assert us_index_text.count('class="brand__mark"') == 1
     assert "brand__wordmark" in public_index_text
     assert "brand__wordmark" in us_index_text
-    assert public_index_text.count("brand__logo") == 1
-    assert us_index_text.count("brand__logo") == 1
+    assert "../assets/enaex-brasil.png" in public_index_text
+    assert "../assets/enaex-brasil-white.png" in public_index_text
+    assert "../assets/enaex-brasil.png" in us_index_text
+    assert "../assets/enaex-brasil-white.png" in us_index_text
+    assert "../assets/openblast-mark.svg" in public_index_text
+    assert "../assets/openblast-mark.svg" in us_index_text
     assert "hero__title-row" not in public_index_text
     assert "hero__title-row" not in us_index_text
     assert "tool-card__hex" in script_text
@@ -137,7 +143,9 @@ def test_frontend_copy_is_clean(project_root):
     assert "height: 35px" in styles_text
     assert "[hidden] { display: none !important; }" in styles_text
     assert ".tool-card:hover" in styles_text
-    assert "border-color: var(--pink-soft)" in styles_text
+    assert "border-color: var(--hover-line)" in styles_text
+    assert "@media (prefers-color-scheme: dark)" in styles_text
+    assert 'data-theme="dark"' in styles_text
     assert "tool-card__tooltip" not in styles_text
     assert ".sr-only" in styles_text
     assert "vector-effect: non-scaling-stroke" in styles_text

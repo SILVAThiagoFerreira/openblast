@@ -13,7 +13,9 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 
 ## Referencia aplicada à home (layout "Dashboards", revisão 2026-10-18)
 - Container central de 1180px, fundo branco, Arial/Helvetica.
-- Barra superior: logo OpenBlast pequeno (altura 40px) + wordmark "Open" grafite / "Blast" vermelho à esquerda. No hub US Vale Verde, logo Enaex Brasil à direita (`usvaleverde/assets/enaex-brasil.png`, cópia redimensionada de `VISUAL/Enaex Brasil.png`); o hub público não usa logo Enaex.
+- Barra superior: marca OpenBlast em SVG inline (`currentColor`): hexágono de contorno fino com um spark central, mais o wordmark "OpenBlast" na mesma cor. Fica grafite no tema claro e branca no tema escuro. À direita, logo Enaex Brasil em ambos os hubs: `assets/enaex-brasil.png` (tema claro) e `assets/enaex-brasil-white.png` (tema escuro), cópias redimensionadas de `VISUAL/Enaex Brasil.png` e `VISUAL/Enaex Brasil - White.png`. Os dois ficam na raiz `assets/`, publicada pelo Pages.
+- Favicon: `assets/openblast-mark.svg`, mesmo desenho da marca; usa cor escura ou clara conforme `prefers-color-scheme`.
+- Tema escuro: segue `prefers-color-scheme: dark` (com `:root:not([data-theme="light"])`) e também `data-theme="dark"` no `<html>`. Fundo `#121417`, superfícies `#171a1e`, texto `#e8eaed`, linhas `#2b3038`. O vermelho de destaque sobe para `#E0353D` para manter contraste. O tema claro não muda.
 - Título "FERRAMENTAS" em vermelho `#B5121B`, caixa alta, peso regular, 36px. Subtítulo em uma linha, cinza `#4a4f55`.
 - Controles: rótulo pequeno cinza `#8a8f96` ("Buscar ferramenta", "Grupo") acima de campo com borda fina `#c4c7cb` (busca com 42px de altura, largura total); contagem "N de N ferramentas" à direita, pequena, cinza.
 - Títulos de seção: texto regular grafite 20px com filete `#e3e3e3` logo abaixo.
@@ -25,7 +27,7 @@ O padrao visual da OpenBlast neste projeto e de luxo discreto, tecnico e contido
 - Nao usar Google Fonts na home: a fonte é o stack do sistema (Arial/Helvetica).
 
 ## Principios obrigatorios
-- Usar referencias OpenBlast. Excecao documentada: o logo Enaex Brasil aparece somente no hub US Vale Verde (pedido explicito de 2026-10-18), nunca no hub publico.
+- Usar referencias OpenBlast. Excecao documentada: o logo Enaex Brasil aparece nos dois hubs, no canto superior direito (pedido explicito de 2026-10-18), em versao clara ou branca conforme o tema.
 - Manter uma unica presenca principal do logo por tela.
 - O logo deve ser pequeno e secundario em relacao ao conteudo.
 - O conteudo funcional deve dominar a interface, nao a marca.
